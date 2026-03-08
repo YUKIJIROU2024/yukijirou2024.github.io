@@ -1,11 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Hello GitHub Pages</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yukiji AI Lab</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1f4e79, #3a7bd5);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 2.8rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #1f4e79;
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: block;
+      text-decoration: none;
+      background: #f3f7fb;
+      border: 1px solid #d9e4f0;
+      border-radius: 12px;
+      padding: 18px;
+      color: #222;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to My Website!</h1>
-    <p>This is a sample page.</p>
+  <header>
+    <h1>Yukiji AI Lab</h1>
+    <p>AIツール・アプリ・実験プロジェクトの公開ページ</p>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>このサイトについて</h2>
+      <p>
+        このページでは、私が作成・検証しているAIアプリ、GitHubプロジェクト、
+        公開中のWebページなどをまとめています。
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>公開リンク</h2>
+      <div class="links">
+        <a class="card" href="https://github.com/YUKIJIROU2024" target="_blank" rel="noopener noreferrer">
+          <strong>GitHubプロフィール</strong><br>
+          作成したリポジトリを見る
+        </a>
+
+        <a class="card" href="https://app-epj.pages.dev/" target="_blank" rel="noopener noreferrer">
+          <strong>Cloudflare Pagesアプリ</strong><br>
+          公開中のWebアプリを開く
+        </a>
+
+        <a class="card" href="https://yukijirou2024.github.io/" target="_blank" rel="noopener noreferrer">
+          <strong>GitHub Pagesトップ</strong><br>
+          このサイトのトップページ
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>今後追加したいもの</h2>
+      <ul>
+        <li>AIアプリ紹介ページ</li>
+        <li>Mulmo関連プロジェクト一覧</li>
+        <li>動画・スライド作品の掲載</li>
+        <li>自己紹介・プロフィール</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Yukiji AI Lab
+  </footer>
 </body>
 </html>
