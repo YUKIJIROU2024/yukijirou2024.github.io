@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1年単位の変形労働時間制 完全ガイド</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-light: #eff6ff;
+            --secondary: #0ea5e9;
+            --accent: #f59e0b;
+            --text-main: #1f2937;
+            --text-light: #6b7280;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- Sidebar & Navigation --- */
+        aside {
+            width: 280px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* --- Main Content --- */
+        main {
+            flex: 1;
+            padding: 2rem 4rem;
+            max-width: 1000px;
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 24px;
+            background-color: var(--secondary);
+            border-radius: 3px;
+        }
+
+        /* --- Cards & UI Elements --- */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .highlight-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-primary { background-color: var(--primary-light); color: var(--primary); }
+        .badge-accent { background-color: #fef3c7; color: #b45309; }
+        .badge-danger { background-color: #fee2e2; color: var(--danger); }
+
+        ul.styled-list {
+            list-style: none;
+        }
+
+        ul.styled-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        ul.styled-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        /* --- Accordion (Details) --- */
+        details {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #f8fafc;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: var(--text-light);
+            transition: transform 0.2s;
+        }
+
+        details[open] summary::after {
+            content: '−';
+        }
+
+        .details-content {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* --- Back to Top Button --- */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-decoration: none;
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+        }
+
+        cite {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            vertical-align: super;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            aside {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            main {
+                padding: 2rem;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="logo">
+            <span style="font-size:1.5rem;">📅</span> 1年単位の変形労働時間制
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="コンテンツを検索...">
+        </div>
+        <nav>
+            <ul id="toc">
+                <li><a href="#summary">1. サマリー（目的と効果）</a></li>
+                <li><a href="#requirements">2. 導入の要件（労使協定）</a></li>
+                <li><a href="#limits">3. 労働日数・労働時間の限度ルール</a></li>
+                <li><a href="#overtime">4. 時間外労働の計算方法</a></li>
+                <li><a href="#exceptions">5. 適用除外・特別な配慮</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <header>
+            <h1>1年単位の変形労働時間制</h1>
+            <p class="subtitle">週40時間労働制の定着に伴い、業務の繁閑に応じた柔軟な労働時間の配分と、総労働時間の短縮・休日の確保を実現する制度です <cite>[cite: 234]</cite>。</p>
+        </header>
+
+        <section id="summary" class="searchable">
+            <h2>1. サマリー（目的と効果）</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <span class="badge badge-primary">目的</span>
+                    <h3>ゆとりの確保</h3>
+                    <p>時間外・休日労働の減少による総労働時間の短縮及び休日の確保を実現します <cite>[cite: 234]</cite>。</p>
+                </div>
+                <div class="card">
+                    <span class="badge badge-accent">対象期間</span>
+                    <h3>1箇月超～1年以内</h3>
+                    <p>期間を平均して1週間当たりの労働時間が40時間を超えない範囲内で運用します <cite>[cite: 234]</cite>。</p>
+                </div>
+                <div class="card">
+                    <span class="badge badge-danger">効果</span>
+                    <h3>割増賃金が不要に</h3>
+                    <p>特定された週や日において法定労働時間を超えても、規定の範囲内であれば時間外労働になりません <cite>[cite: 238]</cite>。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="requirements" class="searchable">
+            <h2>2. 導入の要件（労使協定）</h2>
+            <div class="card">
+                <p>導入には、<strong>労使協定の締結</strong>と<strong>所轄労働基準監督署長への届出</strong>が必須です <cite>[cite: 234]</cite>。届出を怠ると30万円以下の罰金が科せられます <cite>[cite: 234]</cite>。</p>
+                
+                <div class="highlight-box">
+                    <strong>労使協定で定めるべき事項 <cite>[cite: 234]</cite></strong>
+                    <ul class="styled-list" style="margin-top: 0.5rem;">
+                        <li><strong>対象労働者の範囲:</strong> 期間途中の採用者・退職予定者も含むことが可能</li>
+                        <li><strong>対象期間:</strong> 1箇月を超え1年以内の期間</li>
+                        <li><strong>労働日と労働時間:</strong> 対象期間（又は最初の区分期間）における各労働日とその日の労働時間</li>
+                        <li><strong>特定期間:</strong> 対象期間中の特に業務が繁忙な期間（設けない場合は「定めない旨」の記載が必要）</li>
+                        <li><strong>有効期間:</strong> 対象期間と同じ1年程度とすることが望ましい <cite>[cite: 237], [cite: 238]</cite></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <details>
+                <summary>期間の区分と労働日の特定に関する特例</summary>
+                <div class="details-content">
+                    <p>原則として全期間の労働日・労働時間を定めますが、対象期間を1箇月以上の期間に区分する場合、以下の対応が可能です <cite>[cite: 234], [cite: 237]</cite>。</p>
+                    <ul class="styled-list">
+                        <li>最初の期間：各労働日ごとの労働時間を特定</li>
+                        <li>最初の期間を除く各期間：労働日数と総労働時間のみを協定で定める</li>
+                        <li>その後の特定：各期間の初日の少なくとも30日前に、過半数労組等の同意を得て書面で各日の労働時間を特定する <cite>[cite: 237]</cite></li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section id="limits" class="searchable">
+            <h2>3. 労働日数・労働時間の限度ルール</h2>
+            <p>健康確保のため、労働日数や労働時間、連続労働日数に厳格な上限が設けられています。</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <span class="badge badge-primary">労働日数の限度</span>
+                    <p>対象期間が3箇月を超える場合、1年当たり<strong>280日</strong>が限度です <cite>[cite: 235]</cite>。</p>
+                    <div style="background:#f8fafc; padding: 1rem; border-radius: 6px; font-family: monospace; font-size:0.9rem;">
+                        [計算式]<br>
+                        対象期間中の暦日数 / 365 × 280
+                    </div>
+                </div>
+                <div class="card">
+                    <span class="badge badge-accent">労働時間の限度</span>
+                    <ul class="styled-list">
+                        <li><strong>1日:</strong> 10時間 <cite>[cite: 235]</cite></li>
+                        <li><strong>1週間:</strong> 52時間 <cite>[cite: 235]</cite></li>
+                    </ul>
+                </div>
+            </div>
+
+            <details>
+                <summary>連続労働日数の上限と「特定期間」の例外</summary>
+                <div class="details-content">
+                    <table>
+                        <tr>
+                            <th>区分</th>
+                            <th>連続労働の限度 <cite>[cite: 236]</cite></th>
+                            <th>備考</th>
+                        </tr>
+                        <tr>
+                            <td>原則（対象期間）</td>
+                            <td><strong>連続6日</strong></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>特定期間（繁忙期）</td>
+                            <td><strong>1週間に1日の休日が確保できる日数</strong></td>
+                            <td>実質的に最大12日連続まで可能 <cite>[cite: 237]</cite></td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>対象期間が3箇月を超える場合の追加ルール</summary>
+                <div class="details-content">
+                    <p>対象期間が3箇月を超える場合は、さらに以下の2つの条件を満たす必要があります <cite>[cite: 236]</cite>。</p>
+                    <ul class="styled-list">
+                        <li>労働時間が48時間を超える週が連続するのは<strong>3週以下</strong>であること</li>
+                        <li>対象期間を3箇月ごとに区分した各期間において、48時間を超える週の初日の数が<strong>3回以下</strong>であること</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section id="overtime" class="searchable">
+            <h2>4. 時間外労働（割増賃金）の計算方法</h2>
+            <div class="card">
+                <p>1年単位の変形労働時間制では、以下の3段階のステップで時間外労働を判定し、いずれかに該当した部分が割増賃金の対象となります <cite>[cite: 238]</cite>。</p>
+                
+                <table style="margin-top: 1rem;">
+                    <tr>
+                        <th width="20%">判定単位</th>
+                        <th>時間外労働となる時間</th>
+                    </tr>
+                    <tr>
+                        <td><strong>1日</strong></td>
+                        <td>
+                            ・労使協定で8時間を超える時間を定めた日：<strong>その時間を超えた時間</strong><br>
+                            ・それ以外の日：<strong>8時間を超えた時間</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>1週間</strong></td>
+                        <td>
+                            ・労使協定で40時間を超える時間を定めた週：<strong>その時間を超えた時間</strong><br>
+                            ・それ以外の週：<strong>40時間を超えた時間</strong><br>
+                            <small style="color:var(--text-light)">（※1日の判定で時間外となった時間を除く）</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>全期間</strong></td>
+                        <td>
+                            ・変形期間の法定労働時間の総枠を超えて労働した時間<br>
+                            <small style="color:var(--text-light)">（※1日・1週の判定で時間外となった時間を除く）</small>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <span class="badge badge-accent">中途入社・退職者の精算（割増賃金の清算） <cite>[cite: 239]</cite></span>
+                <p>実際の労働期間が対象期間より短い労働者について、実労働期間を平均して<strong>1週間当たり40時間</strong>を超えて労働させていた場合、その超過時間分（すでに支払済みの時間外・休日労働等を除く）について割増賃金の支払いが必要です。</p>
+            </div>
+        </section>
+
+        <section id="exceptions" class="searchable">
+            <h2>5. 適用除外・特別な配慮</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <span class="badge badge-danger">適用除外</span>
+                    <h3>18歳未満の年少者</h3>
+                    <p>原則として1年単位の変形労働時間制は<strong>適用されません</strong> <cite>[cite: 238]</cite>。</p>
+                    <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;">※満15歳到達後の最初の3月31日を経過した年少者には、週48時間・1日8時間以内の制限付きで適用可能です <cite>[cite: 239]</cite>。</p>
+                </div>
+                <div class="card">
+                    <span class="badge badge-primary">特別な配慮を要する者</span>
+                    <h3>育児・介護等を行う者</h3>
+                    <p>使用者は、育児を行う者、老人等の介護を行う者、職業訓練を受ける者などに対し、これらに必要な時間を確保できるよう<strong>配慮しなければなりません</strong> <cite>[cite: 238]</cite>。</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <a href="#" id="back-to-top" title="トップへ戻る">↑</a>
+
+    <script>
+        // Search Filtering functionality
+        const searchInput = document.getElementById('searchInput');
+        const sections = document.querySelectorAll('section.searchable');
+
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        // Back to top button visibility
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

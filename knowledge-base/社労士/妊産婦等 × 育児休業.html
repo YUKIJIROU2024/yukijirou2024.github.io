@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>妊産婦等 × 育児休業｜社労士学習HTML</title>
+<style>
+:root{
+  --bg:#fff7fb; --paper:#ffffff; --ink:#1f2937; --muted:#6b7280;
+  --pink:#e83e8c; --pink2:#f472b6; --purple:#7c3aed; --blue:#2563eb; --green:#059669; --amber:#d97706; --red:#dc2626;
+  --line:#f9a8d4; --soft:#fde7f3; --soft2:#f3e8ff; --soft3:#e0f2fe; --soft4:#ecfdf5;
+  --shadow:0 18px 45px rgba(124,58,237,.10),0 4px 12px rgba(232,62,140,.08);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",Meiryo,sans-serif;background:linear-gradient(135deg,#fff7fb 0%,#f8fafc 55%,#f5f3ff 100%);color:var(--ink);line-height:1.75}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;padding:24px 18px;background:rgba(255,255,255,.76);backdrop-filter:blur(14px);border-right:1px solid #fbcfe8;overflow:auto}.brand{display:flex;gap:10px;align-items:center;margin-bottom:18px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--pink),var(--purple));display:grid;place-items:center;color:white;font-weight:900;box-shadow:var(--shadow)}.brand h1{font-size:17px;line-height:1.35;margin:0}.brand small{color:var(--muted);display:block;font-weight:600}.nav a{display:block;padding:9px 12px;margin:5px 0;border-radius:12px;text-decoration:none;color:#374151;font-weight:700;font-size:14px}.nav a:hover,.nav a.active{background:var(--soft);color:#be185d}.tools{margin-top:20px;padding-top:16px;border-top:1px dashed #f9a8d4}.search{width:100%;padding:11px 12px;border:1px solid #f9a8d4;border-radius:12px;background:#fff;outline:none}.mini{font-size:12px;color:var(--muted);margin-top:10px}.content{padding:34px min(5vw,56px) 80px}.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#fff,#fff0f7 50%,#f3e8ff);border:1px solid #f9a8d4;border-radius:28px;padding:34px;box-shadow:var(--shadow);margin-bottom:26px}.hero:after{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:999px;background:radial-gradient(circle,rgba(232,62,140,.18),transparent 65%)}.kicker{display:inline-flex;gap:8px;align-items:center;background:#fff;color:#be185d;border:1px solid #f9a8d4;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:800}.hero h2{font-size:clamp(28px,5vw,48px);line-height:1.15;margin:18px 0 10px}.hero p{max-width:860px;font-size:17px;color:#4b5563}.grid{display:grid;gap:18px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:rgba(255,255,255,.92);border:1px solid #fce7f3;border-radius:22px;padding:20px;box-shadow:0 10px 28px rgba(31,41,55,.05)}.card h3,.card h4{margin-top:0;line-height:1.35}.tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:800;background:var(--soft);color:#be185d;margin-bottom:8px}.tag.blue{background:#dbeafe;color:#1d4ed8}.tag.green{background:#dcfce7;color:#047857}.tag.amber{background:#fef3c7;color:#b45309}.tag.purple{background:#ede9fe;color:#6d28d9}.section{margin-top:34px}.section-title{display:flex;align-items:center;gap:12px;margin:0 0 16px}.section-title .num{width:42px;height:42px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-weight:900}.section-title h2{margin:0;font-size:28px}.summary-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}.pillbox{background:#fff;border:1px solid #f9a8d4;border-radius:18px;padding:14px}.pillbox strong{display:block;font-size:22px;color:#be185d}.flow{display:flex;gap:12px;align-items:stretch;flex-wrap:wrap}.step{flex:1;min-width:170px;background:#fff;border:1px solid #e9d5ff;border-radius:18px;padding:14px;position:relative}.step:not(:last-child):after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:#a855f7;font-weight:900}.table-wrap{overflow:auto;border-radius:18px;border:1px solid #fbcfe8;background:#fff}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:12px 13px;border-bottom:1px solid #fce7f3;vertical-align:top}th{background:#fdf2f8;text-align:left;color:#9d174d;font-size:13px}tr:last-child td{border-bottom:none}.mark{font-weight:900;border-radius:10px;padding:2px 8px;white-space:nowrap}.ng{background:#fee2e2;color:#b91c1c}.ok{background:#dcfce7;color:#047857}.req{background:#fef3c7;color:#b45309}.note{border-left:5px solid var(--pink);background:#fff0f7;border-radius:16px;padding:15px 18px}.warn{border-left-color:var(--amber);background:#fffbeb}.good{border-left-color:var(--green);background:#ecfdf5}.law{font-size:13px;color:#6b7280;background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px;margin-top:10px}details{background:#fff;border:1px solid #fbcfe8;border-radius:18px;padding:12px 16px;margin:10px 0}summary{cursor:pointer;font-weight:900;color:#be185d}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{border:none;background:#fff;border:1px solid #f9a8d4;color:#9d174d;border-radius:999px;padding:8px 14px;font-weight:900;cursor:pointer}.tab.active{background:linear-gradient(135deg,var(--pink),var(--purple));color:white}.tab-panel{display:none}.tab-panel.active{display:block}.timeline{position:relative;padding:22px;background:#fff;border:1px solid #fbcfe8;border-radius:22px}.bar{height:18px;border-radius:999px;background:#e5e7eb;position:relative;overflow:hidden}.seg{height:100%;position:absolute;top:0;border-radius:999px}.seg.pink{background:#f472b6}.seg.purple{background:#a78bfa}.seg.blue{background:#60a5fa}.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:13px}.dot{display:inline-block;width:10px;height:10px;border-radius:99px;margin-right:5px}.quiz{border:1px solid #dbeafe;background:#eff6ff;border-radius:18px;padding:16px}.btn{border:none;border-radius:12px;background:#2563eb;color:#fff;font-weight:900;padding:9px 14px;cursor:pointer}.answer{display:none;margin-top:12px;background:#fff;border:1px solid #bfdbfe;border-radius:12px;padding:12px}.backtop{position:fixed;right:20px;bottom:20px;border:none;border-radius:999px;background:#111827;color:#fff;width:44px;height:44px;box-shadow:var(--shadow);cursor:pointer}.hidden{display:none!important}.source-note{font-size:12px;color:#6b7280;margin-top:30px}.chip{display:inline-flex;align-items:center;gap:6px;margin:3px;padding:4px 9px;border-radius:999px;background:#f9fafb;border:1px solid #e5e7eb;font-size:12px;font-weight:700}.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}.compare .side{border-top:6px solid var(--pink)}.compare .side:nth-child(2){border-top-color:var(--purple)}
+@media(max-width:900px){.layout{display:block}.sidebar{position:relative;height:auto}.content{padding:22px 16px 70px}.g2,.g3,.g4,.summary-strip,.compare{grid-template-columns:1fr}.step:not(:last-child):after{display:none}.hero{padding:24px}.section-title h2{font-size:23px}table{min-width:640px}}
+@media print{.sidebar,.backtop,.tools{display:none}.layout{display:block}.content{padding:0}.card,.hero{box-shadow:none}.tab-panel{display:block!important}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">労</div><div><h1>妊産婦等 × 育児休業</h1><small>社労士試験・横断整理</small></div></div>
+    <nav class="nav" id="nav">
+      <a href="#summary">サマリー</a><a href="#map">全体像</a><a href="#maternity">労基法：妊産婦等</a><a href="#hazard">危険有害業務</a><a href="#prenatal">産前産後・就業制限</a><a href="#childcare">労一：育児休業</a><a href="#birth">出生時育児休業</a><a href="#compare">横断比較</a><a href="#quiz">確認問題</a>
+    </nav>
+    <div class="tools"><input id="search" class="search" placeholder="キーワード検索：例 産後、２回、深夜業" /><p class="mini">検索語を入れると、該当カード以外を薄くします。</p></div>
+  </aside>
+  <main class="content">
+    <section class="hero" id="summary">
+      <span class="kicker">結論から把握</span>
+      <h2>「妊産婦等」は労基法の母性保護、<br>「育児休業」は育児・介護休業法の両立支援。</h2>
+      <p>試験では、<b>請求が必要か</b>、<b>事業主が拒めるか</b>、<b>期間の上限</b>、<b>管理監督者にも及ぶ規制</b>を区別すると整理しやすくなります。</p>
+      <div class="summary-strip">
+        <div class="pillbox"><strong>産前</strong>請求があれば就業禁止。原則6週間、多胎14週間。</div>
+        <div class="pillbox"><strong>産後</strong>原則8週間は就業禁止。6週間経過後は例外あり。</div>
+        <div class="pillbox"><strong>育休</strong>子が1歳までが基本。一定事情で1歳6か月・2歳まで。</div>
+        <div class="pillbox"><strong>出生時</strong>出生後8週間内に4週間まで。原則2回分割。</div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="section-title"><span class="num">1</span><h2>全体像：どの法律で、何を守るか</h2></div>
+      <div class="compare">
+        <div class="card side"><span class="tag">労働基準法 Chapter 8</span><h3>妊産婦等</h3><p>妊娠・出産・哺育にかかわる身体的保護を中心に、就業禁止・時間外等の制限・育児時間・生理日の就業制限を定める。</p><div class="flow"><div class="step">坑内業務</div><div class="step">危険有害業務</div><div class="step">産前産後</div><div class="step">時間外・深夜等</div></div></div>
+        <div class="card side"><span class="tag purple">労一 Chapter 7</span><h3>育児休業</h3><p>子を養育する労働者の雇用継続を支援する制度。申出・事業主の義務・期間・出生時育児休業・不利益取扱い禁止を押さえる。</p><div class="flow"><div class="step">育休申出</div><div class="step">事業主の義務</div><div class="step">期間・撤回</div><div class="step">出生時育休</div></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="maternity">
+      <div class="section-title"><span class="num">2</span><h2>労基法：妊産婦等の骨格</h2></div>
+      <div class="grid g3">
+        <div class="card"><span class="tag">64条の2</span><h3>坑内業務</h3><p>妊娠中の女性、坑内業務に従事しない旨を申し出た産後1年以内の女性は、坑内で行われるすべての業務が禁止。</p><p>その他の満18歳以上の女性は、人力掘削等の有害業務が禁止。</p></div>
+        <div class="card"><span class="tag">64条の3</span><h3>危険有害業務</h3><p>妊産婦は重量物、有害ガス発散場所など妊娠・出産・哺育に有害な業務に就けない。</p><p>妊産婦以外の女性にも準用される業務がある。</p></div>
+        <div class="card"><span class="tag">65条〜68条</span><h3>母性保護</h3><p>産前産後、軽易業務への転換、時間外・休日・深夜業の制限、育児時間、生理日の就業制限をまとめて確認。</p></div>
+      </div>
+      <div class="note good"><b>覚え方：</b>「禁止されるもの」と「請求があると制限されるもの」を分ける。産後8週間は請求不要の強制休業、妊産婦の時間外・深夜等は請求が入口。</div>
+    </section>
+
+    <section class="section" id="hazard">
+      <div class="section-title"><span class="num">3</span><h2>危険有害業務：×・△・〇で見る</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>業務グループ</th><th>妊婦</th><th>産婦</th><th>その他の女性</th><th>押さえ方</th></tr></thead>
+        <tbody>
+          <tr><td>重量物の取扱い</td><td><span class="mark ng">×</span></td><td><span class="mark ng">×</span></td><td><span class="mark ng">×</span></td><td>全区分で禁止。重量基準は年齢・断続/連続で異なる。</td></tr>
+          <tr><td>ボイラー、クレーン、プレス、木材送給など多くの機械系業務</td><td><span class="mark ng">×</span></td><td><span class="mark req">△</span></td><td><span class="mark ok">〇</span></td><td>妊婦は不可、産婦は申出があれば不可。</td></tr>
+          <tr><td>土砂崩壊のおそれ・深さ5m以上の地穴、高さ5m以上の墜落危険場所</td><td><span class="mark ng">×</span></td><td><span class="mark ok">〇</span></td><td><span class="mark ok">〇</span></td><td>妊婦のみ禁止。</td></tr>
+          <tr><td>有害物のガス・蒸気・粉じん発散場所</td><td><span class="mark ng">×</span></td><td><span class="mark ng">×</span></td><td><span class="mark ng">×</span></td><td>鉛・水銀・クロム・砒素・塩素等。全区分で禁止。</td></tr>
+          <tr><td>さく岩機・鋲打機等の著しい振動機械</td><td><span class="mark ng">×</span></td><td><span class="mark ng">×</span></td><td><span class="mark ok">〇</span></td><td>妊婦・産婦は禁止、その他女性は可。</td></tr>
+        </tbody>
+      </table></div>
+      <details><summary>重量物の基準</summary><p>満16歳未満：断続12kg以上・連続8kg以上。満16歳以上18歳未満：断続25kg以上・連続15kg以上。満18歳以上：断続30kg以上・連続20kg以上。</p></details>
+    </section>
+
+    <section class="section" id="prenatal">
+      <div class="section-title"><span class="num">4</span><h2>産前産後・妊産婦の就業制限</h2></div>
+      <div class="timeline card"><h3>産前産後のタイムライン</h3><div class="bar"><span class="seg pink" style="left:0;width:38%"></span><span class="seg purple" style="left:38%;width:42%"></span><span class="seg blue" style="left:80%;width:20%"></span></div><div class="legend"><span><i class="dot" style="background:#f472b6"></i>産前：請求で休業</span><span><i class="dot" style="background:#a78bfa"></i>産後6週間：強制休業</span><span><i class="dot" style="background:#60a5fa"></i>産後6〜8週間：請求＋医師OKで例外就業</span></div></div>
+      <div class="grid g2">
+        <div class="card"><span class="tag">産前</span><h3>6週間・多胎14週間</h3><p>出産予定の女性が休業を請求した場合、使用者は就業させてはならない。出産当日は産前に含まれる。</p><div class="law">ポイント：産前休業は「請求」が条件。</div></div>
+        <div class="card"><span class="tag purple">産後</span><h3>8週間は原則就業禁止</h3><p>産後8週間を経過しない女性は就業禁止。ただし、産後6週間経過後、本人請求＋医師が支障なしと認めた業務なら就業可能。</p><div class="law">ポイント：産後は請求の有無にかかわらず保護が始まる。</div></div>
+        <div class="card"><span class="tag green">軽易業務</span><h3>妊娠中の女性が請求</h3><p>他の軽易な業務へ転換させる。ただし、使用者に新たな軽易業務を創設する義務まではない。</p></div>
+        <div class="card"><span class="tag amber">妊産婦の請求</span><h3>変形・時間外・休日・深夜</h3><p>請求があれば、変形制でも1日8時間・週40時間を超えられない。時間外・休日労働、深夜業も制限。</p><p>管理監督者は労働時間・休日規制の適用除外だが、深夜業の制限は及ぶ。</p></div>
+      </div>
+      <div class="grid g2">
+        <div class="card"><h3>育児時間</h3><p>生後満1年に達しない生児を育てる女性は、休憩時間とは別に、1日2回・各30分以上を請求できる。1日4時間以内勤務なら1回30分で足りる。</p><p class="law">有給・無給は当事者の合意。</p></div>
+        <div class="card"><h3>生理日の就業制限</h3><p>生理日の就業が著しく困難な女性が請求したとき、使用者は就業させてはならない。半日・時間単位の請求も可能。</p><p class="law">日数を一律に限定することは不可。有給日数を定めることは可能。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="childcare">
+      <div class="section-title"><span class="num">5</span><h2>労一：育児休業の申出・期間・事業主義務</h2></div>
+      <div class="grid g3">
+        <div class="card"><span class="tag purple">対象</span><h3>日々雇用は対象外</h3><p>労働者は、事業主に申し出ることにより育児休業を取得できる。男性・女性を問わない。</p><p>有期雇用でも、一定時点までに契約満了が明らかでなければ対象。</p></div>
+        <div class="card"><span class="tag purple">1歳まで</span><h3>原則2回まで分割</h3><p>1歳到達日までの期間内に、同一の子について原則2回まで。特別の事情があれば再取得できる。</p></div>
+        <div class="card"><span class="tag purple">延長</span><h3>1歳6か月・2歳まで</h3><p>保育所等に入れない、配偶者の死亡・疾病など、雇用継続のため特に必要な場合に延長の枠組みがある。</p></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>場面</th><th>事業主の基本対応</th><th>例外・注意点</th></tr></thead>
+        <tbody>
+          <tr><td>育児休業申出</td><td>原則として拒めない。</td><td>労使協定により、継続雇用1年未満、1年以内等に雇用終了が明らか、週所定労働日数2日以下などは拒否可能。</td></tr>
+          <tr><td>開始日の指定</td><td>申出から開始予定日までが短い場合、一定範囲で開始日を指定できる。</td><td>通常は1か月。1歳以降の延長枠では2週間が基準。</td></tr>
+          <tr><td>開始予定日の繰上げ</td><td>一定事由がある場合、1回に限り変更可能。</td><td>予定日前の出産、配偶者の死亡・疾病、保育所等未実施など。</td></tr>
+          <tr><td>終了予定日の繰下げ</td><td>1回に限り変更可能。</td><td>所定期限までの申出が必要。</td></tr>
+          <tr><td>撤回</td><td>開始予定日の前日まで撤回可能。</td><td>1歳未満の育休では、撤回した申出は取得したものとみなされる。</td></tr>
+        </tbody>
+      </table></div>
+      <details><summary>パパ・ママ育休プラスの要点</summary><p>配偶者が子の1歳到達日以前に育児休業をしている場合、一定の条件で「1歳に満たない子」を「1歳2か月に満たない子」と読み替える。父母それぞれの取得可能期間は通算1年間が限度。本人の開始予定日が1歳到達日の翌日後、または配偶者の育休開始前である場合は対象外。</p></details>
+    </section>
+
+    <section class="section" id="birth">
+      <div class="section-title"><span class="num">6</span><h2>出生時育児休業（産後パパ育休）</h2></div>
+      <div class="grid g4">
+        <div class="card"><span class="tag blue">期間</span><h3>出生後8週間以内</h3><p>子の出生後8週間以内に、4週間以内で取得。</p></div>
+        <div class="card"><span class="tag blue">日数</span><h3>上限28日</h3><p>出生時育児休業の日数が28日に達すると、それ以上は不可。</p></div>
+        <div class="card"><span class="tag blue">分割</span><h3>2回まで</h3><p>原則2回分割可能。ただし、2回分割はまとめて申出るのが基本。</p></div>
+        <div class="card"><span class="tag blue">就業</span><h3>合意があれば一部可</h3><p>労使協定対象者に限り、労働者申出→事業主提示→労働者同意→通知の手続。</p></div>
+      </div>
+      <div class="note warn"><b>女性本人との関係：</b>出産した女性は、子の出生後8週間は原則として労基法上の産後休業期間となるため、出生時育児休業は主に男性向け。ただし養子等の場合は女性も対象になり得ます。</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>論点</th><th>出生時育児休業の整理</th></tr></thead><tbody>
+          <tr><td>有期雇用者</td><td>出生後8週間経過日の翌日から6か月を経過する日までに契約満了が明らかでない者が対象。</td></tr>
+          <tr><td>事業主が拒める場合</td><td>労使協定により、継続雇用1年未満、申出日から8週間以内に雇用終了が明らか、週所定労働日数2日以下など。</td></tr>
+          <tr><td>開始日の指定</td><td>申出から開始予定日までが2週間未満の場合、一定範囲で指定可能。労使協定で最大1か月まで調整される場合あり。</td></tr>
+          <tr><td>期間中の就業上限</td><td>就業日数・就業時間は休業期間中の所定労働日・所定労働時間の2分の1以下。開始日・終了日に就業させる場合は所定労働時間未満。</td></tr>
+          <tr><td>不利益取扱い</td><td>申出・取得、期間中就業に関する申出や同意をしなかったこと等を理由とする解雇その他不利益取扱いは禁止。</td></tr>
+        </tbody></table></div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="section-title"><span class="num">7</span><h2>横断比較：試験で混ざりやすいところ</h2></div>
+      <div class="tabs"><button class="tab active" data-tab="t1">請求が必要？</button><button class="tab" data-tab="t2">期間の数字</button><button class="tab" data-tab="t3">拒否・不利益</button></div>
+      <div id="t1" class="tab-panel active"><div class="table-wrap"><table><thead><tr><th>制度</th><th>請求・申出</th><th>効果</th></tr></thead><tbody><tr><td>産前休業</td><td>請求が必要</td><td>就業させてはならない</td></tr><tr><td>産後休業</td><td>請求不要</td><td>原則8週間就業禁止</td></tr><tr><td>軽易業務転換</td><td>妊娠中の女性の請求</td><td>他の軽易業務へ転換</td></tr><tr><td>妊産婦の時間外・休日・深夜</td><td>妊産婦の請求</td><td>時間外・休日・深夜業を制限</td></tr><tr><td>育児時間</td><td>女性の請求</td><td>1日2回各30分以上</td></tr><tr><td>育児休業</td><td>労働者の申出</td><td>法律上当然に取得できるのが原則</td></tr></tbody></table></div></div>
+      <div id="t2" class="tab-panel"><div class="grid g3"><div class="card"><h3>6週・14週</h3><p>産前休業。多胎妊娠は14週間。</p></div><div class="card"><h3>8週・6週</h3><p>産後8週間は就業禁止。6週間経過後は本人請求＋医師OKで例外。</p></div><div class="card"><h3>1歳・1歳6か月・2歳</h3><p>育児休業の基本と延長の区切り。</p></div><div class="card"><h3>1歳2か月</h3><p>パパ・ママ育休プラス。</p></div><div class="card"><h3>8週間内・4週間・28日</h3><p>出生時育児休業。</p></div><div class="card"><h3>2回</h3><p>1歳までの育休分割、出生時育児休業の分割。</p></div></div></div>
+      <div id="t3" class="tab-panel"><div class="note"><b>育児休業・出生時育児休業：</b>事業主は原則拒めない。ただし、労使協定で一定の労働者を対象外にできる。申出・取得等を理由とする不利益取扱いは禁止。</div><div class="note warn"><b>注意：</b>「育児休業期間中は一切解雇できない」という意味ではない。禁止されるのは、育休申出・取得等を理由とした解雇その他不利益取扱い。</div></div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="section-title"><span class="num">8</span><h2>確認問題</h2></div>
+      <div class="grid g2">
+        <div class="quiz"><h3>Q1. 産後5週間の女性が「働きたい」と請求し、医師も支障なしとした。就業可能？</h3><button class="btn" onclick="toggleAnswer(this)">答えを見る</button><div class="answer">不可。産後6週間経過前は強制休業です。例外就業は産後6週間経過後が前提です。</div></div>
+        <div class="quiz"><h3>Q2. 妊産婦である管理監督者が深夜業免除を請求した。深夜業をさせられる？</h3><button class="btn" onclick="toggleAnswer(this)">答えを見る</button><div class="answer">不可。管理監督者には労働時間・休日規制は原則適用されませんが、深夜業の制限は及びます。</div></div>
+        <div class="quiz"><h3>Q3. 子が1歳までの育児休業は、特別事情がなくても分割取得できる？</h3><button class="btn" onclick="toggleAnswer(this)">答えを見る</button><div class="answer">できます。原則として同一の子について2回まで取得できます。</div></div>
+        <div class="quiz"><h3>Q4. 出生時育児休業は出生後8週間以内に最大何日？</h3><button class="btn" onclick="toggleAnswer(this)">答えを見る</button><div class="answer">4週間以内、日数では28日までです。</div></div>
+      </div>
+      <p class="source-note">作成範囲：労働基準法テキスト Chapter 8「妊産婦等」、労一テキスト Chapter 7 §2「育児休業」。学習用に要点化・再構成しています。</p>
+    </section>
+  </main>
+</div>
+<button class="backtop" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const tabs=document.querySelectorAll('.tab');tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
+function toggleAnswer(btn){const a=btn.nextElementSibling;a.style.display=a.style.display==='block'?'none':'block'}
+const search=document.getElementById('search');search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();document.querySelectorAll('.card,.note,.quiz,details,.table-wrap').forEach(el=>{if(!q){el.style.opacity='1';el.style.filter='none';return} const hit=el.innerText.toLowerCase().includes(q);el.style.opacity=hit?'1':'.22';el.style.filter=hit?'none':'grayscale(.5)'})});
+const links=[...document.querySelectorAll('.nav a')];const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-35% 0px -55% 0px'});document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
