@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>国民年金法｜遺族基礎年金 HTML学習アーティファクト</title>
+<style>
+:root{
+  --pink:#e91e8f; --pink2:#ff5bb8; --pink3:#fff1f8;
+  --ink:#273142; --muted:#687385; --line:#e8eaf0; --bg:#f7f8fb;
+  --blue:#2563eb; --green:#16a34a; --orange:#f97316; --purple:#7c3aed; --red:#dc2626;
+  --card:#ffffff; --shadow:0 18px 45px rgba(39,49,66,.10); --radius:22px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(135deg,#fff 0%,#fbf5fa 45%,#f6f8ff 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.7}
+a{color:inherit;text-decoration:none}.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:22px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);border-right:1px solid var(--line);overflow:auto}
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:18px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--pink),var(--purple));display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:var(--shadow)}
+.brand h1{font-size:15px;line-height:1.35;margin:0}.brand small{color:var(--muted)}
+.nav{display:flex;flex-direction:column;gap:6px;margin-top:18px}.nav a{padding:10px 12px;border-radius:12px;color:#4b5563;font-weight:700;font-size:14px}.nav a:hover{background:var(--pink3);color:var(--pink)}
+.progressWrap{margin-top:20px;padding:14px;border-radius:16px;background:#fff;border:1px solid var(--line)}.progressLabel{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}.bar{height:8px;background:#edf0f5;border-radius:999px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:999px}
+main{padding:34px 44px 80px;max-width:1180px}.hero{position:relative;overflow:hidden;border-radius:30px;padding:36px;background:linear-gradient(135deg,#2b0a2d 0%,#97135f 48%,#f472b6 100%);color:#fff;box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.16)}.eyebrow{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:6px 12px;border-radius:999px;font-size:13px;font-weight:800}.hero h2{font-size:42px;line-height:1.15;margin:16px 0 8px}.hero p{max-width:760px;margin:0;color:#ffeaf6}.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.24);padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}
+section{margin-top:34px}.sectionTitle{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px}.sectionTitle h3{font-size:26px;margin:0}.sectionTitle .sub{color:var(--muted);font-size:14px}.grid{display:grid;gap:16px}.grid.cols3{grid-template-columns:repeat(3,1fr)}.grid.cols2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 10px 28px rgba(39,49,66,.06)}.card h4{margin:0 0 10px;font-size:18px}.card p{margin:8px 0;color:#4b5563}.bigNum{font-size:32px;font-weight:900;color:var(--pink)}.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:900}.tag.pink{background:var(--pink3);color:var(--pink)}.tag.blue{background:#eef4ff;color:var(--blue)}.tag.green{background:#eaf8ef;color:var(--green)}.tag.orange{background:#fff4e8;color:var(--orange)}.tag.purple{background:#f3edff;color:var(--purple)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}.step{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;min-height:126px}.step:after{content:"→";position:absolute;right:-16px;top:42%;font-weight:900;color:var(--pink)}.step:last-child:after{display:none}.step .icon{font-size:24px}.step b{display:block;margin:6px 0 4px}.step span{font-size:13px;color:var(--muted)}
+table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#fff}th,td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}th{background:linear-gradient(180deg,#fff7fb,#fde8f4);color:#9b174f;text-align:left;font-size:13px}tr:last-child td{border-bottom:0}td strong{color:var(--pink)}
+.callout{border-radius:20px;padding:18px;border:1px solid;display:flex;gap:14px;align-items:flex-start}.callout .mark{font-size:26px}.callout.pink{background:var(--pink3);border-color:#f9b1d7}.callout.blue{background:#eef4ff;border-color:#bfdbfe}.callout.orange{background:#fff7ed;border-color:#fed7aa}.callout.green{background:#ecfdf5;border-color:#bbf7d0}.callout p{margin:0;color:#374151}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.tabBtn{border:0;background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:999px;font-weight:900;cursor:pointer}.tabBtn.active{background:var(--pink);color:#fff;border-color:var(--pink)}.tabPanel{display:none}.tabPanel.active{display:block}
+details{background:#fff;border:1px solid var(--line);border-radius:18px;padding:0;overflow:hidden}summary{cursor:pointer;padding:16px 18px;font-weight:900;list-style:none}summary::-webkit-details-marker{display:none}details .inside{padding:0 18px 18px;color:#4b5563}.accordion{display:grid;gap:10px}.mini{font-size:13px;color:var(--muted)}
+.searchBox{display:flex;gap:10px;margin:16px 0}.searchBox input{flex:1;border:1px solid var(--line);border-radius:14px;padding:13px 14px;font-size:15px}.searchBox button,.topBtn{border:0;border-radius:14px;background:var(--ink);color:#fff;padding:12px 16px;font-weight:900;cursor:pointer}.hidden{display:none!important}.quiz{display:grid;gap:10px}.q{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}.q button{margin-top:10px;border:0;background:var(--pink);color:#fff;border-radius:12px;padding:8px 12px;font-weight:900;cursor:pointer}.answer{display:none;margin-top:10px;padding:10px;border-radius:12px;background:#f7f8fb;color:#374151}.footer{margin-top:48px;color:var(--muted);font-size:13px;text-align:center}.topBtn{position:fixed;right:22px;bottom:22px;box-shadow:var(--shadow);display:none}
+@media(max-width:900px){.layout{display:block}.sidebar{position:relative;height:auto}.nav{display:grid;grid-template-columns:repeat(2,1fr)}main{padding:22px}.hero h2{font-size:30px}.grid.cols3,.grid.cols2,.flow{grid-template-columns:1fr}.step:after{display:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">年</div><div><h1>国民年金法<br>遺族基礎年金</h1><small>社労士試験対策HTML</small></div></div>
+    <div class="searchBox"><input id="search" placeholder="ページ内検索：例）支給停止、胎児" /></div>
+    <nav class="nav">
+      <a href="#summary">1. 結論</a><a href="#map">2. 全体像</a><a href="#requirements">3. 支給要件</a><a href="#survivors">4. 遺族の範囲</a><a href="#amount">5. 年金額</a><a href="#loss">6. 失権</a><a href="#stop">7. 支給停止</a><a href="#compare">8. 比較・整理</a><a href="#quiz">9. 確認問題</a>
+    </nav>
+    <div class="progressWrap"><div class="progressLabel"><span>読了目安</span><span id="pct">0%</span></div><div class="bar"><span id="bar"></span></div></div>
+  </aside>
+  <main>
+    <header class="hero">
+      <span class="eyebrow">📘 Chapter 5 / 国民年金法</span>
+      <h2>遺族基礎年金を<br>「誰に・いつ・いくら・いつ止まるか」で整理</h2>
+      <p>遺族基礎年金は、死亡した者の要件、保険料納付要件、遺族の範囲、年金額、失権、支給停止を一体で押さえる分野です。特に「子のある配偶者」又は「子」に限定される点が出発点です。</p>
+      <div class="chips"><span class="chip">37条：支給要件</span><span class="chip">37条の2：遺族の範囲</span><span class="chip">38〜39条の2：年金額</span><span class="chip">40条：失権</span><span class="chip">41〜42条：支給停止</span></div>
+    </header>
+
+    <section id="summary" class="searchable">
+      <div class="sectionTitle"><h3>1. サマリー：最初に結論</h3><div class="sub">ここだけ先に押さえる</div></div>
+      <div class="grid cols3">
+        <div class="card"><span class="tag pink">誰がもらう？</span><h4>子のある配偶者 又は 子</h4><p>配偶者だけ、子のいない配偶者、父母、孫、兄弟姉妹は遺族基礎年金の対象外。</p></div>
+        <div class="card"><span class="tag blue">死亡した人の要件</span><h4>短期要件＋長期要件</h4><p>被保険者、国内住所あり60歳以上65歳未満の元被保険者、25年以上要件を満たす老齢基礎年金受給権者等。</p></div>
+        <div class="card"><span class="tag green">保険料納付要件</span><h4>短期要件では要注意</h4><p>原則は3分の2以上。令和8年4月1日前死亡なら、直近1年滞納なしの特例あり。</p></div>
+      </div>
+      <div class="callout pink" style="margin-top:16px"><div class="mark">🎯</div><p><strong>試験上の軸：</strong>「死亡した者の要件」→「保険料納付要件」→「遺族の範囲」→「年金額」→「失権・支給停止」の順に判定すると迷いにくくなります。</p></div>
+    </section>
+
+    <section id="map" class="searchable">
+      <div class="sectionTitle"><h3>2. 全体像：判定フロー</h3><div class="sub">支給されるまでの流れ</div></div>
+      <div class="flow">
+        <div class="step"><div class="icon">①</div><b>死亡日</b><span>昭和61年4月1日以後か。旧法との切替を確認。</span></div>
+        <div class="step"><div class="icon">②</div><b>死亡者の要件</b><span>短期要件又は長期要件に該当するか。</span></div>
+        <div class="step"><div class="icon">③</div><b>納付要件</b><span>短期要件では3分の2要件又は直近1年特例。</span></div>
+        <div class="step"><div class="icon">④</div><b>遺族の範囲</b><span>子のある配偶者又は子。生計維持も確認。</span></div>
+        <div class="step"><div class="icon">⑤</div><b>金額・停止</b><span>子の人数で加算。失権・支給停止を判定。</span></div>
+      </div>
+    </section>
+
+    <section id="requirements" class="searchable">
+      <div class="sectionTitle"><h3>3. 支給要件</h3><div class="sub">死亡した者について見る</div></div>
+      <div class="tabs"><button class="tabBtn active" data-tab="req1">死亡者の4類型</button><button class="tabBtn" data-tab="req2">保険料納付要件</button><button class="tabBtn" data-tab="req3">25年以上要件</button></div>
+      <div id="req1" class="tabPanel active card">
+        <table><thead><tr><th>分類</th><th>死亡した者</th><th>ポイント</th></tr></thead><tbody>
+          <tr><td><strong>短期要件①</strong></td><td>被保険者が死亡</td><td>保険料納付要件の確認が必要。</td></tr>
+          <tr><td><strong>短期要件②</strong></td><td>被保険者であった者で、日本国内に住所を有し、60歳以上65歳未満の者が死亡</td><td>こちらも保険料納付要件の確認が必要。</td></tr>
+          <tr><td><strong>長期要件③</strong></td><td>老齢基礎年金の受給権者が死亡</td><td>保険料納付済期間＋免除期間等が原則25年以上必要。</td></tr>
+          <tr><td><strong>長期要件④</strong></td><td>保険料納付済期間＋免除期間等が原則25年以上ある者が死亡</td><td>老齢基礎年金をまだ受けていなくても対象になり得る。</td></tr>
+        </tbody></table>
+      </div>
+      <div id="req2" class="tabPanel card">
+        <div class="grid cols2">
+          <div class="callout blue"><div class="mark">原則</div><p>死亡日の前日において、死亡日の属する月の前々月までの被保険者期間について、保険料納付済期間＋保険料免除期間が<strong>3分の2以上</strong>。</p></div>
+          <div class="callout green"><div class="mark">特例</div><p>令和8年4月1日前の死亡で、死亡日に65歳未満なら、直近1年間に滞納期間がなければよい。</p></div>
+        </div>
+        <div class="callout orange" style="margin-top:14px"><div class="mark">⚠</div><p>被保険者資格を取得した直後に死亡した場合、実質的な納付期間がなくても、死亡日に被保険者であれば支給対象になり得ます。</p></div>
+      </div>
+      <div id="req3" class="tabPanel card">
+        <p><strong>老齢基礎年金の受給資格期間は10年に短縮されていますが、遺族基礎年金の長期要件では原則25年以上の考え方が残ります。</strong></p>
+        <table><thead><tr><th>特例</th><th>内容</th><th>覚え方</th></tr></thead><tbody>
+          <tr><td>昭和5年4月1日以前生まれ</td><td>生年月日に応じ21〜24年で25年以上とみなす</td><td>国民年金に加入できる期間が短かった世代への配慮</td></tr>
+          <tr><td>厚年の中高齢者の特例</td><td>40歳以後等の厚年被保険者期間が15〜19年以上等</td><td>旧厚年法の短縮特例を引き継ぐ</td></tr>
+          <tr><td>被用者年金期間の特例</td><td>昭和31年4月1日以前生まれは20〜24年でよい場合あり</td><td>旧被用者年金制度の20年要件への配慮</td></tr>
+        </tbody></table>
+      </div>
+    </section>
+
+    <section id="survivors" class="searchable">
+      <div class="sectionTitle"><h3>4. 遺族の範囲</h3><div class="sub">誰が受給権者になるか</div></div>
+      <div class="grid cols2">
+        <div class="card"><span class="tag pink">配偶者</span><h4>子のある配偶者</h4><p>死亡当時、死亡した者により生計維持され、かつ、要件を満たす子と生計を同じくしていること。</p><p class="mini">事実婚の配偶者も含まれます。</p></div>
+        <div class="card"><span class="tag blue">子</span><h4>年齢・障害・婚姻状態</h4><p>18歳到達年度末まで、又は20歳未満で障害等級該当の障害状態にある子。現に婚姻していないこと。</p><p class="mini">事実上の親子関係にある子は含まれず、法律上の子が対象。</p></div>
+      </div>
+      <div class="callout green" style="margin-top:16px"><div class="mark">👶</div><p><strong>胎児の取扱い：</strong>死亡当時胎児であった子が出生したときは、将来に向かって死亡当時生計維持されていた子とみなされ、配偶者もその子と生計同一だったものとみなされます。</p></div>
+    </section>
+
+    <section id="amount" class="searchable">
+      <div class="sectionTitle"><h3>5. 年金額・加算額</h3><div class="sub">配偶者支給と子のみ支給で見方が違う</div></div>
+      <div class="grid cols2">
+        <div class="card"><span class="tag pink">配偶者に支給</span><h4>780,900円 × 改定率 ＋ 子の加算</h4><table><tbody><tr><td>第1子・第2子</td><td><strong>224,700円 × 改定率</strong></td></tr><tr><td>第3子以降</td><td><strong>74,900円 × 改定率</strong></td></tr></tbody></table></div>
+        <div class="card"><span class="tag blue">子に支給</span><h4>子のみが受ける場合</h4><table><tbody><tr><td>子1人</td><td><strong>780,900円 × 改定率</strong></td></tr><tr><td>子2人</td><td><strong>1,005,600円 × 改定率</strong></td></tr><tr><td>子3人</td><td><strong>1,080,500円 × 改定率</strong></td></tr></tbody></table><p class="mini">子1人あたりの額は、合算額を子の数で除して得た額。</p></div>
+      </div>
+      <div class="accordion" style="margin-top:16px">
+        <details><summary>増額改定：胎児だった子が出生した場合</summary><div class="inside">配偶者が受給権を取得した当時胎児だった子が生まれたときは、出生月の翌月から年金額が改定されます。</div></details>
+        <details><summary>減額改定：子が加算対象から外れる場合</summary><div class="inside">死亡、婚姻、配偶者以外の者の養子となる、離縁、生計不同一、18歳年度末終了、障害状態がやむ、20歳到達などで減額改定となります。全ての子が該当すると配偶者の受給権は消滅します。</div></details>
+      </div>
+    </section>
+
+    <section id="loss" class="searchable">
+      <div class="sectionTitle"><h3>6. 失権</h3><div class="sub">受給権が消える場面</div></div>
+      <table><thead><tr><th>対象</th><th>失権事由</th><th>補足</th></tr></thead><tbody>
+        <tr><td><strong>配偶者・子 共通</strong></td><td>死亡、婚姻、養子となったとき</td><td>直系血族又は直系姻族の養子となった場合は除く。事実上の養子でも消滅。</td></tr>
+        <tr><td><strong>配偶者</strong></td><td>対象となる子がすべて加算額の減額改定事由に該当</td><td>子がいなくなれば「子のある配偶者」ではなくなる。</td></tr>
+        <tr><td><strong>子</strong></td><td>離縁、18歳年度末終了、障害状態がやむ、20歳到達</td><td>障害状態にある場合など、年齢判定に例外あり。</td></tr>
+      </tbody></table>
+      <div class="callout blue" style="margin-top:16px"><div class="mark">💡</div><p>老齢基礎年金の支給繰上げを請求しても、遺族基礎年金の受給権は消滅しません。</p></div>
+    </section>
+
+    <section id="stop" class="searchable">
+      <div class="sectionTitle"><h3>7. 支給停止</h3><div class="sub">受給権はあるが支払われない場面</div></div>
+      <div class="grid cols2">
+        <div class="card"><span class="tag orange">労基法の遺族補償</span><h4>死亡日から6年間停止</h4><p>当該死亡について労働基準法の遺族補償が行われるべき場合、遺族基礎年金は6年間支給停止。</p></div>
+        <div class="card"><span class="tag purple">子に対する支給停止</span><h4>配偶者・父母との関係</h4><p>配偶者が受給権を有するとき、又は生計を同じくするその子の父若しくは母があるときは、その間、子への支給は停止。</p></div>
+      </div>
+      <div class="accordion" style="margin-top:16px">
+        <details open><summary>配偶者の所在不明</summary><div class="inside">配偶者の所在が1年以上明らかでないときは、子の申請により、所在不明となった時にさかのぼって支給停止。</div></details>
+        <details><summary>子の所在不明</summary><div class="inside">受給権を有する子が2人以上いて、そのうち1人以上の所在が1年以上不明の場合、他の子の申請により、その子への支給がさかのぼって停止。</div></details>
+        <details><summary>支給停止の解除</summary><div class="inside">所在不明を理由に支給停止された配偶者又は子は、いつでも支給停止の解除を申請できます。</div></details>
+      </div>
+    </section>
+
+    <section id="compare" class="searchable">
+      <div class="sectionTitle"><h3>8. 比較・整理</h3><div class="sub">混同しやすいポイント</div></div>
+      <table><thead><tr><th>論点</th><th>遺族基礎年金</th><th>注意点</th></tr></thead><tbody>
+        <tr><td>遺族の範囲</td><td>子のある配偶者・子</td><td>子のない配偶者は対象外。寡婦年金・死亡一時金との比較が重要。</td></tr>
+        <tr><td>子の意味</td><td>法律上の子</td><td>実子・養子は対象。事実上の親子関係だけでは対象外。</td></tr>
+        <tr><td>生計維持</td><td>死亡当時、生計同一＋年収850万円未満見込み等</td><td>国内住所要件は遺族側には問われない。</td></tr>
+        <tr><td>支給停止と失権</td><td>支給停止は権利が残る／失権は権利消滅</td><td>所在不明は支給停止、婚姻・死亡などは失権。</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="quiz" class="searchable">
+      <div class="sectionTitle"><h3>9. 確認問題</h3><div class="sub">クリックで解答表示</div></div>
+      <div class="quiz">
+        <div class="q"><b>Q1. 子のいない配偶者は、遺族基礎年金の対象になる？</b><br><button>解答を見る</button><div class="answer">対象になりません。遺族基礎年金は「子のある配偶者」又は「子」が対象です。</div></div>
+        <div class="q"><b>Q2. 死亡日の属する月の前々月までの期間で、納付済＋免除が3分の2以上必要なのは主にどの要件？</b><br><button>解答を見る</button><div class="answer">短期要件、つまり被保険者又は一定の元被保険者の死亡による場合です。</div></div>
+        <div class="q"><b>Q3. 事実婚の配偶者と、事実上の親子関係にある子は同じように扱われる？</b><br><button>解答を見る</button><div class="answer">同じではありません。事実婚の配偶者は含まれますが、子は法律上の子であることが必要です。</div></div>
+        <div class="q"><b>Q4. 労基法の遺族補償が行われるべき場合、遺族基礎年金はどうなる？</b><br><button>解答を見る</button><div class="answer">死亡日から6年間、支給停止されます。</div></div>
+      </div>
+    </section>
+
+    <div class="footer">出典：社労士テキスト「国民年金法」Chapter 5 遺族基礎年金をもとに学習用に再構成。</div>
+  </main>
+</div>
+<button class="topBtn" id="topBtn">↑ 上へ</button>
+<script>
+const btns=document.querySelectorAll('.tabBtn');
+btns.forEach(b=>b.addEventListener('click',()=>{btns.forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tabPanel').forEach(p=>p.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
+document.querySelectorAll('.q button').forEach(b=>b.addEventListener('click',()=>{const a=b.nextElementSibling;a.style.display=a.style.display==='block'?'none':'block';b.textContent=a.style.display==='block'?'閉じる':'解答を見る'}));
+const topBtn=document.getElementById('topBtn');topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+function prog(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;const p=max?Math.round(h.scrollTop/max*100):0;document.getElementById('bar').style.width=p+'%';document.getElementById('pct').textContent=p+'%';topBtn.style.display=h.scrollTop>500?'block':'none'};addEventListener('scroll',prog);prog();
+const search=document.getElementById('search');search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();document.querySelectorAll('.searchable').forEach(sec=>{sec.classList.toggle('hidden',q && !sec.textContent.toLowerCase().includes(q));});});
+</script>
+</body>
+</html>
