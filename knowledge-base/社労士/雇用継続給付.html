@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>雇用保険法 Chapter 11 雇用継続給付｜完全版HTML</title>
+<style>
+:root{--pink:#e91e63;--pink2:#fce4ec;--purple:#7b1fa2;--blue:#1976d2;--sky:#e3f2fd;--green:#2e7d32;--green2:#e8f5e9;--orange:#ef6c00;--orange2:#fff3e0;--red:#c62828;--red2:#ffebee;--ink:#263238;--muted:#607d8b;--line:#e0e0e0;--bg:#f7f8fb;--card:#fff;--shadow:0 10px 25px rgba(38,50,56,.10)}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic",YuGothic,Meiryo,sans-serif;line-height:1.75}.layout{display:grid;grid-template-columns:290px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;overflow:auto;background:#fff;border-right:1px solid var(--line);padding:22px 18px}.brand{padding:18px;border-radius:18px;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;margin-bottom:18px;box-shadow:var(--shadow)}.brand b{font-size:20px}.brand small{display:block;opacity:.9}.nav a{display:block;text-decoration:none;color:var(--ink);padding:9px 12px;border-radius:12px;margin:3px 0;font-weight:700;font-size:14px}.nav a:hover{background:var(--pink2);color:var(--pink)}.main{max-width:1180px;padding:32px;margin:0 auto}.hero{background:radial-gradient(circle at top right,rgba(255,255,255,.35),transparent 34%),linear-gradient(135deg,#e91e63,#7b1fa2);border-radius:28px;padding:34px;color:#fff;box-shadow:var(--shadow);margin-bottom:24px}.hero h1{font-size:38px;line-height:1.25;margin:0 0 10px}.hero p{font-size:18px;margin:0;opacity:.95}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:6px 12px;border-radius:99px;font-weight:700}.card{background:var(--card);border-radius:22px;padding:24px;box-shadow:var(--shadow);margin:22px 0;border:1px solid rgba(0,0,0,.03)}h2{font-size:26px;margin:0 0 18px;border-left:10px solid var(--pink);padding-left:14px;line-height:1.35}h3{font-size:20px;margin:18px 0 10px}.lead{font-size:17px;color:#37474f}.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.mini{border-radius:18px;padding:18px;border:1px solid var(--line);background:#fff}.mini .icon{font-size:28px}.mini b{display:block;font-size:19px;margin:4px 0}.pink{background:var(--pink2);border-color:#f8bbd0}.blue{background:var(--sky);border-color:#bbdefb}.green{background:var(--green2);border-color:#c8e6c9}.orange{background:var(--orange2);border-color:#ffe0b2}.red{background:var(--red2);border-color:#ffcdd2}.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:14px}.node{background:#fff;border:3px solid var(--pink);border-radius:16px;padding:14px 16px;min-width:185px;text-align:center;font-weight:800}.arr{font-size:26px;color:var(--pink);font-weight:900}.tag{display:inline-block;padding:3px 9px;border-radius:99px;font-size:12px;font-weight:900;color:#fff;background:var(--pink);margin-right:6px}.tag.b{background:var(--blue)}.tag.g{background:var(--green)}.tag.o{background:var(--orange)}.tag.r{background:var(--red)}table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:16px;border:1px solid var(--line);background:#fff;margin:14px 0}th{background:var(--pink);color:#fff;text-align:left;padding:12px}td{padding:12px;border-top:1px solid var(--line);vertical-align:top}tr:nth-child(even) td{background:#fcfcfd}.note{border-left:7px solid var(--orange);background:var(--orange2);padding:14px 16px;border-radius:14px;margin:14px 0}.remember{border-left:7px solid var(--green);background:var(--green2);padding:14px 16px;border-radius:14px;margin:14px 0;font-weight:800}.danger{border-left:7px solid var(--red);background:var(--red2);padding:14px 16px;border-radius:14px;margin:14px 0}.law{font-size:13px;color:var(--muted);font-weight:700}.accordion details{border:1px solid var(--line);background:#fff;border-radius:16px;margin:10px 0;overflow:hidden}.accordion summary{cursor:pointer;padding:15px 18px;font-weight:900;background:#fafafa;color:var(--pink)}.accordion .inside{padding:16px 18px}.calc{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end}.calc label{display:block;font-weight:800}.calc input,.calc select{width:100%;padding:11px;border:1px solid var(--line);border-radius:12px;font-size:16px}.result{font-size:20px;font-weight:900;background:var(--sky);padding:16px;border-radius:16px;color:#0d47a1}.btn{border:0;background:var(--pink);color:#fff;border-radius:12px;padding:12px 16px;font-weight:900;cursor:pointer}.btn:hover{filter:brightness(.95)}.search{position:relative}.search input{width:100%;padding:15px 18px;border:2px solid var(--line);border-radius:16px;font-size:17px}.hidden{display:none!important}.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#eceff1;border-radius:6px;padding:1px 6px}.top{position:fixed;right:18px;bottom:18px;background:var(--pink);color:#fff;text-decoration:none;padding:10px 14px;border-radius:99px;box-shadow:var(--shadow);font-weight:900}.quiz{border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0}.quiz button{margin:6px 6px 0 0}.answer{display:none;margin-top:10px;padding:10px;border-radius:12px;background:var(--green2);font-weight:800}.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.titem{background:#fff;border:1px solid var(--line);border-top:6px solid var(--pink);border-radius:16px;padding:14px}.formula{font-size:22px;text-align:center;font-weight:900;background:#f5f5f5;border-radius:16px;padding:18px;margin:12px 0}@media(max-width:920px){.layout{display:block}.side{position:relative;height:auto}.main{padding:16px}.g4,.g3,.g2,.calc,.timeline{grid-template-columns:1fr}.hero h1{font-size:28px}.arr{transform:rotate(90deg)}}
+</style>
+</head>
+<body id="top">
+<div class="layout">
+<aside class="side">
+  <div class="brand"><b>雇用保険法</b><small>Chapter 11｜雇用継続給付 完全版</small></div>
+  <nav class="nav">
+    <a href="#summary">1. 最初に結論</a><a href="#map">2. 全体像</a><a href="#history">3. 沿革・改正</a><a href="#basic">4. 高年齢雇用継続基本給付金</a><a href="#rate">5. 支給率・支給額</a><a href="#reemploy">6. 高年齢再就職給付金</a><a href="#care">7. 介護休業給付金</a><a href="#limits">8. 給付制限</a><a href="#compare">9. 比較表</a><a href="#calculator">10. 計算シミュレーター</a><a href="#quiz">11. 確認問題</a><a href="#memory">12. 暗記ポイント</a>
+  </nav>
+</aside>
+<main class="main">
+<section class="hero">
+  <h1>Chapter 11 雇用継続給付</h1>
+  <p>「60歳以後の賃金低下」と「家族介護による休業」を支える給付を、試験向けに視覚整理。</p>
+  <div class="chips"><span class="chip">高年齢雇用継続基本給付金</span><span class="chip">高年齢再就職給付金</span><span class="chip">介護休業給付金</span><span class="chip">令和7年改正対応</span></div>
+</section>
+<section class="card" id="summary">
+<h2>1. 最初に結論</h2>
+<div class="grid g4">
+  <div class="mini pink"><div class="icon">👴</div><b>高年齢基本</b><p>60歳以後も働き続けるが、賃金が75％未満に低下した場合の給付。</p></div>
+  <div class="mini blue"><div class="icon">🔁</div><b>高年齢再就職</b><p>基本手当を受けた後、60歳以後に再就職し、賃金が75％未満に低下した場合の給付。</p></div>
+  <div class="mini green"><div class="icon">🤝</div><b>介護休業</b><p>対象家族を介護するために休業した場合、原則67％相当を支給。</p></div>
+  <div class="mini orange"><div class="icon">⚠️</div><b>頻出数字</b><p>5年・75％・64％・10％・100日・200日・67％・93日。</p></div>
+</div>
+<div class="remember">試験では「基本手当を受けたかどうか」「支給残日数が何日か」「介護休業は3回・93日まで」が分岐点です。</div>
+</section>
+<section class="card search" id="searchbox">
+<h2>検索</h2><input id="filter" placeholder="例：75％、93日、再就職手当、支給対象月、みなし賃金日額">
+</section>
+<section class="card searchable" id="map">
+<h2>2. 雇用継続給付の全体像</h2>
+<div class="flow"><div class="node">雇用継続給付</div><div class="arr">→</div><div class="node">高年齢雇用継続給付</div><div class="arr">→</div><div class="node">基本給付金<br>再就職給付金</div></div>
+<div class="flow"><div class="node">雇用継続給付</div><div class="arr">→</div><div class="node">介護休業給付</div><div class="arr">→</div><div class="node">介護休業給付金</div></div>
+<div class="note">育児休業給付は令和2年に雇用継続給付から独立。Chapter11では「高年齢」と「介護」を押さえます。</div>
+</section>
+<section class="card searchable" id="history">
+<h2>3. 沿革・改正ポイント</h2>
+<div class="timeline"><div class="titem"><b>平成6年</b><br>高年齢雇用継続給付・育児休業給付が創設</div><div class="titem"><b>平成10年</b><br>介護休業給付が創設</div><div class="titem"><b>令和2年</b><br>育児休業給付が独立した保険給付へ</div><div class="titem"><b>令和7年</b><br>高年齢雇用継続給付の最大給付率が15％から10％へ</div></div>
+</section>
+<section class="card searchable" id="basic">
+<h2>4. 高年齢雇用継続基本給付金</h2>
+<p class="lead">60歳到達後も継続して働く人について、60歳到達時等に比べて賃金が大きく下がったときに支給されます。</p>
+<table><tr><th>要件</th><th>内容</th></tr><tr><td>対象者</td><td>被保険者。ただし短期雇用特例被保険者・日雇労働被保険者は除く。</td></tr><tr><td>年齢</td><td>60歳到達月から65歳到達月までが基本。</td></tr><tr><td>期間要件</td><td>算定基礎期間に相当する期間が5年以上。</td></tr><tr><td>賃金低下</td><td>支給対象月の賃金が、みなし賃金日額×30の75％未満。</td></tr><tr><td>支給限度額</td><td>支給対象月の賃金が376,750円未満。</td></tr></table>
+<h3>支給対象月の考え方</h3><div class="flow"><div class="node">60歳到達月<br>または5年到達月</div><div class="arr">→</div><div class="node">月初から月末まで<br>被保険者</div><div class="arr">→</div><div class="node">月初から月末まで<br>介護・育児系休業なし</div><div class="arr">→</div><div class="node">支給対象月</div></div>
+<div class="danger">非行・疾病・負傷・事業所休業等により賃金が下がった場合は、支払われたものとみなして判定します。単なる実支給額だけで75％未満と判断しない点が重要です。</div>
+</section>
+<section class="card searchable" id="rate">
+<h2>5. 支給率・支給額の早見表</h2>
+<div class="formula">支給額 ＝ 支給対象月の賃金額 × 給付率</div>
+<table><tr><th>賃金低下率</th><th>給付率・支給</th><th>ポイント</th></tr><tr><td>64％未満</td><td>賃金額 × 10％</td><td>令和7年改正後の最大給付率。</td></tr><tr><td>64％以上75％未満</td><td>10％から一定割合で逓減</td><td>75％に近づくほど給付率が下がる。</td></tr><tr><td>75％以上</td><td>支給なし</td><td>賃金低下が不十分。</td></tr><tr><td>給付額＋賃金額が支給限度額超</td><td>支給限度額 − 賃金額</td><td>376,750円を超えないよう調整。</td></tr><tr><td>算定額が最低限度額以下</td><td>支給なし</td><td>2,295円以下なら支給しない。</td></tr></table>
+<div class="remember">64％未満なら最大10％。75％以上ならゼロ。この2つをまず暗記。</div>
+</section>
+<section class="card searchable" id="reemploy">
+<h2>6. 高年齢再就職給付金</h2>
+<p class="lead">基本手当を受けた後、60歳以後に再就職した人向け。基本給付金との違いは「基本手当を受けたことがあるか」です。</p>
+<table><tr><th>要件</th><th>内容</th></tr><tr><td>受給資格</td><td>算定基礎期間5年以上の受給資格者で、基本手当の支給を受けたことがある。</td></tr><tr><td>再就職</td><td>60歳到達日以後、安定した職業に再就職し、被保険者として就労。</td></tr><tr><td>賃金低下</td><td>再就職後の賃金が、原則として基本手当の日額の基礎となった賃金日額×30の75％未満。</td></tr><tr><td>支給残日数</td><td>就職日の前日に基本手当の支給残日数が100日以上。</td></tr><tr><td>支給限度額</td><td>再就職後の支給対象月の賃金が376,750円未満。</td></tr></table>
+<table><tr><th>就職日前日の支給残日数</th><th>支給期間</th></tr><tr><td>200日以上</td><td>就職日の属する月から、就職日の翌日から起算して2年を経過する日の属する月まで。</td></tr><tr><td>100日以上200日未満</td><td>就職日の属する月から、就職日の翌日から起算して1年を経過する日の属する月まで。</td></tr><tr><td>共通</td><td>途中で65歳に達する場合は、65歳到達月まで。</td></tr></table>
+<div class="danger">同一の就職について再就職手当を受けた場合、高年齢再就職給付金は支給されません。逆も同じです。</div>
+</section>
+<section class="card searchable" id="care">
+<h2>7. 介護休業給付金</h2>
+<p class="lead">対象家族を介護するために介護休業を取得した被保険者に、支給単位期間ごとに支給されます。</p>
+<table><tr><th>要件</th><th>内容</th></tr><tr><td>対象者</td><td>被保険者。ただし短期雇用特例被保険者・日雇労働被保険者は除く。</td></tr><tr><td>被保険者期間</td><td>介護休業開始日前2年間に、みなし被保険者期間が通算12か月以上。</td></tr><tr><td>延長</td><td>疾病・負傷・出産・事業所休業等で30日以上賃金を受けられない期間がある場合、最大4年まで算定対象期間を延長。</td></tr><tr><td>就業日数</td><td>支給単位期間に就業している日数が10日以下。</td></tr><tr><td>有期雇用</td><td>介護休業開始予定日から93日経過日後6か月までに契約満了が明らかでないこと。</td></tr></table>
+<h3>対象家族</h3><div class="grid g3"><div class="mini green"><b>本人側</b>配偶者・父母・子・祖父母・兄弟姉妹・孫</div><div class="mini green"><b>配偶者側</b>配偶者の父母</div><div class="mini orange"><b>状態</b>2週間以上にわたり常時介護を必要とすること</div></div>
+<h3>支給額</h3><div class="formula">原則：休業開始時賃金日額 × 支給日数 × 67％</div>
+<table><tr><th>賃金支払の割合</th><th>介護休業給付金</th></tr><tr><td>13％以下</td><td>休業開始時賃金日額 × 支給日数 × 67％</td></tr><tr><td>13％超80％未満</td><td>休業開始時賃金日額 × 支給日数 × 80％ − 支払賃金額</td></tr><tr><td>80％以上</td><td>支給なし</td></tr></table>
+<div class="remember">同一対象家族について、通算93日を限度として3回まで受給可能。1回あたりの上限は3か月。</div>
+</section>
+<section class="card searchable" id="limits">
+<h2>8. 給付制限</h2>
+<table><tr><th>不正の対象</th><th>支給しない給付</th></tr><tr><td>高年齢雇用継続基本給付金を不正受給・不正受給未遂</td><td>高年齢雇用継続基本給付金</td></tr><tr><td>高年齢再就職給付金、またはその受給資格に基づく求職者給付・就職促進給付を不正受給・不正受給未遂</td><td>高年齢再就職給付金</td></tr><tr><td>介護休業給付金を不正受給・不正受給未遂</td><td>介護休業給付金。ただし、新たな対象家族に係る介護休業は別扱い。</td></tr></table>
+</section>
+<section class="card searchable" id="compare">
+<h2>9. 3つの給付の比較表</h2>
+<table><tr><th>項目</th><th>高年齢基本</th><th>高年齢再就職</th><th>介護休業</th></tr><tr><td>目的</td><td>60歳以後の雇用継続</td><td>60歳以後の再就職後の雇用継続</td><td>介護による離職防止</td></tr><tr><td>年齢・期間</td><td>60歳〜65歳</td><td>60歳以後再就職、最長1年または2年。65歳まで</td><td>対象家族1人につき通算93日</td></tr><tr><td>期間要件</td><td>被保険者であった期間5年以上</td><td>算定基礎期間5年以上＋基本手当受給</td><td>開始日前2年間に12か月以上</td></tr><tr><td>給付率</td><td>最大10％</td><td>最大10％</td><td>当分の間67％</td></tr><tr><td>重要分岐</td><td>75％未満か</td><td>基本手当を受けたか・残日数100日以上か</td><td>3回・93日・就業10日以下</td></tr></table>
+</section>
+<section class="card searchable" id="calculator">
+<h2>10. 計算シミュレーター</h2>
+<h3>高年齢雇用継続給付 簡易計算</h3><div class="calc"><label>みなし賃金日額×30<input id="baseWage" type="number" value="400000"></label><label>支給対象月の賃金<input id="monthWage" type="number" value="250000"></label><button class="btn" onclick="calcOld()">計算する</button><div class="result" id="oldResult">結果を表示</div></div>
+<div class="note">64％以上75％未満の逓減率は法令上の詳細式を簡略化し、学習用の目安として表示します。</div>
+<h3>介護休業給付 簡易計算</h3><div class="calc"><label>休業開始時賃金日額<input id="careDaily" type="number" value="10000"></label><label>支給日数<input id="careDays" type="number" value="30"></label><label>支給単位期間に支払われた賃金<input id="carePaid" type="number" value="0"></label><button class="btn" onclick="calcCare()">計算する</button><div class="result" id="careResult">結果を表示</div></div>
+</section>
+<section class="card searchable" id="quiz">
+<h2>11. 確認問題</h2>
+<div class="quiz"><b>Q1. 高年齢雇用継続基本給付金で、賃金低下率が75％以上の場合は？</b><br><button class="btn" onclick="showAns('a1')">答え</button><div id="a1" class="answer">支給されません。</div></div>
+<div class="quiz"><b>Q2. 高年齢再就職給付金は、就職日前日の基本手当の支給残日数が何日以上必要？</b><br><button class="btn" onclick="showAns('a2')">答え</button><div id="a2" class="answer">100日以上です。200日以上なら最長2年、100日以上200日未満なら最長1年。</div></div>
+<div class="quiz"><b>Q3. 介護休業給付金は、同一対象家族について何回・何日まで？</b><br><button class="btn" onclick="showAns('a3')">答え</button><div id="a3" class="answer">3回まで、通算93日までです。</div></div>
+</section>
+<section class="card searchable" id="memory">
+<h2>12. 暗記ポイント</h2>
+<div class="accordion">
+<details open><summary>高年齢雇用継続給付</summary><div class="inside"><p><span class="tag">5年</span>算定基礎期間相当期間5年以上</p><p><span class="tag">75％</span>賃金が75％未満に低下</p><p><span class="tag">64％</span>64％未満なら最大10％</p><p><span class="tag">10％</span>令和7年改正後の最大給付率</p></div></details>
+<details open><summary>高年齢再就職給付金</summary><div class="inside"><p><span class="tag b">基本手当</span>基本手当を受けたことがある</p><p><span class="tag b">100日</span>支給残日数100日以上</p><p><span class="tag b">200日</span>200日以上なら最長2年</p><p><span class="tag r">併給不可</span>同一就職で再就職手当と併給不可</p></div></details>
+<details open><summary>介護休業給付金</summary><div class="inside"><p><span class="tag g">12か月</span>開始日前2年間にみなし被保険者期間12か月以上</p><p><span class="tag g">67％</span>当分の間67％</p><p><span class="tag g">93日</span>通算93日まで</p><p><span class="tag g">3回</span>同一対象家族につき3回まで</p><p><span class="tag o">10日</span>支給単位期間の就業日数10日以下</p></div></details>
+</div>
+</section>
+</main>
+</div><a href="#top" class="top">↑ 上へ</a>
+<script>
+function yen(n){return Math.max(0,Math.floor(n)).toLocaleString('ja-JP')+'円'}
+function calcOld(){const b=Number(document.getElementById('baseWage').value||0);const w=Number(document.getElementById('monthWage').value||0);const limit=376750;let ratio=w/b;let pay=0;let msg='';if(!b||!w){msg='金額を入力してください';}else if(w>=limit){msg='賃金が支給限度額以上のため支給なし';}else if(ratio>=.75){msg='低下率が75％以上のため支給なし';}else{let rate=ratio<.64?.10:.10*((.75-ratio)/(.11));pay=w*rate;if(pay+w>limit)pay=limit-w;if(pay<=2295){msg='算定額が最低限度額以下のため支給なし';}else{msg='低下率 '+(ratio*100).toFixed(1)+'％／目安給付率 '+(rate*100).toFixed(2)+'％／支給額 '+yen(pay);}}document.getElementById('oldResult').textContent=msg;}
+function calcCare(){const d=Number(document.getElementById('careDaily').value||0);const days=Number(document.getElementById('careDays').value||0);const paid=Number(document.getElementById('carePaid').value||0);const base=d*days;let pay=0,msg='';if(!base){msg='金額と日数を入力してください';}else{const r=paid/base;if(r>=.8){msg='賃金が80％以上のため支給なし';}else if(r<=.13){pay=base*.67;msg='支給額 '+yen(pay)+'（67％）';}else{pay=base*.8-paid;msg='支給額 '+yen(pay)+'（80％上限調整）';}}document.getElementById('careResult').textContent=msg;}
+function showAns(id){document.getElementById(id).style.display='block'}
+document.getElementById('filter').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('.searchable').forEach(s=>{s.classList.toggle('hidden',q && !s.textContent.toLowerCase().includes(q));});});
+</script>
+</body>
+</html>
