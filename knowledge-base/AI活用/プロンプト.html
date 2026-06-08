@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Claude Prompting Best Practices — 視覚化HTML</title>
+<style>
+:root{
+  --bg:#f7f2e8;--paper:#fffdf8;--ink:#1f2933;--muted:#687383;--line:#e6dccb;
+  --nav:#171923;--nav2:#23283a;--brand:#c86f3d;--blue:#315a8c;--green:#3d7b62;--amber:#b7791f;--red:#b84a43;--purple:#7456a6;
+  --soft-blue:#eaf2ff;--soft-green:#e9f7ef;--soft-amber:#fff4dc;--soft-red:#ffecea;--soft-purple:#f0ebff;
+  --shadow:0 14px 40px rgba(31,41,51,.10);--radius:22px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:radial-gradient(circle at 20% 0%,#fff7df 0,#f7f2e8 34%,#efe7d9 100%);color:var(--ink);font-family:"Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;line-height:1.72}
+a{color:inherit}.layout{display:grid;grid-template-columns:290px 1fr;min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,var(--nav),var(--nav2));color:#fff;padding:26px 20px;overflow:auto}.logo{display:flex;gap:12px;align-items:center;margin-bottom:22px}.logo-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#f6ad55,#c86f3d);display:grid;place-items:center;font-weight:900}.logo h1{font-size:17px;line-height:1.35;margin:0}.logo p{margin:4px 0 0;color:#cbd5e0;font-size:12px}.nav-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9fb0c8;margin:22px 0 9px}.sidebar a{display:block;text-decoration:none;padding:10px 12px;border-radius:12px;color:#edf2f7;font-size:14px;margin:3px 0}.sidebar a:hover{background:rgba(255,255,255,.10)}.main{padding:34px 42px 80px;max-width:1260px}.hero{background:linear-gradient(135deg,#fffaf0 0%,#fff 52%,#eef6ff 100%);border:1px solid var(--line);border-radius:30px;padding:38px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-70px;top:-80px;width:280px;height:280px;border-radius:50%;background:rgba(200,111,61,.15)}.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:99px;background:#1f2933;color:white;font-size:13px;font-weight:700}.hero h2{font-size:42px;line-height:1.16;margin:18px 0 12px;letter-spacing:-.03em}.hero .lead{font-size:18px;color:#46515f;max-width:830px}.source{font-size:12px;color:#6b7280;margin-top:16px}.grid{display:grid;gap:18px}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}.section{margin-top:34px}.section h2{font-size:28px;margin:0 0 14px;display:flex;align-items:center;gap:10px}.section h2 .num{background:var(--ink);color:white;border-radius:12px;padding:2px 10px;font-size:17px}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 8px 22px rgba(31,41,51,.06)}.card h3{margin:0 0 10px;font-size:18px}.card p{margin:7px 0;color:#4b5563}.kpi{display:flex;gap:14px;align-items:flex-start}.kpi .icon{font-size:27px;width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:#f1f5f9}.tag{display:inline-block;font-size:12px;padding:4px 9px;border-radius:99px;background:#edf2f7;color:#42526a;font-weight:700;margin-right:6px}.pill-row{display:flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 12px;font-size:13px;color:#46515f}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:stretch}.step{background:white;border:1px solid var(--line);border-radius:18px;padding:16px;text-align:center;position:relative}.step strong{display:block;color:var(--brand);font-size:24px}.step span{font-size:13px;color:#4b5563}.arrow{display:none}.highlight{border-left:7px solid var(--brand);background:#fff7ed}.warn{border-left-color:var(--red);background:var(--soft-red)}.good{border-left-color:var(--green);background:var(--soft-green)}.blue{border-left-color:var(--blue);background:var(--soft-blue)}.purple{border-left-color:var(--purple);background:var(--soft-purple)}.compare{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:white}.compare th,.compare td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}.compare th{background:#243044;color:white;text-align:left}.compare tr:last-child td{border-bottom:none}.bad{color:#b84a43;font-weight:700}.ok{color:#2f7d5c;font-weight:700}details{background:white;border:1px solid var(--line);border-radius:18px;margin:12px 0;overflow:hidden}summary{cursor:pointer;padding:16px 18px;font-weight:800;list-style:none}summary::-webkit-details-marker{display:none}summary:after{content:"＋";float:right;color:var(--brand)}details[open] summary:after{content:"－"}.detail-body{padding:0 18px 18px;color:#4b5563}.code{background:#111827;color:#e5e7eb;border-radius:18px;padding:18px;overflow:auto;font-family:Consolas,"Courier New",monospace;font-size:13px;line-height:1.55;white-space:pre-wrap}.mini{font-size:13px;color:#6b7280}.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.check{background:white;border:1px solid var(--line);border-radius:16px;padding:13px 14px}.check:before{content:"✓";display:inline-grid;place-items:center;width:24px;height:24px;border-radius:8px;background:#dff7ea;color:#216e4e;margin-right:8px;font-weight:900}.tabs{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:14px}.tab-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab-buttons button{border:1px solid var(--line);background:#f8fafc;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:700}.tab-buttons button.active{background:#1f2933;color:white}.tab-panel{display:none}.tab-panel.active{display:block}.searchbox{position:sticky;top:0;z-index:5;background:rgba(247,242,232,.85);backdrop-filter:blur(8px);padding:10px 0;margin:-8px 0 12px}.searchbox input{width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--line);font-size:15px;background:white}.hidden-by-search{display:none!important}.topbtn{position:fixed;right:22px;bottom:22px;background:#1f2933;color:white;text-decoration:none;border-radius:999px;padding:12px 16px;box-shadow:var(--shadow);font-weight:800}.pattern{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.matrix .cell{border-radius:18px;padding:16px;background:white;border:1px solid var(--line)}.cell h4{margin:0 0 8px}.smallcode{font-family:Consolas,monospace;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:1px 5px}.footer{margin-top:40px;padding:24px;color:#667085;border-top:1px solid var(--line);font-size:13px}
+@media(max-width:980px){.layout{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.main{padding:22px}.hero h2{font-size:32px}.grid-3,.grid-2,.flow,.pattern,.matrix,.checklist{grid-template-columns:1fr}.sidebar a{display:inline-block}.nav-title{margin-top:14px}}
+@media print{.sidebar,.searchbox,.topbtn{display:none}.layout{display:block}.main{padding:0}.card,.hero{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="logo"><div class="logo-mark">C</div><div><h1>Claude Prompting<br>Best Practices</h1><p>実務者向け視覚整理版</p></div></div>
+  <div class="nav-title">目次</div>
+  <a href="#summary">1. サマリー</a>
+  <a href="#overview">2. 全体像</a>
+  <a href="#principles">3. 基本原則</a>
+  <a href="#output">4. 出力制御</a>
+  <a href="#tools">5. ツール利用</a>
+  <a href="#thinking">6. 思考・推論</a>
+  <a href="#agents">7. エージェント運用</a>
+  <a href="#coding">8. コーディング</a>
+  <a href="#migration">9. 移行時の注意</a>
+  <a href="#templates">10. すぐ使える型</a>
+</aside>
+
+<main class="main" id="top">
+  <div class="searchbox"><input id="search" placeholder="ページ内検索：例）XML / effort / tool / コードレビュー / 長文" /></div>
+
+  <section class="hero searchable" id="summary">
+    <span class="badge">⚡ 結論ファースト</span>
+    <h2>Claudeへの指示は「曖昧なお願い」ではなく、<br>役割・文脈・出力形式・判断基準を渡す設計図にする。</h2>
+    <p class="lead">このページの要点は、Claudeの最新モデルを使うときに、プロンプトをどう書けば安定した品質・形式・行動を得られるか、という実務ガイドです。特に重要なのは、明確な指示、XML構造化、例示、長文入力の配置、ツール利用の明示、thinking / effort の調整、そしてエージェント作業での状態管理です。</p>
+    <p class="source">出典：Anthropic Claude API Docs「Prompting best practices」（2026年6月8日に確認）</p>
+  </section>
+
+  <section class="section searchable" id="overview">
+    <h2><span class="num">2</span>全体像：良いプロンプトは6層構造</h2>
+    <div class="flow">
+      <div class="step"><strong>1</strong><span>役割<br>Role</span></div>
+      <div class="step"><strong>2</strong><span>背景<br>Context</span></div>
+      <div class="step"><strong>3</strong><span>作業<br>Task</span></div>
+      <div class="step"><strong>4</strong><span>制約<br>Rules</span></div>
+      <div class="step"><strong>5</strong><span>形式<br>Output</span></div>
+    </div>
+    <div class="card highlight" style="margin-top:18px">
+      <h3>覚え方：新人に業務を頼むつもりで書く</h3>
+      <p>Claudeは高性能でも、あなたの職場の前提・評価基準・好みは知りません。「何を」「なぜ」「どの順番で」「どの形式で」「どこまでやるか」を具体化すると安定します。</p>
+    </div>
+  </section>
+
+  <section class="section searchable" id="principles">
+    <h2><span class="num">3</span>基本原則：まず押さえる5つ</h2>
+    <div class="grid grid-3">
+      <div class="card kpi"><div class="icon">🎯</div><div><h3>明確・直接</h3><p>期待する出力、制約、順番をはっきり書く。曖昧な「いい感じに」は避ける。</p></div></div>
+      <div class="card kpi"><div class="icon">🧭</div><div><h3>文脈を渡す</h3><p>目的や背景を説明すると、Claudeは判断の優先順位を合わせやすい。</p></div></div>
+      <div class="card kpi"><div class="icon">🧪</div><div><h3>例を入れる</h3><p>出力形式・トーン・分類基準は、3〜5個の良い例で安定しやすい。</p></div></div>
+      <div class="card kpi"><div class="icon">🏷️</div><div><h3>XMLで分ける</h3><p>instructions / context / input / examples のようにタグで区切る。</p></div></div>
+      <div class="card kpi"><div class="icon">👤</div><div><h3>役割を与える</h3><p>「Python専門の支援者」「金融実務に詳しいレビュアー」など一文でも効く。</p></div></div>
+      <div class="card kpi"><div class="icon">📚</div><div><h3>長文は上、質問は下</h3><p>長い資料は先に置き、最後に依頼を書く。複数文書はメタデータ付きで構造化。</p></div></div>
+    </div>
+
+    <details open><summary>悪い依頼と良い依頼の違い</summary><div class="detail-body">
+      <table class="compare">
+        <tr><th>観点</th><th>弱いプロンプト</th><th>強いプロンプト</th></tr>
+        <tr><td>依頼</td><td class="bad">この資料をまとめて</td><td class="ok">役員向けに、結論→根拠→リスク→次アクションの順で400字以内に要約</td></tr>
+        <tr><td>形式</td><td class="bad">わかりやすく</td><td class="ok">表を1つ、重要ポイントを3つ、最後に判断材料を箇条書き</td></tr>
+        <tr><td>文脈</td><td class="bad">改善案を出して</td><td class="ok">目的は採用応募率の改善。対象は未経験のパート希望者。専門用語を避ける</td></tr>
+        <tr><td>例</td><td class="bad">いい感じのトーンで</td><td class="ok">以下の例と同じ文体・見出し構成で出力</td></tr>
+      </table>
+    </div></details>
+  </section>
+
+  <section class="section searchable" id="output">
+    <h2><span class="num">4</span>出力制御：欲しい形を先に決める</h2>
+    <div class="pattern">
+      <div class="card blue"><h3>形式を安定させるコツ</h3><p><span class="tag">Do</span>「何をするか」で書く。例：「滑らかな文章で書く」「表形式で出す」。</p><p><span class="tag">XML</span>出力の領域をタグで指定する。</p><p><span class="tag">Style match</span>プロンプト自体の書き方を、期待する出力形式に近づける。</p></div>
+      <div class="card warn"><h3>避けたい書き方</h3><p>「Markdownを使わないで」のような否定形だけでは弱い場合があります。代わりに「自然な段落で書く」「番号付きリストは必要時のみ」など、望む形を明示します。</p></div>
+    </div>
+    <details><summary>サンプル：レポートを長文になりすぎず整える</summary><div class="detail-body"><div class="code">&lt;writing_style&gt;
+結論を最初に書く。
+文章は短く区切る。
+箇条書きは、比較・手順・チェックリストに限って使う。
+強調すべきリスクと次アクションを最後に示す。
+&lt;/writing_style&gt;</div></div></details>
+    <details><summary>LaTeXや数式表現を避けたい場合</summary><div class="detail-body"><p>数式を普通の文字で書いてほしい場合は、「LaTeX、MathJax、\( \)、$、\frac{}{} は使わない」と明記します。</p></div></details>
+  </section>
+
+  <section class="section searchable" id="tools">
+    <h2><span class="num">5</span>ツール利用：提案だけか、実行までかを明示</h2>
+    <div class="grid grid-2">
+      <div class="card good"><h3>実行してほしい場合</h3><p>「修正案を出して」だと提案で止まることがあります。ファイル編集、検索、テスト実行などの具体的行動をしてほしいなら「実装して」「確認して」「変更して」と書きます。</p></div>
+      <div class="card warn"><h3>慎重にしてほしい場合</h3><p>削除、force push、外部投稿、共有システム変更など、戻しにくい行為は事前確認させる指示を入れます。</p></div>
+    </div>
+    <details open><summary>ツール利用プロンプトの型</summary><div class="detail-body"><div class="code">&lt;default_to_action&gt;
+ユーザーの意図が実装・修正・確認に見える場合は、提案だけで終わらず、必要なファイル確認やテストを行って実行してください。
+ただし、削除・外部送信・共有環境への変更など、戻しにくい操作は事前に確認してください。
+&lt;/default_to_action&gt;</div></div></details>
+    <details><summary>並列ツール利用の考え方</summary><div class="detail-body"><p>独立した検索・ファイル確認・複数資料読み込みは並列化すると速い。一方、前の結果が次の入力に必要な作業は順番に行わせます。</p></div></details>
+  </section>
+
+  <section class="section searchable" id="thinking">
+    <h2><span class="num">6</span>思考・推論：effort と adaptive thinking を使い分ける</h2>
+    <div class="matrix">
+      <div class="cell"><h4>low</h4><p>短い分類、定型文、低コスト・低遅延向け。</p></div>
+      <div class="cell"><h4>medium</h4><p>コストを抑えつつ、ある程度の推論が必要な作業。</p></div>
+      <div class="cell"><h4>high</h4><p>多くの知的作業の基準。調査、設計、レビューに向く。</p></div>
+      <div class="cell"><h4>xhigh / max</h4><p>長期エージェント、複雑なコーディング、大規模調査向け。</p></div>
+    </div>
+    <div class="card highlight" style="margin-top:18px"><h3>実務上の見立て</h3><p>「答えが浅い」と感じたときは、プロンプトで無理に長く考えさせるより、effort を high / xhigh に上げるほうが本筋です。逆に、考えすぎ・調べすぎが出るなら effort を下げるか、使うべき場面を限定します。</p></div>
+    <details><summary>adaptive thinking の使いどころ</summary><div class="detail-body"><p>多段階ツール利用、複雑なコード修正、長期エージェント作業などでは adaptive thinking が有効です。簡単な質問では直接回答し、難しい場面で深く考えるように調整できます。</p><div class="code">thinking={"type":"adaptive"}
+output_config={"effort":"high"}</div></div></details>
+  </section>
+
+  <section class="section searchable" id="agents">
+    <h2><span class="num">7</span>エージェント運用：長い仕事は状態管理が命</h2>
+    <div class="grid grid-3">
+      <div class="card"><h3>状態を残す</h3><p>progress.txt、tests.json、git log などで、作業状況を外部化する。</p></div>
+      <div class="card"><h3>テストを先に作る</h3><p>長期作業では、テストが進捗と品質の基準になる。</p></div>
+      <div class="card"><h3>増やしすぎない</h3><p>サブエージェントやファイル作成は便利だが、過剰利用は避ける。</p></div>
+    </div>
+    <details><summary>長期作業の開始プロンプト例</summary><div class="detail-body"><div class="code">この作業は長期タスクです。
+まず作業計画、検証方法、進捗管理ファイルを作ってください。
+作業は小さな単位で進め、各ステップの完了条件を明確にしてください。
+削除・外部公開・共有環境への変更など、戻しにくい操作は確認してください。</div></div></details>
+    <details><summary>調査タスクの型</summary><div class="detail-body"><div class="code">調査の成功条件を最初に定義してください。
+複数ソースで検証してください。
+仮説を複数立て、確信度を更新しながら進めてください。
+最後に、結論・根拠・不確実な点・次に確認すべきことを分けて示してください。</div></div></details>
+  </section>
+
+  <section class="section searchable" id="coding">
+    <h2><span class="num">8</span>コーディング：実装力を引き出す注意点</h2>
+    <div class="tabs">
+      <div class="tab-buttons">
+        <button class="active" data-tab="review">コードレビュー</button>
+        <button data-tab="minimal">過剰設計防止</button>
+        <button data-tab="grounded">幻覚防止</button>
+        <button data-tab="tests">テスト偏重防止</button>
+      </div>
+      <div class="tab-panel active" id="review"><div class="card"><h3>レビューは「見つけたものを全部出す」段階と「重要度で絞る」段階を分ける</h3><p>最初から「重大なものだけ」と指示すると、低〜中リスクの実バグを落とすことがあります。発見段階では網羅性を優先し、信頼度と深刻度を併記させます。</p></div></div>
+      <div class="tab-panel" id="minimal"><div class="card"><h3>過剰な抽象化・余計なファイル作成を抑える</h3><p>「求められた範囲だけ」「一回限りの処理にヘルパーを作らない」「将来の仮定に備えすぎない」と明記します。</p></div></div>
+      <div class="tab-panel" id="grounded"><div class="card"><h3>開いていないコードについて断言させない</h3><p>特定ファイルに言及する場合は、回答前に必ず対象ファイルを読むよう指示します。憶測の説明を減らせます。</p></div></div>
+      <div class="tab-panel" id="tests"><div class="card"><h3>テストを通すだけのハードコードを避ける</h3><p>「テストは仕様確認の手段であり、特定ケースだけに合わせない」と明記します。一般解を求める姿勢を促します。</p></div></div>
+    </div>
+  </section>
+
+  <section class="section searchable" id="migration">
+    <h2><span class="num">9</span>移行時の注意：新モデルでは“強すぎる指示”を見直す</h2>
+    <div class="grid grid-2">
+      <div class="card purple"><h3>Claude 4.6以降の傾向</h3><p>指示追従が強く、ツールやスキルの呼び出しも以前より適切に動くため、昔の「必ず使え」「迷ったら使え」のような強い指示は過剰動作につながることがあります。</p></div>
+      <div class="card blue"><h3>prefill からの移行</h3><p>Claude 4.6以降では最後のassistantターンに事前入力する方式が使えないケースがあります。出力形式は、プロンプト内の明示的な形式指定や例示で制御します。</p></div>
+    </div>
+    <div class="checklist" style="margin-top:16px">
+      <div class="check">期待する出力を具体化したか</div>
+      <div class="check">thinking / effort の設定を見直したか</div>
+      <div class="check">過剰なツール利用指示を弱めたか</div>
+      <div class="check">アニメーションやUI要素は明示したか</div>
+      <div class="check">前提・制約・評価基準を最初に入れたか</div>
+      <div class="check">長文入力は上、質問は下にしたか</div>
+    </div>
+  </section>
+
+  <section class="section searchable" id="templates">
+    <h2><span class="num">10</span>すぐ使えるプロンプト型</h2>
+    <div class="grid grid-2">
+      <div class="card"><h3>汎用テンプレート</h3><div class="code">&lt;role&gt;
+あなたは［専門領域］に詳しい実務支援者です。
+&lt;/role&gt;
+
+&lt;context&gt;
+目的：［何のために使うか］
+読み手：［誰が読むか］
+制約：［文字数・トーン・禁止事項］
+&lt;/context&gt;
+
+&lt;task&gt;
+次の入力をもとに、［成果物］を作成してください。
+&lt;/task&gt;
+
+&lt;output_format&gt;
+1. 結論
+2. 根拠
+3. 注意点
+4. 次アクション
+&lt;/output_format&gt;</div></div>
+      <div class="card"><h3>長文資料要約テンプレート</h3><div class="code">&lt;documents&gt;
+  &lt;document index="1" source="資料A"&gt;
+    &lt;document_content&gt;
+    ［ここに本文］
+    &lt;/document_content&gt;
+  &lt;/document&gt;
+&lt;/documents&gt;
+
+&lt;instructions&gt;
+まず関連箇所を短く引用してから、
+結論・論点・リスク・実務対応に分けて要約してください。
+&lt;/instructions&gt;</div></div>
+      <div class="card"><h3>コードレビュー用</h3><div class="code">発見段階では、重要度で絞らず、見つけた問題をすべて報告してください。
+各項目に以下を付けてください。
+- 問題の場所
+- 何が起きるか
+- 信頼度
+- 推定深刻度
+- 修正方針
+その後、優先順位順に並べ替えてください。</div></div>
+      <div class="card"><h3>デザイン生成用</h3><div class="code">一般的なAI風デザインを避けてください。
+この用途に合う独自の視覚テーマを3案出し、
+背景色・アクセント色・フォント方向性・雰囲気を比較してください。
+選定後、その方向だけで実装してください。</div></div>
+    </div>
+  </section>
+
+  <section class="section searchable">
+    <h2><span class="num">✓</span>最終チェック：プロンプトを出す前に</h2>
+    <div class="card highlight"><div class="pill-row">
+      <span class="pill">目的は明確か</span><span class="pill">読み手は誰か</span><span class="pill">出力形式は指定したか</span><span class="pill">例はあるか</span><span class="pill">資料と依頼は分離したか</span><span class="pill">ツール実行の可否は明確か</span><span class="pill">安全確認の境界はあるか</span><span class="pill">評価基準はあるか</span>
+    </div></div>
+  </section>
+
+  <div class="footer">このHTMLは、Anthropic公式ドキュメントの内容を日本語で要約・再構成した学習用アーティファクトです。外部CSS・外部JavaScriptは使用していません。</div>
+</main>
+</div>
+<a class="topbtn" href="#top">↑ 上へ</a>
+<script>
+const search = document.getElementById('search');
+const blocks = [...document.querySelectorAll('.searchable')];
+search.addEventListener('input', () => {
+  const q = search.value.trim().toLowerCase();
+  blocks.forEach(b => {
+    b.classList.toggle('hidden-by-search', q && !b.textContent.toLowerCase().includes(q));
+  });
+});
+const buttons = document.querySelectorAll('.tab-buttons button');
+buttons.forEach(btn => btn.addEventListener('click', () => {
+  buttons.forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(btn.dataset.tab).classList.add('active');
+}));
+</script>
+</body>
+</html>

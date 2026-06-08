@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Agent Skills｜Skill Authoring Best Practices 視覚化ガイド</title>
+  <style>
+    :root{
+      --bg:#f7f2ea;
+      --paper:#fffaf2;
+      --ink:#201915;
+      --muted:#756a60;
+      --line:#e6d8c8;
+      --accent:#c96442;
+      --accent2:#6f8f72;
+      --accent3:#496c9e;
+      --accent4:#8b6bb1;
+      --warn:#d99025;
+      --danger:#b94a48;
+      --good:#2e7d63;
+      --shadow:0 18px 45px rgba(50,34,20,.10);
+      --radius:22px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", "Hiragino Sans", Meiryo, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:var(--sans);color:var(--ink);background:
+      radial-gradient(circle at 20% 0%, rgba(201,100,66,.18), transparent 34%),
+      radial-gradient(circle at 90% 15%, rgba(73,108,158,.13), transparent 32%),
+      linear-gradient(180deg,#fbf7f0 0%,var(--bg) 45%,#f1e8dc 100%);line-height:1.72}
+    a{color:inherit;text-decoration:none}
+    .layout{display:grid;grid-template-columns:292px minmax(0,1fr);min-height:100vh}
+    aside{position:sticky;top:0;height:100vh;padding:22px 18px;background:rgba(255,250,242,.82);backdrop-filter:blur(18px);border-right:1px solid var(--line);overflow:auto}
+    .brand{display:flex;gap:12px;align-items:center;margin:4px 0 22px}
+    .logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#e5a35c);display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:0 10px 22px rgba(201,100,66,.25)}
+    .brand h1{font-size:15px;margin:0;line-height:1.25}.brand p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+    .search{position:relative;margin-bottom:16px}.search input{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 12px;background:#fff;font-size:13px;outline:none}.search input:focus{border-color:#d8a073;box-shadow:0 0 0 4px rgba(201,100,66,.10)}
+    nav{display:grid;gap:6px}.navlink{padding:9px 11px;border-radius:13px;color:#51483f;font-size:13px;display:flex;align-items:center;gap:8px}.navlink:hover{background:#f3e7d8;color:#1f1712}.navlink .num{font-size:10px;font-weight:800;color:#fff;background:#b88a6b;border-radius:999px;min-width:21px;text-align:center;padding:1px 6px}
+    .side-note{margin-top:20px;padding:14px;border:1px dashed #d7b79d;border-radius:16px;background:#fff5e6;font-size:12px;color:#6d5542}
+    main{padding:36px 42px 70px;max-width:1280px;width:100%}.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:32px;background:linear-gradient(135deg,#fffaf2 0%,#fff0dc 55%,#eef4ee 100%);padding:34px;box-shadow:var(--shadow)}
+    .hero:after{content:"";position:absolute;right:-80px;top:-90px;width:280px;height:280px;border-radius:50%;background:rgba(201,100,66,.12)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;color:#745f4f;font-weight:800}.hero h2{font-size:clamp(30px,5vw,58px);line-height:1.08;margin:18px 0 14px;letter-spacing:-.04em}.hero .lead{font-size:18px;color:#554b42;max-width:780px;margin:0}
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:26px}.hero-card{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:22px;padding:20px}.hero-card h3{margin:0 0 10px;font-size:17px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700;color:#67574a}
+    section{margin-top:28px;padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,250,242,.88);box-shadow:0 10px 28px rgba(50,34,20,.06)}
+    .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:20px}.section-head h2{font-size:28px;line-height:1.15;margin:0;letter-spacing:-.02em}.section-head p{margin:8px 0 0;color:var(--muted);max-width:720px}.badge{white-space:nowrap;border-radius:999px;background:#221b16;color:#fff;padding:7px 12px;font-size:12px;font-weight:800}
+    .grid{display:grid;gap:16px}.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}.card h3{margin:0 0 9px;font-size:18px}.card p{margin:0;color:#665b51}.icon{font-size:26px;line-height:1;margin-bottom:10px}.kpi{font-size:36px;font-weight:900;letter-spacing:-.04em;color:var(--accent)}.mini{font-size:12px;color:var(--muted);font-weight:700}.callout{border-radius:20px;padding:18px;border:1px solid #efd0b5;background:#fff5e9}.callout strong{color:#9f452a}.good{border-color:#bad9c9;background:#effaf4}.warn{border-color:#f0d39c;background:#fff8e8}.danger{border-color:#e6b8b7;background:#fff1f1}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;position:relative}.step:not(:last-child):after{content:"→";position:absolute;right:-13px;top:38%;font-weight:900;color:#aa7b5a}.step b{display:block;font-size:13px;color:var(--accent);margin-bottom:6px}.step span{font-size:13px;color:#5e5248}
+    .compare{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#fff}.compare th,.compare td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}.compare th{background:#302721;color:#fff;text-align:left;font-size:13px}.compare tr:last-child td{border-bottom:0}.compare td:first-child{font-weight:800;color:#3a2d25}.ok{color:var(--good);font-weight:900}.ng{color:var(--danger);font-weight:900}
+    pre{margin:12px 0 0;background:#241f1b;color:#f8efe4;border-radius:16px;padding:16px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.55}.code-title{display:inline-block;margin-top:10px;border-radius:999px;background:#eee2d4;padding:5px 10px;font-size:12px;font-weight:800;color:#6a5240}
+    details{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0;overflow:hidden}summary{cursor:pointer;padding:15px 18px;font-weight:850;list-style:none;display:flex;justify-content:space-between;gap:12px}summary:after{content:"＋";color:var(--accent);font-weight:900}details[open] summary:after{content:"−"}.detail-body{padding:0 18px 18px;color:#5e534b}.detail-body ul{margin:8px 0 0;padding-left:1.2em}
+    .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;font-weight:800;color:#6a5b4e}.tab.active{background:#2b241f;color:#fff}.tab-panel{display:none}.tab-panel.active{display:block}
+    .matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.meter{height:9px;background:#eee2d3;border-radius:999px;overflow:hidden;margin:8px 0 10px}.meter span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#e8b36d);border-radius:999px}.timeline{position:relative;padding-left:24px}.timeline:before{content:"";position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:#dbc4af}.tl{position:relative;margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px}.tl:before{content:"";position:absolute;left:-23px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px #f7e4d2}.tl h3{margin:0 0 4px;font-size:16px}.tl p{margin:0;color:#63584f}
+    .hidden{display:none!important}.topbtn{position:fixed;right:20px;bottom:20px;border:0;background:#2b241f;color:#fff;border-radius:999px;padding:12px 15px;font-weight:900;box-shadow:var(--shadow);cursor:pointer}.source{font-size:12px;color:#7a6b5f;margin-top:18px}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}nav{grid-template-columns:repeat(2,1fr)}main{padding:24px 16px 70px}.hero-grid,.cols-2,.cols-3,.cols-4,.matrix{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.step:not(:last-child):after{content:"↓";right:50%;top:auto;bottom:-16px}.section-head{display:block}.badge{display:inline-block;margin-top:12px}}
+    @media(max-width:560px){nav{grid-template-columns:1fr}.hero{padding:24px 18px}.hero h2{font-size:34px}section{padding:20px}.compare{font-size:13px}.compare th,.compare td{padding:10px}.hide-sm{display:none}}
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="logo">S</div><div><h1>Skill Authoring<br>Best Practices</h1><p>Claude Agent Skills 視覚化</p></div></div>
+    <div class="search"><input id="search" placeholder="キーワード検索：例 description / 評価 / script"></div>
+    <nav>
+      <a class="navlink" href="#summary"><span class="num">1</span>結論</a>
+      <a class="navlink" href="#overview"><span class="num">2</span>全体像</a>
+      <a class="navlink" href="#principles"><span class="num">3</span>基本原則</a>
+      <a class="navlink" href="#structure"><span class="num">4</span>構造設計</a>
+      <a class="navlink" href="#disclosure"><span class="num">5</span>段階的開示</a>
+      <a class="navlink" href="#workflow"><span class="num">6</span>ワークフロー</a>
+      <a class="navlink" href="#patterns"><span class="num">7</span>共通パターン</a>
+      <a class="navlink" href="#eval"><span class="num">8</span>評価と改善</a>
+      <a class="navlink" href="#antipattern"><span class="num">9</span>避けること</a>
+      <a class="navlink" href="#code"><span class="num">10</span>実行コード</a>
+      <a class="navlink" href="#checklist"><span class="num">11</span>チェックリスト</a>
+      <a class="navlink" href="#template"><span class="num">12</span>雛形</a>
+    </nav>
+    <div class="side-note">このHTMLは、Claude公式ドキュメントの内容を日本語で再構成した学習用アーティファクトです。外部リソースは使っていません。</div>
+  </aside>
+
+  <main>
+    <header class="hero" id="top">
+      <span class="eyebrow">🧩 Claude Agent Skills / Authoring Guide</span>
+      <h2>良いSkillは「短く・見つけやすく・検証できる」</h2>
+      <p class="lead">Skillは、Claudeに再利用可能な手順・知識・スクリプトを渡す仕組みです。重要なのは、長い説明ではなく、Claudeが必要な時に正しい情報へ到達できる情報設計です。</p>
+      <div class="hero-grid">
+        <div class="hero-card">
+          <h3>最重要メッセージ</h3>
+          <p>SKILL.mdは「全部を書く場所」ではなく、「Claudeが迷わず必要情報に進むための入口」です。詳細は必要時に読ませる構造にします。</p>
+        </div>
+        <div class="hero-card">
+          <h3>このページで作る感覚</h3>
+          <div class="chips">
+            <span class="chip">500行未満</span><span class="chip">name / description</span><span class="chip">1階層参照</span><span class="chip">評価先行</span><span class="chip">検証ループ</span><span class="chip">forward slash</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="summary" class="searchable">
+      <div class="section-head"><div><h2>1. サマリー：Skill作成の結論</h2><p>Claudeに“毎回同じ説明をしなくてよい状態”を作る。ただし、詰め込みすぎると逆に性能を落とします。</p></div><span class="badge">First Answer</span></div>
+      <div class="grid cols-4">
+        <div class="card"><div class="icon">✂️</div><h3>短く書く</h3><p>Claudeが既に知っている一般説明は削る。必要な手順・制約・判断基準だけを書く。</p></div>
+        <div class="card"><div class="icon">🔎</div><h3>見つけやすくする</h3><p>nameとdescriptionがSkill選択の入口。何をするか、いつ使うかを具体的に書く。</p></div>
+        <div class="card"><div class="icon">🗂️</div><h3>分けて置く</h3><p>SKILL.mdは概要。詳細・API・事例・スクリプトは別ファイルにして必要時だけ読む。</p></div>
+        <div class="card"><div class="icon">✅</div><h3>検証する</h3><p>評価シナリオを先に作り、実利用で観察し、改善する。想像ではなく挙動で直す。</p></div>
+      </div>
+      <div class="callout good" style="margin-top:16px"><strong>一言でいうと：</strong>Skillは「Claude専用の業務マニュアル」ではなく、「Claudeが迷わないための軽量ナビゲーション＋検証済み手順」です。</div>
+    </section>
+
+    <section id="overview" class="searchable">
+      <div class="section-head"><div><h2>2. 全体像：Skillが使われる流れ</h2><p>Claudeは全Skillを丸ごと読むわけではありません。最初に読み込まれるのはメタデータ中心です。</p></div><span class="badge">Architecture</span></div>
+      <div class="flow">
+        <div class="step"><b>① メタデータ</b><span>name / description が事前に見える</span></div>
+        <div class="step"><b>② Skill選択</b><span>依頼内容に合うSkillをClaudeが判断</span></div>
+        <div class="step"><b>③ SKILL.md</b><span>必要になった時だけ本文を読む</span></div>
+        <div class="step"><b>④ 参照ファイル</b><span>詳細資料・例・APIを必要時に読む</span></div>
+        <div class="step"><b>⑤ スクリプト</b><span>読むより実行。出力だけが文脈を使う</span></div>
+      </div>
+      <div class="grid cols-3" style="margin-top:16px">
+        <div class="card"><div class="kpi">64</div><div class="mini">name 最大文字数</div><p>小文字・数字・ハイフンのみ。reserved wordsは避ける。</p></div>
+        <div class="card"><div class="kpi">1024</div><div class="mini">description 最大文字数</div><p>何をするか、いつ使うかを具体化する。</p></div>
+        <div class="card"><div class="kpi">500</div><div class="mini">SKILL.md本文の目安行数</div><p>超えるなら分割。必要時に読む構造にする。</p></div>
+      </div>
+    </section>
+
+    <section id="principles" class="searchable">
+      <div class="section-head"><div><h2>3. 基本原則：Claudeを過小評価しない</h2><p>Claudeは多くの一般知識を既に持っています。Skillには、再利用したい固有知識・制約・手順を入れます。</p></div><span class="badge">Core Principles</span></div>
+      <div class="grid cols-3">
+        <div class="card"><h3>Concise is key</h3><p>PDFとは何か、ライブラリとは何か、といった一般説明は不要。手順・推奨ツール・注意点だけ残す。</p></div>
+        <div class="card"><h3>自由度を調整</h3><p>壊れやすい作業は低自由度。判断が必要な作業は高自由度。作業の危険度で指示粒度を変える。</p></div>
+        <div class="card"><h3>モデル別にテスト</h3><p>Haiku / Sonnet / Opus で効き方が変わる。軽量モデルには少し具体性が必要な場合がある。</p></div>
+      </div>
+      <table class="compare" style="margin-top:16px">
+        <thead><tr><th>自由度</th><th>向いている場面</th><th>書き方</th></tr></thead>
+        <tbody>
+          <tr><td>高</td><td>コードレビュー、文章改善、分析など複数の正解がある</td><td>観点・判断基準を示す</td></tr>
+          <tr><td>中</td><td>推奨パターンはあるが、設定で変化する</td><td>テンプレートや疑似コードを示す</td></tr>
+          <tr><td>低</td><td>DB移行、破壊的変更、厳密な手順</td><td>実行コマンド・順序・禁止事項を明記</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="structure" class="searchable">
+      <div class="section-head"><div><h2>4. 構造設計：name と description が勝負</h2><p>ClaudeがSkillを発見できなければ、どれだけ本文が良くても使われません。</p></div><span class="badge">Discovery</span></div>
+      <div class="grid cols-2">
+        <div class="callout good"><strong>良いdescription</strong><br>「Excelファイルを分析し、ピボットテーブルとグラフを作成する。Excel、スプレッドシート、表形式データ、.xlsxの分析時に使用。」</div>
+        <div class="callout danger"><strong>悪いdescription</strong><br>「データ処理を助ける」「ファイルを扱う」「便利なツール」</div>
+      </div>
+      <div class="grid cols-2" style="margin-top:16px">
+        <div class="card"><h3>命名ルール</h3><ul><li>小文字・数字・ハイフンのみ</li><li>動名詞型が分かりやすい：processing-pdfs</li><li>helper / utils / files など曖昧語は避ける</li><li>anthropic / claude など予約語は避ける</li></ul></div>
+        <div class="card"><h3>descriptionの書き方</h3><ul><li>三人称で書く</li><li>何をするかを具体的に</li><li>いつ使うかのトリガー語を含める</li><li>100個以上のSkillから選ばれる前提で書く</li></ul></div>
+      </div>
+      <span class="code-title">SKILL.md frontmatter 例</span>
+      <pre><code>---
+name: processing-pdfs
+description: Extracts text and tables from PDF files, fills forms, and merges documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.
+---
+
+# PDF Processing
+
+## Quick start
+Use pdfplumber for text extraction.
+</code></pre>
+    </section>
+
+    <section id="disclosure" class="searchable">
+      <div class="section-head"><div><h2>5. 段階的開示：SKILL.mdは目次にする</h2><p>全部を本文に詰め込まず、必要な情報だけをClaudeが読む構造にします。</p></div><span class="badge">Progressive Disclosure</span></div>
+      <div class="grid cols-2">
+        <div class="card"><h3>推奨構造</h3><pre><code>pdf/
+├── SKILL.md
+├── FORMS.md
+├── reference.md
+├── examples.md
+└── scripts/
+    ├── analyze_form.py
+    ├── fill_form.py
+    └── validate.py</code></pre></div>
+        <div class="card"><h3>設計のコツ</h3><ul><li>SKILL.mdは概要とナビゲーション</li><li>詳細は1階層下のファイルへ</li><li>長い参照ファイルには目次を付ける</li><li>ファイル名は内容が分かる名前にする</li></ul></div>
+      </div>
+      <details style="margin-top:16px"><summary>深すぎる参照がダメな理由</summary><div class="detail-body">SKILL.md → advanced.md → details.md のように深くすると、Claudeが途中ファイルを一部だけ読んで終わる可能性があります。重要ファイルはSKILL.mdから直接リンクするのが安全です。</div></details>
+    </section>
+
+    <section id="workflow" class="searchable">
+      <div class="section-head"><div><h2>6. ワークフローとフィードバックループ</h2><p>複雑な作業は、Claudeが飛ばさないようにチェックリスト化します。</p></div><span class="badge">Workflows</span></div>
+      <div class="timeline">
+        <div class="tl"><h3>Step 1｜分析</h3><p>対象ファイルや資料を確認し、必要情報を抽出する。</p></div>
+        <div class="tl"><h3>Step 2｜計画ファイルを作る</h3><p>変更内容やフィールド対応をJSONなど機械検証しやすい形にする。</p></div>
+        <div class="tl"><h3>Step 3｜検証する</h3><p>スクリプトやチェックリストで、欠落・不整合・禁止事項を確認する。</p></div>
+        <div class="tl"><h3>Step 4｜実行する</h3><p>検証が通ってから本処理を行う。</p></div>
+        <div class="tl"><h3>Step 5｜再検証する</h3><p>出力を確認し、失敗時は計画に戻る。</p></div>
+      </div>
+      <div class="callout warn"><strong>重要：</strong>「Run validator → fix errors → repeat」のループを明示すると、品質が大きく安定します。</div>
+    </section>
+
+    <section id="patterns" class="searchable">
+      <div class="section-head"><div><h2>7. 共通パターン：迷ったらこの3つ</h2><p>Skillには、Claudeが出力形式や判断分岐を理解しやすくする型があります。</p></div><span class="badge">Patterns</span></div>
+      <div class="tabs"><button class="tab active" data-tab="p1">テンプレート</button><button class="tab" data-tab="p2">例示</button><button class="tab" data-tab="p3">条件分岐</button></div>
+      <div id="p1" class="tab-panel active"><div class="card"><h3>Template pattern</h3><p>厳密な形式が必要な場合は「必ずこの構造」と明記。柔軟性が必要な場合は「基本形だが判断で調整」と書く。</p><pre><code>## Report structure
+ALWAYS use this exact structure:
+# [Analysis Title]
+## Executive summary
+## Key findings
+## Recommendations</code></pre></div></div>
+      <div id="p2" class="tab-panel"><div class="card"><h3>Examples pattern</h3><p>品質がスタイルに依存する場合は、入力→出力の例を複数示す。説明よりも例の方が伝わりやすい。</p><pre><code>Input: Fixed bug where dates displayed incorrectly
+Output:
+fix(reports): correct date formatting
+
+Use UTC timestamps consistently.</code></pre></div></div>
+      <div id="p3" class="tab-panel"><div class="card"><h3>Conditional workflow pattern</h3><p>作成か編集か、PDFかExcelか、通常処理かOCRか。判断点を明示し、進むべき手順を分岐させる。</p><pre><code>1. Determine task type:
+   Creating new content? → Creation workflow
+   Editing existing content? → Editing workflow</code></pre></div></div>
+    </section>
+
+    <section id="eval" class="searchable">
+      <div class="section-head"><div><h2>8. 評価と改善：ドキュメントより評価を先に作る</h2><p>想像で大量の説明を書くのではなく、実際にClaudeが失敗する点を見つけ、それをSkillで補います。</p></div><span class="badge">Evaluation</span></div>
+      <div class="matrix">
+        <div class="card"><h3>① Gapを確認</h3><div class="meter"><span style="width:25%"></span></div><p>Skillなしで代表タスクを実行し、失敗・不足・迷いを記録。</p></div>
+        <div class="card"><h3>② 評価を作成</h3><div class="meter"><span style="width:50%"></span></div><p>最低3つのシナリオを用意。期待動作を明文化。</p></div>
+        <div class="card"><h3>③ 最小限を書く</h3><div class="meter"><span style="width:75%"></span></div><p>評価を通すために必要な指示だけを書く。</p></div>
+      </div>
+      <div class="card" style="margin-top:16px"><h3>Claude A / Claude B の改善サイクル</h3><p>Claude AでSkillを設計し、Claude Bで実タスクを試す。Bの失敗をAに戻して、指示・構造・強調を改善します。</p></div>
+      <span class="code-title">評価シナリオの例</span>
+      <pre><code>{
+  "skills": ["pdf-processing"],
+  "query": "Extract all text from this PDF file and save it to output.txt",
+  "files": ["test-files/document.pdf"],
+  "expected_behavior": [
+    "Reads all pages",
+    "Extracts text without missing pages",
+    "Saves output.txt in readable format"
+  ]
+}</code></pre>
+    </section>
+
+    <section id="antipattern" class="searchable">
+      <div class="section-head"><div><h2>9. アンチパターン：やりがちな失敗</h2><p>Claudeの性能を落とすのは、情報不足だけではありません。選択肢過多や曖昧さも失敗原因です。</p></div><span class="badge">Avoid</span></div>
+      <table class="compare">
+        <thead><tr><th>避けること</th><th>なぜダメか</th><th>代替</th></tr></thead>
+        <tbody>
+          <tr><td>Windows風パス</td><td><span class="ng">scripts\helper.py</span> はUnix系環境で壊れやすい</td><td><span class="ok">scripts/helper.py</span></td></tr>
+          <tr><td>選択肢を出しすぎる</td><td>Claudeが迷う。品質がブレる</td><td>標準手段を1つ示し、例外時だけ代替</td></tr>
+          <tr><td>時限情報を本文に混ぜる</td><td>時間経過で誤情報になる</td><td>Current method と Old patterns に分ける</td></tr>
+          <tr><td>用語ゆれ</td><td>API endpoint / URL / route が混在すると混乱</td><td>用語を1つに統一</td></tr>
+          <tr><td>ツール前提の曖昧さ</td><td>入っていないパッケージを想定して失敗</td><td>依存関係とインストール方法を明記</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="code" class="searchable">
+      <div class="section-head"><div><h2>10. 実行コード付きSkill：読ませるより実行させる</h2><p>決定的な処理、検証、変換は、Claudeに毎回コードを書かせるより、同梱スクリプトを使わせる方が安定します。</p></div><span class="badge">Executable Skills</span></div>
+      <div class="grid cols-2">
+        <div class="card"><h3>良いスクリプト</h3><ul><li>エラーをClaudeに丸投げしない</li><li>例外処理がある</li><li>設定値の理由がコメントで分かる</li><li>検証結果が具体的</li></ul></div>
+        <div class="card"><h3>中間成果物を作る</h3><ul><li>plan.json</li><li>changes.json</li><li>fields.json</li><li>validation_report.txt</li></ul></div>
+      </div>
+      <div class="flow" style="margin-top:16px;grid-template-columns:repeat(4,1fr)">
+        <div class="step"><b>Plan</b><span>構造化された変更案</span></div>
+        <div class="step"><b>Validate</b><span>スクリプトで検証</span></div>
+        <div class="step"><b>Execute</b><span>本処理</span></div>
+        <div class="step"><b>Verify</b><span>出力確認</span></div>
+      </div>
+      <details style="margin-top:16px"><summary>MCPツールを使う場合</summary><div class="detail-body">ツール名は完全修飾名で書きます。例：<code>BigQuery:bigquery_schema</code>、<code>GitHub:create_issue</code>。複数MCPサーバーがある時に「tool not found」を防げます。</div></details>
+    </section>
+
+    <section id="checklist" class="searchable">
+      <div class="section-head"><div><h2>11. 共有前チェックリスト</h2><p>Skillを配布・運用する前に、最低限ここを確認します。</p></div><span class="badge">Checklist</span></div>
+      <div class="grid cols-3">
+        <details open><summary>Core quality</summary><div class="detail-body"><ul><li>descriptionが具体的</li><li>いつ使うかが分かる</li><li>SKILL.md本文は500行未満</li><li>用語が統一されている</li><li>例が抽象的でなく具体的</li><li>参照は1階層深まで</li></ul></div></details>
+        <details open><summary>Code and scripts</summary><div class="detail-body"><ul><li>スクリプトが問題を解決する</li><li>例外処理がある</li><li>謎の定数がない</li><li>依存パッケージを明記</li><li>検証・確認ステップがある</li><li>パスは / を使う</li></ul></div></details>
+        <details open><summary>Testing</summary><div class="detail-body"><ul><li>3つ以上の評価がある</li><li>Haiku / Sonnet / Opusでテスト</li><li>実利用シナリオで確認</li><li>チーム利用ならフィードバック反映</li></ul></div></details>
+      </div>
+    </section>
+
+    <section id="template" class="searchable">
+      <div class="section-head"><div><h2>12. そのまま使えるSkill設計ミニ雛形</h2><p>まずは小さく始め、評価で足りない部分だけ増やします。</p></div><span class="badge">Starter</span></div>
+      <pre><code>---
+name: analyzing-spreadsheets
+description: Analyzes Excel and CSV spreadsheets, summarizes tabular data, detects data quality issues, and creates charts or reports. Use when working with .xlsx, .csv, spreadsheets, tables, or business data analysis.
+---
+
+# Spreadsheet Analysis
+
+## Quick start
+1. Inspect the workbook structure.
+2. Identify sheets, columns, row counts, and missing values.
+3. Summarize key findings before creating charts or reports.
+
+## Default workflow
+- [ ] Load file and inspect schema
+- [ ] Validate required columns
+- [ ] Clean obvious formatting issues
+- [ ] Analyze requested metric
+- [ ] Create output report
+- [ ] Verify totals and labels
+
+## References
+**Pivot table patterns**: See [reference/pivot-tables.md](reference/pivot-tables.md)
+**Chart rules**: See [reference/charts.md](reference/charts.md)
+**Validation scripts**: Run `python scripts/validate_spreadsheet.py input.xlsx`
+
+## Rules
+- Use forward slashes in file paths.
+- Validate calculations before final output.
+- If columns are ambiguous, inspect headers and sample rows before assuming meanings.</code></pre>
+      <div class="source">Source: Anthropic Claude API Docs “Skill authoring best practices”. Reorganized and translated for visual understanding.</div>
+    </section>
+  </main>
+</div>
+<button class="topbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</button>
+<script>
+  const search = document.getElementById('search');
+  const blocks = [...document.querySelectorAll('.searchable')];
+  search.addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    blocks.forEach(b => {
+      b.classList.toggle('hidden', q && !b.innerText.toLowerCase().includes(q));
+    });
+  });
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
