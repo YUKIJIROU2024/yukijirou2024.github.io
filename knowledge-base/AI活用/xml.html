@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XMLがわかる視覚ノート｜基礎・タグ・AIプロンプト活用</title>
+<style>
+:root{
+  --bg:#f6f8fb; --panel:#ffffff; --ink:#152238; --muted:#60708a;
+  --line:#dbe4f0; --blue:#2563eb; --blue2:#dbeafe; --green:#059669; --green2:#d1fae5;
+  --orange:#ea580c; --orange2:#ffedd5; --purple:#7c3aed; --purple2:#ede9fe;
+  --red:#dc2626; --red2:#fee2e2; --yellow:#f59e0b; --yellow2:#fef3c7;
+  --shadow:0 16px 40px rgba(17,24,39,.08);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:linear-gradient(135deg,#f8fbff 0%,#eef4ff 42%,#fff8f1 100%);
+  color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",Meiryo,sans-serif;
+  line-height:1.7;
+}
+a{color:inherit}
+.layout{display:grid; grid-template-columns:280px minmax(0,1fr); min-height:100vh}
+.sidebar{
+  position:sticky; top:0; height:100vh; padding:24px 18px; border-right:1px solid var(--line);
+  background:rgba(255,255,255,.86); backdrop-filter:blur(14px); overflow:auto;
+}
+.brand{display:flex; align-items:center; gap:12px; margin-bottom:20px}
+.logo{
+  width:46px;height:46px;border-radius:15px; display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--blue),var(--purple)); color:white; font-weight:900; font-size:20px;
+  box-shadow:0 12px 25px rgba(37,99,235,.25);
+}
+.brand h1{font-size:18px; line-height:1.25; margin:0}
+.brand p{font-size:12px; color:var(--muted); margin:2px 0 0}
+.searchbox{position:relative; margin:18px 0}
+.searchbox input{
+  width:100%; padding:12px 12px 12px 38px; border:1px solid var(--line); border-radius:14px;
+  background:#fff; outline:none; font-size:14px;
+}
+.searchbox span{position:absolute; left:13px; top:9px; color:var(--muted)}
+.nav a{
+  display:flex; gap:9px; align-items:center; padding:10px 12px; margin:4px 0; border-radius:12px;
+  text-decoration:none; color:#334155; font-size:14px;
+}
+.nav a:hover{background:#eff6ff;color:#1d4ed8}
+.nav .mini{font-size:12px;color:var(--muted); margin:18px 8px 6px; font-weight:700; letter-spacing:.08em}
+.main{padding:34px; max-width:1180px; width:100%; margin:0 auto}
+.hero{
+  position:relative; overflow:hidden; border:1px solid rgba(37,99,235,.18); border-radius:28px;
+  background:linear-gradient(135deg,#ffffff 0%,#f2f7ff 58%,#fff7ed 100%);
+  padding:36px; box-shadow:var(--shadow);
+}
+.hero:after{
+  content:""; position:absolute; right:-70px; top:-70px; width:220px; height:220px; border-radius:50%;
+  background:radial-gradient(circle, rgba(124,58,237,.24), transparent 68%);
+}
+.kicker{display:inline-flex;align-items:center;gap:8px;background:#eef2ff;color:#3730a3;padding:7px 12px;border-radius:999px;font-weight:700;font-size:13px}
+.hero h2{font-size:clamp(30px,5vw,54px);line-height:1.08;margin:18px 0 14px; letter-spacing:-.04em}
+.hero p{max-width:770px;color:#42526b;font-size:17px;margin:0}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.pill{background:white;border:1px solid var(--line);border-radius:999px;padding:9px 13px;font-size:13px;color:#334155}
+.section{margin-top:34px; scroll-margin-top:24px}
+.section h3{font-size:28px;line-height:1.25;margin:0 0 16px; letter-spacing:-.02em}
+.section .lead{color:var(--muted);margin-top:-6px;max-width:860px}
+.grid{display:grid;gap:16px}
+.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{
+  background:rgba(255,255,255,.9); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px; box-shadow:0 8px 22px rgba(15,23,42,.04);
+}
+.card h4{margin:0 0 8px; font-size:18px}
+.card p{margin:0; color:#475569}
+.icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:20px;margin-bottom:10px}
+.b{background:var(--blue2);color:var(--blue)} .g{background:var(--green2);color:var(--green)}
+.o{background:var(--orange2);color:var(--orange)} .p{background:var(--purple2);color:var(--purple)}
+.r{background:var(--red2);color:var(--red)} .y{background:var(--yellow2);color:#92400e}
+.summary{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:stretch
+}
+.big-point{
+  background:linear-gradient(135deg,#0f172a,#1e3a8a); color:white; border-radius:24px; padding:24px;
+  box-shadow:0 20px 44px rgba(15,23,42,.18)
+}
+.big-point h3{color:white}
+.big-point p{color:#dbeafe}
+.badge{display:inline-block;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:800;margin:0 4px 4px 0}
+.badge.blue{background:var(--blue2);color:var(--blue)} .badge.green{background:var(--green2);color:var(--green)}
+.badge.orange{background:var(--orange2);color:var(--orange)} .badge.purple{background:var(--purple2);color:var(--purple)}
+.flow{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:center;margin-top:18px
+}
+.step{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center;min-height:118px
+}
+.step strong{display:block;margin:6px 0 3px;font-size:15px}
+.arrow{font-size:24px;color:#94a3b8;text-align:center}
+.diagram{
+  background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;overflow:hidden
+}
+.tree{font-family:"SFMono-Regular",Consolas,monospace;font-size:15px;line-height:1.7;background:#0b1020;color:#d7e3ff;border-radius:18px;padding:18px;overflow:auto}
+.tree .tag{color:#93c5fd}.tree .val{color:#bbf7d0}.tree .att{color:#fdba74}.tree .comment{color:#94a3b8}
+.codewrap{position:relative;margin:14px 0}
+pre{
+  margin:0; padding:18px; border-radius:18px; overflow:auto; background:#0b1020; color:#d7e3ff;
+  border:1px solid #1f2a44; font-size:14px; line-height:1.65; tab-size:2;
+}
+code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.copy{
+  position:absolute; right:10px; top:10px; border:0; border-radius:10px; padding:7px 10px;
+  background:#1e293b; color:white; cursor:pointer; font-size:12px
+}
+.copy:hover{background:#334155}
+.table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:#fff}
+.table th,.table td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.table th{background:#f1f5f9;font-size:13px;color:#334155}
+.table tr:last-child td{border-bottom:0}
+.ok{color:var(--green);font-weight:800}.ng{color:var(--red);font-weight:800}
+.callout{
+  border-radius:18px;padding:16px 18px;border:1px solid var(--line);background:#fff;display:flex;gap:13px;align-items:flex-start
+}
+.callout strong{display:block;margin-bottom:3px}
+.callout.warn{background:#fff7ed;border-color:#fed7aa}.callout.good{background:#ecfdf5;border-color:#a7f3d0}
+.callout.info{background:#eff6ff;border-color:#bfdbfe}.callout.danger{background:#fef2f2;border-color:#fecaca}
+.tabs{background:#fff;border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 8px 22px rgba(15,23,42,.04)}
+.tab-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tab-buttons button{
+  border:1px solid var(--line); background:#f8fafc; border-radius:999px; padding:9px 12px; cursor:pointer; font-weight:700
+}
+.tab-buttons button.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+.tab-panel{display:none}.tab-panel.active{display:block}
+details{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:0;margin:10px 0;overflow:hidden
+}
+summary{cursor:pointer;padding:15px 17px;font-weight:800;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] summary{border-bottom:1px solid var(--line);background:#f8fafc}
+.detail-body{padding:16px 17px;color:#475569}
+.checklist{display:grid;gap:10px}
+.check{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+.check span:first-child{font-weight:900;color:var(--green)}
+.marker{background:linear-gradient(transparent 58%,#fde68a 58%)}
+.note-list{margin:0;padding-left:1.2em}.note-list li{margin:6px 0}
+.footer{margin:38px 0 10px;color:var(--muted);font-size:13px;text-align:center}
+.backtop{
+  position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:0;background:#0f172a;color:white;
+  display:none;place-items:center;cursor:pointer;box-shadow:0 12px 28px rgba(15,23,42,.25)
+}
+.backtop.show{display:grid}
+mark{background:#fde68a;border-radius:4px;padding:0 2px}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+  .nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+  .main{padding:20px}
+  .hero{padding:25px}
+  .summary,.grid.cols-2,.grid.cols-3,.grid.cols-4{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}
+}
+@media print{
+  .sidebar,.backtop,.searchbox,.copy{display:none!important}
+  .layout{display:block}.main{max-width:none;padding:0}.section{break-inside:avoid}
+  body{background:white}.hero,.card,.tabs,.diagram{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">XML</div>
+      <div>
+        <h1>XML 視覚ノート</h1>
+        <p>基礎・タグ・AIプロンプト活用</p>
+      </div>
+    </div>
+    <div class="searchbox">
+      <span>🔎</span>
+      <input id="search" type="search" placeholder="キーワードで絞り込み">
+    </div>
+    <nav class="nav">
+      <div class="mini">CONTENTS</div>
+      <a href="#summary">✅ サマリー</a>
+      <a href="#overview">🧭 全体像</a>
+      <a href="#syntax">🏗️ 基本文法</a>
+      <a href="#rules">🚦 必須ルール</a>
+      <a href="#compare">⚖️ 比較</a>
+      <a href="#usecases">🧩 用途</a>
+      <a href="#prompt">🤖 AIプロンプト</a>
+      <a href="#advanced">🔧 少し発展</a>
+      <a href="#templates">📋 テンプレート</a>
+      <a href="#check">🧪 チェックリスト</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <section class="hero" id="top">
+      <span class="kicker">読むより、見てつかむXML</span>
+      <h2>XMLは「データに意味を付けるための箱」</h2>
+      <p>タグで囲むことで、データの意味・階層・関係を人にもコンピューターにも伝えます。HTMLのように画面を作るものではなく、JSONのようにデータ交換にも使われる、厳密な構造化フォーマットです。</p>
+      <div class="cta-row">
+        <span class="pill">自由なタグ</span>
+        <span class="pill">親子構造</span>
+        <span class="pill">テキスト形式</span>
+        <span class="pill">システム間連携</span>
+        <span class="pill">AIプロンプト整理にも便利</span>
+      </div>
+    </section>
+
+    <section class="section summary searchable" id="summary">
+      <div class="big-point">
+        <h3>最初に結論</h3>
+        <p><strong>XML = データを「意味のあるタグ」で包み、階層構造として保存・交換する形式。</strong></p>
+        <p>たとえば <code>&lt;氏名&gt;山田太郎&lt;/氏名&gt;</code> と書けば、単なる文字列ではなく「これは氏名だ」と伝えられます。</p>
+        <div>
+          <span class="badge blue">データ交換</span>
+          <span class="badge green">設定ファイル</span>
+          <span class="badge orange">Office内部構造</span>
+          <span class="badge purple">AI指示の整理</span>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="icon b">1</div>
+          <h4>XMLは画面表示ではなく、データ構造</h4>
+          <p>HTMLは見た目、XMLは意味と構造を表す役割が中心です。</p>
+        </div>
+        <div class="card">
+          <div class="icon g">2</div>
+          <h4>タグは自由に作れる</h4>
+          <p><code>&lt;price&gt;</code>でも<code>&lt;価格&gt;</code>でも、目的に合わせて設計できます。</p>
+        </div>
+        <div class="card">
+          <div class="icon o">3</div>
+          <h4>ルールは厳密</h4>
+          <p>開始タグと終了タグ、入れ子、ルート要素、大文字小文字に注意します。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section searchable" id="overview">
+      <h3>全体像：XMLは「箱の中に箱を入れる」</h3>
+      <p class="lead">XML文書は、1つの大きなルート要素の中に、子要素や属性を配置して作ります。</p>
+      <div class="diagram">
+        <div class="flow">
+          <div class="step">📄<strong>XML宣言</strong><small>文字コードなど</small></div>
+          <div class="arrow">→</div>
+          <div class="step">📦<strong>ルート要素</strong><small>一番外側の箱</small></div>
+          <div class="arrow">→</div>
+          <div class="step">🧱<strong>子要素・属性</strong><small>意味と補足情報</small></div>
+        </div>
+        <div class="tree" style="margin-top:18px">
+<span class="comment">&lt;!-- XMLのイメージ：本棚の中に本、本の中にタイトル・著者・価格 --&gt;</span>
+<span class="tag">&lt;bookstore&gt;</span>
+  <span class="tag">&lt;book</span> <span class="att">id="001"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span><span class="val">吾輩は猫である</span><span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;author&gt;</span><span class="val">夏目漱石</span><span class="tag">&lt;/author&gt;</span>
+    <span class="tag">&lt;price&gt;</span><span class="val">600</span><span class="tag">&lt;/price&gt;</span>
+  <span class="tag">&lt;/book&gt;</span>
+<span class="tag">&lt;/bookstore&gt;</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section searchable" id="syntax">
+      <h3>基本文法：XMLを構成する部品</h3>
+      <div class="grid cols-4">
+        <div class="card"><div class="icon b">📌</div><h4>XML宣言</h4><p><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code><br>文書の種類と文字コードを示します。</p></div>
+        <div class="card"><div class="icon g">🏷️</div><h4>要素</h4><p><code>&lt;title&gt;吾輩は猫である&lt;/title&gt;</code><br>開始タグ・値・終了タグのまとまり。</p></div>
+        <div class="card"><div class="icon o">🔖</div><h4>属性</h4><p><code>&lt;book id="001"&gt;</code><br>要素に付ける補足情報です。</p></div>
+        <div class="card"><div class="icon p">🌳</div><h4>階層</h4><p>親要素の中に子要素を入れ、データの構造を表します。</p></div>
+      </div>
+
+      <div class="codewrap">
+        <button class="copy" data-copy="bookcode">コピー</button>
+<pre id="bookcode"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;bookstore&gt;
+  &lt;book id="001"&gt;
+    &lt;title&gt;吾輩は猫である&lt;/title&gt;
+    &lt;author&gt;夏目漱石&lt;/author&gt;
+    &lt;price currency="JPY"&gt;600&lt;/price&gt;
+  &lt;/book&gt;
+&lt;/bookstore&gt;</code></pre>
+      </div>
+      <div class="callout info">
+        <div>💡</div>
+        <div><strong>属性と要素の使い分け</strong>属性は「ID・区分・単位」のような補足情報に向きます。本文として扱いたい情報は要素にするほうが読みやすくなります。</div>
+      </div>
+    </section>
+
+    <section class="section searchable" id="rules">
+      <h3>絶対に守るべきルール</h3>
+      <p class="lead">XMLは自由にタグを作れますが、構文は厳密です。少しのズレで読み込みエラーになります。</p>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>1. 大文字・小文字を区別する</h4>
+          <p><span class="ok">OK</span> <code>&lt;Data&gt;中身&lt;/Data&gt;</code></p>
+          <p><span class="ng">NG</span> <code>&lt;Data&gt;中身&lt;/data&gt;</code></p>
+        </div>
+        <div class="card">
+          <h4>2. 入れ子は正しく閉じる</h4>
+          <p><span class="ok">OK</span> <code>&lt;親&gt;&lt;子&gt;中身&lt;/子&gt;&lt;/親&gt;</code></p>
+          <p><span class="ng">NG</span> <code>&lt;親&gt;&lt;子&gt;中身&lt;/親&gt;&lt;/子&gt;</code></p>
+        </div>
+        <div class="card">
+          <h4>3. ルート要素は1つだけ</h4>
+          <p>文書全体を包む一番外側のタグは1つ必要です。</p>
+        </div>
+        <div class="card">
+          <h4>4. 空要素は省略形が使える</h4>
+          <p><code>&lt;改行 /&gt;</code> のように、中身がないタグは1つにまとめられます。</p>
+        </div>
+      </div>
+
+      <details open>
+        <summary>よくあるエラー：特殊文字</summary>
+        <div class="detail-body">
+          <p>XML本文に <code>&lt;</code> や <code>&amp;</code> をそのまま書くと、タグや記号として解釈されることがあります。次のようにエスケープします。</p>
+          <table class="table">
+            <tr><th>書きたい文字</th><th>XMLでの書き方</th><th>意味</th></tr>
+            <tr><td>&lt;</td><td><code>&amp;lt;</code></td><td>小なり</td></tr>
+            <tr><td>&gt;</td><td><code>&amp;gt;</code></td><td>大なり</td></tr>
+            <tr><td>&amp;</td><td><code>&amp;amp;</code></td><td>アンパサンド</td></tr>
+            <tr><td>"</td><td><code>&amp;quot;</code></td><td>ダブルクォート</td></tr>
+            <tr><td>'</td><td><code>&amp;apos;</code></td><td>シングルクォート</td></tr>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="section searchable" id="compare">
+      <h3>XML・HTML・JSONの違い</h3>
+      <table class="table">
+        <tr>
+          <th>形式</th><th>主な目的</th><th>書き方</th><th>向いている場面</th><th>注意点</th>
+        </tr>
+        <tr>
+          <td><strong>XML</strong></td>
+          <td>データ交換・保管・構造化</td>
+          <td>自由なタグで囲む</td>
+          <td>厳密な階層、属性、文書構造が必要な場面</td>
+          <td>記述量が多くなりやすい</td>
+        </tr>
+        <tr>
+          <td><strong>HTML</strong></td>
+          <td>Webページ表示</td>
+          <td>決まったタグを使う</td>
+          <td>画面・文章・リンク・レイアウトの表示</td>
+          <td>データ交換の主役ではない</td>
+        </tr>
+        <tr>
+          <td><strong>JSON</strong></td>
+          <td>軽量なデータ通信</td>
+          <td>キーと値のペア</td>
+          <td>Web API、JavaScript連携、軽量通信</td>
+          <td>コメントや属性表現は苦手</td>
+        </tr>
+      </table>
+      <div class="callout good" style="margin-top:14px">
+        <div>🎯</div>
+        <div><strong>覚え方</strong>HTMLは「見せる」、JSONは「軽く渡す」、XMLは「意味と構造を厳密に渡す」。</div>
+      </div>
+    </section>
+
+    <section class="section searchable" id="usecases">
+      <h3>主な用途：どこで使われる？</h3>
+      <div class="grid cols-3">
+        <div class="card"><div class="icon b">🔄</div><h4>システム間連携</h4><p>企業間データ交換、金融、行政、公文書、古い業務システムなど。</p></div>
+        <div class="card"><div class="icon g">⚙️</div><h4>設定ファイル</h4><p>アプリやシステムの設定値、画面レイアウト定義など。</p></div>
+        <div class="card"><div class="icon o">📄</div><h4>Office文書</h4><p>.docx や .xlsx は、内部的に複数のXMLファイルをZIP化した構造です。</p></div>
+        <div class="card"><div class="icon p">🗺️</div><h4>sitemap.xml</h4><p>検索エンジンにサイト構造を伝えるファイル。</p></div>
+        <div class="card"><div class="icon y">📰</div><h4>RSSフィード</h4><p>ニュースやブログ更新情報の配信。</p></div>
+        <div class="card"><div class="icon r">🤖</div><h4>AIプロンプト</h4><p>指示・前提・入力・出力形式を分離し、AIの理解を助けます。</p></div>
+      </div>
+    </section>
+
+    <section class="section searchable" id="prompt">
+      <h3>AIプロンプトでXMLタグを使う</h3>
+      <p class="lead">AIにとってXMLタグは、命令・材料・制約・出力形式を見分ける「区切り線」のように働きます。</p>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>メリット</h4>
+          <ul class="note-list">
+            <li>指示と対象テキストを分離できる</li>
+            <li>長いプロンプトでも見通しが良くなる</li>
+            <li>制約事項を見落とされにくい</li>
+            <li>出力フォーマットを指定しやすい</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>日本語タグでOK</h4>
+          <p><code>&lt;指示&gt;</code>、<code>&lt;前提条件&gt;</code>、<code>&lt;対象テキスト&gt;</code> のような日本語タグでも使えます。</p>
+          <p>英語の文書を処理する時だけ、英語タグにそろえると安定する場合があります。</p>
+        </div>
+      </div>
+
+      <div class="tabs" style="margin-top:16px">
+        <div class="tab-buttons" role="tablist">
+          <button class="active" data-tab="t1">基本形</button>
+          <button data-tab="t2">要約・抽出</button>
+          <button data-tab="t3">XMLで出力</button>
+          <button data-tab="t4">翻訳</button>
+        </div>
+        <div class="tab-panel active" id="t1">
+          <div class="codewrap"><button class="copy" data-copy="prompt1">コピー</button>
+<pre id="prompt1"><code>&lt;前提条件&gt;
+あなたはプロのマーケターです。
+親しみやすく、信頼感のあるトーンで書いてください。
+&lt;/前提条件&gt;
+
+&lt;指示&gt;
+以下の対象テキストを読み、20代の社会人に響くキャッチコピーを3つ作成してください。
+&lt;/指示&gt;
+
+&lt;対象テキスト&gt;
+仕事帰りに通える、初心者向けの定額制英会話スクール。
+オンライン受講も可能。
+&lt;/対象テキスト&gt;
+
+&lt;出力形式&gt;
+・キャッチコピー1
+・キャッチコピー2
+・キャッチコピー3
+&lt;/出力形式&gt;</code></pre></div>
+        </div>
+        <div class="tab-panel" id="t2">
+          <div class="codewrap"><button class="copy" data-copy="prompt2">コピー</button>
+<pre id="prompt2"><code>&lt;タスク&gt;
+以下の会議議事録を読み、決定事項と次回アクションを整理してください。
+&lt;/タスク&gt;
+
+&lt;制約事項&gt;
+・箇条書きで簡潔にまとめること。
+・推測は含めず、議事録に記載されている事実のみを抽出すること。
+&lt;/制約事項&gt;
+
+&lt;会議議事録&gt;
+Aさん：次回キャンペーンの予算は30万円で確定しました。
+Bさん：バナー制作はいつまでに進めましょうか？
+Aさん：来週金曜日までにデザイン初稿をお願いします。
+&lt;/会議議事録&gt;</code></pre></div>
+        </div>
+        <div class="tab-panel" id="t3">
+          <div class="codewrap"><button class="copy" data-copy="prompt3">コピー</button>
+<pre id="prompt3"><code>&lt;指示&gt;
+以下の元データをもとに、顧客情報のXMLデータを作成してください。
+&lt;/指示&gt;
+
+&lt;元データ&gt;
+・田中健太、28歳、営業部、内線101
+・鈴木花子、35歳、総務部、内線202
+&lt;/元データ&gt;
+
+&lt;出力ルール&gt;
+・一番外側は &lt;顧客リスト&gt; タグで囲むこと。
+・各メンバーは &lt;顧客&gt; タグで囲むこと。
+・部署は属性として持たせること。
+&lt;/出力ルール&gt;</code></pre></div>
+        </div>
+        <div class="tab-panel" id="t4">
+          <div class="codewrap"><button class="copy" data-copy="prompt4">コピー</button>
+<pre id="prompt4"><code>&lt;指示&gt;
+以下の翻訳テキストを、ビジネスメールに適した丁寧な英語に翻訳してください。
+&lt;/指示&gt;
+
+&lt;固有ルール&gt;
+・「製品A」は Product-A と表記してください。
+・納期遅延のお詫びが伝わる自然な表現にしてください。
+&lt;/固有ルール&gt;
+
+&lt;翻訳テキスト&gt;
+製品Aの納期についてですが、予定より2日遅れる見込みです。
+大変申し訳ございません。
+&lt;/翻訳テキスト&gt;</code></pre></div>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:14px">
+        <div>⚠️</div>
+        <div><strong>プロンプト内のタグは「本物のXML」と完全同一でなくてもよい</strong>AIへの指示整理が目的なら、読みやすいタグ名を使えば十分です。ただし、閉じタグ忘れや範囲の混乱は避けましょう。</div>
+      </div>
+    </section>
+
+    <section class="section searchable" id="advanced">
+      <h3>少し発展：知っておくと理解が深まる用語</h3>
+      <details open>
+        <summary>Well-formed XML と Valid XML</summary>
+        <div class="detail-body">
+          <p><strong>Well-formed</strong> は、タグの閉じ方やルート要素など、XMLの基本構文が正しい状態です。</p>
+          <p><strong>Valid</strong> は、DTDやXML Schemaなどで決めた設計図にも合っている状態です。</p>
+        </div>
+      </details>
+      <details>
+        <summary>DTD / XSD：XMLの設計図</summary>
+        <div class="detail-body">
+          <p>「このXMLには <code>&lt;社員&gt;</code> が必要」「<code>&lt;年齢&gt;</code> は数値」といったルールを定義します。業務システム間でデータ品質をそろえる時に役立ちます。</p>
+        </div>
+      </details>
+      <details>
+        <summary>Namespace：同じタグ名の衝突を防ぐ</summary>
+        <div class="detail-body">
+          <p>複数のXML仕様を混ぜると、同じ <code>&lt;title&gt;</code> でも意味が違うことがあります。Namespaceは、タグの所属を明確にする仕組みです。</p>
+        </div>
+      </details>
+      <details>
+        <summary>XPath：XMLの中から場所を指定する</summary>
+        <div class="detail-body">
+          <p><code>/bookstore/book/title</code> のように、階層をたどって目的の要素を取り出すための指定方法です。Webスクレイピングやデータ抽出でも登場します。</p>
+        </div>
+      </details>
+      <details>
+        <summary>CDATA：タグのような文字をそのまま入れる</summary>
+        <div class="detail-body">
+          <p>プログラムコードや <code>&lt;</code> を含む文章を、そのまま文字データとして扱いたい場合に使うことがあります。</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="section searchable" id="templates">
+      <h3>すぐ使えるテンプレート</h3>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>社員名簿XML</h4>
+          <div class="codewrap"><button class="copy" data-copy="staff">コピー</button>
+<pre id="staff"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;社員名簿&gt;
+  &lt;社員 役職="マネージャー"&gt;
+    &lt;氏名&gt;佐藤 一郎&lt;/氏名&gt;
+    &lt;部署&gt;営業部&lt;/部署&gt;
+    &lt;内線番号&gt;1234&lt;/内線番号&gt;
+  &lt;/社員&gt;
+  &lt;社員 役職="一般"&gt;
+    &lt;氏名&gt;鈴木 花子&lt;/氏名&gt;
+    &lt;部署&gt;総務部&lt;/部署&gt;
+    &lt;内線番号&gt;5678&lt;/内線番号&gt;
+  &lt;/社員&gt;
+&lt;/社員名簿&gt;</code></pre></div>
+        </div>
+        <div class="card">
+          <h4>注文情報XML</h4>
+          <div class="codewrap"><button class="copy" data-copy="order">コピー</button>
+<pre id="order"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;注文情報&gt;
+  &lt;注文番号&gt;ORD-20260608&lt;/注文番号&gt;
+  &lt;購入者&gt;田中 健太&lt;/購入者&gt;
+  &lt;商品リスト&gt;
+    &lt;商品&gt;
+      &lt;品名&gt;ワイヤレスイヤホン&lt;/品名&gt;
+      &lt;単価&gt;8500&lt;/単価&gt;
+      &lt;数量&gt;1&lt;/数量&gt;
+    &lt;/商品&gt;
+    &lt;商品&gt;
+      &lt;品名&gt;充電ケーブル&lt;/品名&gt;
+      &lt;単価&gt;1200&lt;/単価&gt;
+      &lt;数量&gt;2&lt;/数量&gt;
+    &lt;/商品&gt;
+  &lt;/商品リスト&gt;
+  &lt;合計金額&gt;10900&lt;/合計金額&gt;
+&lt;/注文情報&gt;</code></pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section searchable" id="check">
+      <h3>XMLを書く前・AIに渡す前のチェックリスト</h3>
+      <div class="checklist">
+        <div class="check"><span>✓</span><div><strong>ルート要素は1つか</strong><br>文書全体を包むタグが1つだけになっている。</div></div>
+        <div class="check"><span>✓</span><div><strong>開始タグと終了タグは一致しているか</strong><br>大文字小文字も含めて一致している。</div></div>
+        <div class="check"><span>✓</span><div><strong>入れ子の順番は正しいか</strong><br>後から開いたタグを先に閉じている。</div></div>
+        <div class="check"><span>✓</span><div><strong>属性値は引用符で囲んでいるか</strong><br><code>id="001"</code> のように書く。</div></div>
+        <div class="check"><span>✓</span><div><strong>AIプロンプトでは範囲が明確か</strong><br><code>&lt;指示&gt;</code>、<code>&lt;対象テキスト&gt;</code>、<code>&lt;出力形式&gt;</code> を分ける。</div></div>
+      </div>
+    </section>
+
+    <section class="section searchable">
+      <h3>このノートの使い方</h3>
+      <div class="callout good">
+        <div>🚀</div>
+        <div>
+          <strong>最短ルート</strong>
+          まず「全体像」→「基本文法」→「必須ルール」を読み、その後「AIプロンプト」のテンプレートをコピーして自分の業務に置き換えるのがおすすめです。
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      添付PDFの内容をもとに、初心者向けの補足・テンプレート・チェックリストを追加して再構成したHTMLノートです。
+    </div>
+  </main>
+</div>
+<button class="backtop" id="backtop" title="上へ">↑</button>
+
+<script>
+const search = document.getElementById('search');
+const blocks = [...document.querySelectorAll('.searchable')];
+function clearMarks(el){
+  el.querySelectorAll('mark').forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
+}
+function markText(node, query){
+  if(!query || node.nodeType !== Node.TEXT_NODE) return;
+  const text = node.nodeValue;
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if(idx === -1) return;
+  const span = document.createElement('span');
+  span.append(document.createTextNode(text.slice(0, idx)));
+  const mark = document.createElement('mark');
+  mark.textContent = text.slice(idx, idx + query.length);
+  span.append(mark, document.createTextNode(text.slice(idx + query.length)));
+  node.replaceWith(span);
+}
+search.addEventListener('input', e => {
+  const q = e.target.value.trim();
+  blocks.forEach(b => {
+    clearMarks(b);
+    const text = b.textContent;
+    b.style.display = (!q || text.toLowerCase().includes(q.toLowerCase())) ? '' : 'none';
+    if(q && b.style.display !== 'none'){
+      const walker = document.createTreeWalker(b, NodeFilter.SHOW_TEXT, {
+        acceptNode(n){
+          if(n.parentElement && ['SCRIPT','STYLE','CODE','PRE'].includes(n.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.slice(0,8).forEach(n => markText(n, q));
+    }
+  });
+});
+document.querySelectorAll('.copy').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const id = btn.dataset.copy;
+    const text = document.getElementById(id).innerText;
+    await navigator.clipboard.writeText(text);
+    const old = btn.textContent;
+    btn.textContent = 'コピー済み';
+    setTimeout(()=>btn.textContent=old, 1200);
+  });
+});
+document.querySelectorAll('.tab-buttons button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const wrap = btn.closest('.tabs');
+    wrap.querySelectorAll('.tab-buttons button').forEach(b => b.classList.remove('active'));
+    wrap.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+const back = document.getElementById('backtop');
+window.addEventListener('scroll', () => back.classList.toggle('show', window.scrollY > 500));
+back.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+</script>
+</body>
+</html>
