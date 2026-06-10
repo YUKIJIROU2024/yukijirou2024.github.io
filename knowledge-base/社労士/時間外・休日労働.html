@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>労働基準法 §3 時間外・休日労働｜社労士学習ノート</title>
+<style>
+:root{
+  --pink:#e84a9a; --pink2:#ffe4f2; --pink3:#fff5fa; --ink:#252736; --muted:#687085;
+  --blue:#2b6fe8; --blue2:#eaf1ff; --green:#16a271; --green2:#e9fbf5; --orange:#f08a24; --orange2:#fff2df;
+  --purple:#7a55d9; --purple2:#f2edff; --red:#e54545; --red2:#fff0f0; --line:#e7e8ef;
+  --bg:#f7f7fb; --card:#ffffff; --shadow:0 14px 34px rgba(24,29,56,.10);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.72}
+.sidebar{position:fixed;inset:0 auto 0 0;width:286px;background:#171827;color:#fff;padding:22px 18px;overflow:auto;z-index:10;box-shadow:8px 0 24px rgba(0,0,0,.14)}
+.sidebar h1{font-size:18px;line-height:1.35;margin:0 0 14px}.sidebar small{display:block;color:#bac0d1;font-weight:600;margin-bottom:18px}.nav a{display:block;color:#e8eaf5;text-decoration:none;padding:9px 10px;border-radius:10px;font-size:14px;margin:3px 0}.nav a:hover,.nav a.active{background:rgba(232,74,154,.22);color:#fff}.search{width:100%;border:0;border-radius:12px;padding:11px 12px;margin:8px 0 14px;background:#26293d;color:#fff;outline:2px solid transparent}.search::placeholder{color:#9da4bd}.main{margin-left:286px;min-height:100vh}.hero{background:radial-gradient(circle at 15% 10%,#fff 0,#fff0f7 34%,#fce3ef 35%,#ffffff 72%);padding:52px 56px 34px;border-bottom:1px solid var(--line)}
+.hero .kicker{display:inline-flex;gap:8px;align-items:center;background:#fff;border:1px solid #ffd4e9;color:#b81e70;padding:6px 12px;border-radius:999px;font-weight:800;font-size:13px}.hero h2{font-size:42px;line-height:1.18;margin:18px 0 8px;letter-spacing:.01em}.hero p{font-size:17px;color:#555e72;max-width:1000px}.content{padding:30px 46px 80px;max-width:1200px}.section{margin:0 0 34px;scroll-margin-top:20px}.section-title{display:flex;align-items:center;gap:12px;margin:0 0 16px}.section-title .badge{background:var(--pink);color:#fff;border-radius:12px;padding:5px 10px;font-weight:900}.section-title h3{font-size:28px;margin:0}.grid{display:grid;gap:16px}.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}.card h4{font-size:18px;margin:0 0 10px}.card p,.card li{color:#4f586d}.summary-card{border-top:5px solid var(--pink)}.key{font-weight:900;color:#d92d83}.muted{color:var(--muted)}.pill{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:12px;margin:2px 4px 2px 0}.pill.pink{background:var(--pink2);color:#b81e70}.pill.blue{background:var(--blue2);color:#1d55b9}.pill.green{background:var(--green2);color:#087a52}.pill.orange{background:var(--orange2);color:#b45b00}.pill.red{background:var(--red2);color:#bd2d2d}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}.flow .step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;position:relative}.flow .step:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:38%;font-size:22px;color:var(--pink);font-weight:900}.num{width:30px;height:30px;border-radius:10px;background:var(--pink);color:#fff;display:grid;place-items:center;font-weight:900;margin-bottom:8px}.note{border-left:5px solid var(--pink);background:var(--pink3);padding:14px 16px;border-radius:14px;margin:12px 0}.warn{border-left-color:var(--red);background:var(--red2)}.ok{border-left-color:var(--green);background:var(--green2)}.compare{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}.compare th{background:#32344a;color:#fff;text-align:left;padding:13px}.compare td{padding:13px;border-top:1px solid var(--line);vertical-align:top}.compare tr:nth-child(even) td{background:#fcfcff}.mini-table{width:100%;border-collapse:collapse}.mini-table th,.mini-table td{border:1px solid var(--line);padding:10px;text-align:center}.mini-table th{background:var(--pink2);color:#9a1359}.limit-box{display:grid;grid-template-columns:1fr 1fr;gap:14px}.limit{border-radius:18px;padding:18px;border:2px solid var(--line);background:#fff}.limit strong{font-size:32px;display:block}.limit.normal{border-color:#9ac0ff;background:var(--blue2)}.limit.special{border-color:#ffbf72;background:var(--orange2)}.limit.penalty{border-color:#ff9e9e;background:var(--red2)}.tabs{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}.tab-buttons{display:flex;gap:4px;padding:10px;background:#f0f1f7;overflow:auto}.tab-buttons button{border:0;background:#fff;padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;white-space:nowrap}.tab-buttons button.active{background:var(--pink);color:#fff}.tab-panel{display:none;padding:20px}.tab-panel.active{display:block}details{background:#fff;border:1px solid var(--line);border-radius:18px;margin:10px 0;box-shadow:0 8px 20px rgba(24,29,56,.06);overflow:hidden}summary{cursor:pointer;padding:15px 18px;font-weight:900;list-style:none}summary::-webkit-details-marker{display:none}details .inside{padding:0 18px 18px;color:#4f586d}.quiz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.q{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.q button{border:0;background:#32344a;color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer}.answer{display:none;margin-top:10px;background:#f8f8fe;border-radius:12px;padding:10px}.source{font-size:12px;color:#70788d;margin-top:20px}.backtop{position:fixed;right:18px;bottom:18px;background:var(--pink);color:#fff;text-decoration:none;border-radius:999px;padding:12px 14px;box-shadow:var(--shadow);font-weight:900}.highlight{outline:3px solid #ffd166;background:#fff8db!important}.icon{font-size:22px} .lawbox{background:#32344a;color:#fff;border-radius:18px;padding:16px}.lawbox b{color:#ffb8da}.tagline{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.nowrap{white-space:nowrap}.small{font-size:13px}.case{border:1px dashed #cfd2df;border-radius:16px;padding:14px;background:#fff}.case h5{font-size:16px;margin:0 0 8px}.case .judge{font-weight:900}.judge.no{color:#26734d}.judge.yes{color:#b81e70}.timeline{display:grid;gap:10px}.timeline .item{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:stretch}.timeline .date{background:var(--pink);color:#fff;border-radius:14px;padding:12px;font-weight:900;text-align:center}.timeline .desc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}.print-hint{display:none}
+@media(max-width:900px){.sidebar{position:relative;width:auto;height:auto}.main{margin-left:0}.hero{padding:32px 22px}.hero h2{font-size:30px}.content{padding:24px 18px 80px}.grid.cols-2,.grid.cols-3,.quiz,.limit-box{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow .step:not(:last-child)::after{display:none}.timeline .item{grid-template-columns:1fr}.compare{font-size:13px}}
+@media print{.sidebar,.backtop,.search,.tab-buttons{display:none}.main{margin:0}.hero,.content{padding:18px}.card,.tabs,details{box-shadow:none}.tab-panel{display:block}.print-hint{display:block}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <h1>労働基準法<br>§3 時間外・休日労働</h1>
+  <small>Chapter 3 労働時間・休憩・休日</small>
+  <input class="search" id="search" placeholder="キーワード検索：36協定、上限、災害…">
+  <nav class="nav" id="nav">
+    <a href="#summary">1. 最初に結論</a>
+    <a href="#map">2. 全体像</a>
+    <a href="#emergency">3. 非常災害・公務</a>
+    <a href="#agreement">4. 三六協定</a>
+    <a href="#contents">5. 協定内容・適用除外</a>
+    <a href="#limits">6. 上限規制</a>
+    <a href="#penalty">7. 罰則付き上限</a>
+    <a href="#guideline">8. 指針</a>
+    <a href="#exceptions">9. 特例・令和6年改正</a>
+    <a href="#quiz">10. 確認問題</a>
+  </nav>
+</aside>
+<main class="main">
+  <header class="hero" id="top">
+    <span class="kicker">社労士試験対策ノート</span>
+    <h2>時間外・休日労働を<br>「許可」「協定」「上限」で整理する</h2>
+    <p>労基法33条と36条は、似ているようで役割が違います。非常災害時は「許可・届出」、通常の残業・休日労働は「三六協定」、さらに「上限規制」で実際の働かせ方を制限する、という順で理解します。</p>
+    <div class="tagline">
+      <span class="pill pink">労基法33条</span><span class="pill blue">労基法36条</span><span class="pill orange">36協定</span><span class="pill red">罰則付き上限</span><span class="pill green">令和6年改正論点</span>
+    </div>
+  </header>
+  <div class="content">
+    <section class="section" id="summary">
+      <div class="section-title"><span class="badge">結論</span><h3>まず押さえる4行</h3></div>
+      <div class="grid cols-2">
+        <div class="card summary-card"><h4>① 非常災害時は「33条」</h4><p>災害その他避けられない事由で臨時の必要がある場合、原則は所轄労基署長の事前許可。急迫なら事後に遅滞なく届出。</p></div>
+        <div class="card summary-card"><h4>② 通常の残業・休日労働は「36条」</h4><p>過半数労組または過半数代表者との書面協定を締結し、所轄労基署長へ届出して初めて免罰的効力が生じる。</p></div>
+        <div class="card summary-card"><h4>③ 協定しても上限はある</h4><p>原則の限度時間は月45時間・年360時間。1年単位変形で対象期間が3か月超なら月42時間・年320時間。</p></div>
+        <div class="card summary-card"><h4>④ 特別条項でも無制限ではない</h4><p>臨時的な事情がある場合でも、月100時間未満、複数月平均80時間以内、年720時間以内、月45時間超は年6か月以内などが重要。</p></div>
+      </div>
+      <div class="note warn"><b>試験のひっかけ：</b>「36協定を締結した」だけでは足りません。<span class="key">届出</span>があって初めて免罰的効力が生じます。また、36協定は刑事罰を免れるための仕組みであり、労働者に残業命令を出す民事上の根拠は就業規則・労働契約等に必要です。</div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="section-title"><span class="badge">全体像</span><h3>時間外・休日労働の判断フロー</h3></div>
+      <div class="flow">
+        <div class="step"><div class="num">1</div><h4>法定を超える?</h4><p>1日8時間・週40時間・法定休日を超える労働か確認。</p></div>
+        <div class="step"><div class="num">2</div><h4>非常災害?</h4><p>災害・人命保護・突発的な設備故障などなら33条を検討。</p></div>
+        <div class="step"><div class="num">3</div><h4>36協定あり?</h4><p>通常の残業・休日労働なら締結＋届出＋協定範囲内か確認。</p></div>
+        <div class="step"><div class="num">4</div><h4>上限内?</h4><p>月45・年360、特別条項、単月100未満、複数月80以内を確認。</p></div>
+      </div>
+      <div class="grid cols-3" style="margin-top:16px">
+        <div class="lawbox"><b>33条</b><br>例外的・緊急的な制度。事前許可または事後届出。</div>
+        <div class="lawbox"><b>36条1項</b><br>36協定の締結・届出により、時間外・休日労働の免罰的効力。</div>
+        <div class="lawbox"><b>36条3〜6項</b><br>限度時間、特別条項、罰則付き上限で過重労働を抑制。</div>
+      </div>
+    </section>
+
+    <section class="section" id="emergency">
+      <div class="section-title"><span class="badge">33条</span><h3>非常災害の場合等の時間外・休日労働</h3></div>
+      <div class="tabs" data-tabs>
+        <div class="tab-buttons">
+          <button class="active">災害等</button><button>該当例・非該当例</button><button>公務</button><button>比較表</button>
+        </div>
+        <div class="tab-panel active">
+          <h4>災害その他避けることのできない事由</h4>
+          <p>通常発生を予測することが困難な事故等により、臨時の必要がある場合の制度です。使用者の自由判断に任せると濫用のおそれがあるため、原則として所轄労働基準監督署長の事前許可が必要です。</p>
+          <div class="grid cols-2">
+            <div class="card"><h4>原則</h4><p><span class="key">事前に許可</span>を受け、その必要の限度で法定労働時間を延長し、または法定休日に労働させることができる。</p></div>
+            <div class="card"><h4>例外</h4><p>事態急迫で許可を受ける暇がない場合は、<span class="key">事後に遅滞なく届出</span>を行う。</p></div>
+          </div>
+          <div class="note">事後届出が不適当と認められると、行政官庁はその後に相当する休憩または休日を与えるよう命ずることができます。この場合、賃金や休業手当の支払までは不要と整理されています。</div>
+        </div>
+        <div class="tab-panel">
+          <div class="grid cols-2">
+            <div class="card"><h4>該当するもの</h4><ul><li>地震、津波、風水害、雪害、爆発、火災等への対応</li><li>差し迫った災害のおそれへの事前対応</li><li>急病への対応、人命・公益保護の必要</li><li>事業運営を不可能にする突発的な機械・設備故障の修理</li><li>保安やシステム障害の復旧</li></ul></div>
+            <div class="card"><h4>該当しないもの</h4><ul><li>単なる業務繁忙</li><li>経営上の必要にすぎないもの</li><li>通常予見される機械の部分的修理</li><li>定期的な保安作業</li></ul></div>
+          </div>
+          <div class="note ok"><b>判断の軸：</b>「予測困難」「避けられない」「臨時」「必要の限度」。繁忙期の残業は、原則として33条ではなく36協定の問題です。</div>
+        </div>
+        <div class="tab-panel">
+          <h4>公務のため臨時の必要がある場合</h4>
+          <p>官公署の事業に従事する国家公務員・地方公務員について、公務のため臨時の必要がある場合は、事前許可や事後届出なしで法定労働時間を延長し、法定休日に労働させることができます。</p>
+          <div class="note warn"><b>注意：</b>官公署の事業でも、労基法別表第1に掲げる事業はこの扱いから除かれます。</div>
+          <div class="card"><h4>年少者の扱い</h4><p>公務の場合、年少者にも必要の限度で時間外・休日労働は可能。ただし、深夜業は認められません。</p></div>
+        </div>
+        <div class="tab-panel">
+          <table class="compare">
+            <tr><th>項目</th><th>非常災害時</th><th>公務のため</th></tr>
+            <tr><td>理由</td><td>災害その他避けることのできない事由</td><td>公務のため臨時の必要</td></tr>
+            <tr><td>効果</td><td colspan="2">法定労働時間等を延長し、法定休日に労働させることができる</td></tr>
+            <tr><td>手続</td><td>原則：所轄労基署長の許可<br>例外：急迫時は事後に遅滞なく届出</td><td>許可・届出不要</td></tr>
+            <tr><td>年少者</td><td>時間外・休日労働・深夜業 ○</td><td>時間外・休日労働 ○／深夜業 ×</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agreement">
+      <div class="section-title"><span class="badge">36条</span><h3>三六協定による時間外・休日労働</h3></div>
+      <div class="grid cols-2">
+        <div class="card"><h4>三六協定とは</h4><p>労基法36条に基づく、時間外・休日労働に関する労使協定。法定労働時間を超える労働、または法定休日労働をさせる場合に必要です。</p></div>
+        <div class="card"><h4>協定当事者</h4><p>過半数労組がある場合はその労組。ない場合は労働者の過半数代表者。1事業場に2以上の組合があっても、過半数労組があればその組合で足ります。</p></div>
+      </div>
+      <div class="note warn"><b>免罰的効力：</b>36協定は、<span class="key">届出をして初めて</span>、協定範囲内の時間外・休日労働について労基法違反の刑事罰を免れる効力が生じます。</div>
+      <div class="grid cols-2">
+        <div class="case"><h5>ケース1：火曜に1時間、水曜に2時間延長</h5><p>週所定36時間・週休2日制で、1日8時間・週40時間を超えない。</p><p class="judge no">→ 36協定は不要</p></div>
+        <div class="case"><h5>ケース2：土曜日に4時間勤務</h5><p>土曜が所定休日でも、週40時間を超えず、法定休日でもない。</p><p class="judge no">→ 36協定は不要</p></div>
+      </div>
+      <details><summary>判例：日立製作所武蔵工場事件の要点</summary><div class="inside">36協定を締結・届出し、就業規則に36協定の範囲内で一定の業務上の事由があれば時間外労働を命じられる旨が合理的に定められている場合、その規定は労働契約の内容となり、労働者は時間外労働義務を負うとされます。つまり、36協定だけではなく、就業規則・労働契約上の根拠も見ます。</div></details>
+      <details><summary>派遣労働者の36協定</summary><div class="inside">派遣労働者についての36協定は、派遣元の使用者が締結します。この場合の「労働者」には、派遣中の労働者とそれ以外の労働者の両方が含まれます。</div></details>
+      <details><summary>本社一括届出の考え方</summary><div class="inside">協定は各事業場ごとの届出が原則です。ただし、本社で締結した協定書に基づき、本社以外の事業場が労働者数等を記入して届け出る場合、各事業場で労組が過半数を組織している限り、有効に取り扱われることがあります。</div></details>
+    </section>
+
+    <section class="section" id="contents">
+      <div class="section-title"><span class="badge">協定事項</span><h3>36協定に書くこと・誰には使えないか</h3></div>
+      <div class="card">
+        <h4>36協定の主な記載事項</h4>
+        <table class="compare">
+          <tr><th>事項</th><th>意味</th><th>覚え方</th></tr>
+          <tr><td>労働者の範囲</td><td>どの労働者に時間外・休日労働をさせるか</td><td>誰に</td></tr>
+          <tr><td>対象期間</td><td>時間外・休日労働をさせることができる期間。1年間に限る</td><td>いつの1年</td></tr>
+          <tr><td>できる場合</td><td>どのような業務上の事情で行わせるか</td><td>どんな時</td></tr>
+          <tr><td>1日・1か月・1年の延長時間／休日数</td><td>協定範囲の中核</td><td>何時間・何日</td></tr>
+          <tr><td>省令事項</td><td>有効期間、起算日、100時間未満・複数月80時間以内、特別条項、健康福祉確保措置、割増率、手続等</td><td>管理項目</td></tr>
+        </table>
+      </div>
+      <div class="grid cols-2" style="margin-top:16px">
+        <div class="card"><h4>対象期間と有効期間</h4><p><b>対象期間</b>は、36協定により時間外・休日労働をさせることができる1年間。<b>有効期間</b>は協定が効力を持つ期間です。対象期間が1年間なので、有効期間も原則として最短1年となります。</p></div>
+        <div class="card"><h4>適用除外</h4><ul><li>満18歳未満の年少者：36協定による時間外・休日労働不可</li><li>妊産婦である女性：請求があった場合、36協定による時間外・休日労働不可</li></ul></div>
+      </div>
+      <div class="note"><b>過半数代表者のポイント：</b>管理監督者は過半数代表者になれません。ただし、過半数を数えるときの「労働者」には管理監督者も含まれます。</div>
+    </section>
+
+    <section class="section" id="limits">
+      <div class="section-title"><span class="badge">上限</span><h3>限度時間・特別条項の整理</h3></div>
+      <div class="limit-box">
+        <div class="limit normal"><span class="pill blue">原則</span><strong>月45h / 年360h</strong><p>通常予見される時間外労働の範囲内。1年単位変形で対象期間3か月超の場合は月42h・年320h。</p></div>
+        <div class="limit special"><span class="pill orange">特別条項</span><strong>年720h以内</strong><p>通常予見できない業務量の大幅増加等に伴い、臨時的に限度時間を超える必要がある場合。</p></div>
+      </div>
+      <div class="grid cols-3" style="margin-top:16px">
+        <div class="card"><h4>月の特別上限</h4><p>時間外＋休日労働は、協定した時間を含め<span class="key">100時間未満</span>。</p></div>
+        <div class="card"><h4>年の特別上限</h4><p>時間外労働は<span class="key">720時間以内</span>。休日労働を含めずに判断します。</p></div>
+        <div class="card"><h4>月45時間超の回数</h4><p>限度時間を超える月数は、<span class="key">1年について6か月以内</span>。</p></div>
+      </div>
+      <div class="note warn"><b>無効になる協定：</b>限度時間、1か月・1年の延長時間上限、または月数上限を超えている36協定は、全体として無効とされます。</div>
+      <table class="compare">
+        <tr><th>種類</th><th>対象</th><th>休日労働を含む?</th><th>性質</th></tr>
+        <tr><td>月45時間・年360時間</td><td>原則的な時間外労働</td><td>含まない</td><td>協定内容の限度</td></tr>
+        <tr><td>特別条項の年720時間</td><td>時間外労働</td><td>含まない</td><td>協定内容の限度</td></tr>
+        <tr><td>単月100時間未満</td><td>時間外＋休日労働</td><td>含む</td><td>実際の労働時間の罰則付き上限</td></tr>
+        <tr><td>複数月平均80時間以内</td><td>時間外＋休日労働</td><td>含む</td><td>実際の労働時間の罰則付き上限</td></tr>
+      </table>
+    </section>
+
+    <section class="section" id="penalty">
+      <div class="section-title"><span class="badge">罰則</span><h3>36条6項：実際に働かせてはならない上限</h3></div>
+      <div class="grid cols-3">
+        <div class="limit penalty"><span class="pill red">有害業務</span><strong>1日2h以内</strong><p>健康上特に有害な業務について、1日について延長できる時間は2時間を超えない。</p></div>
+        <div class="limit penalty"><span class="pill red">単月</span><strong>100h未満</strong><p>1か月の時間外労働＋休日労働は100時間未満。</p></div>
+        <div class="limit penalty"><span class="pill red">複数月</span><strong>平均80h以内</strong><p>2〜6か月平均の時間外労働＋休日労働は80時間以内。</p></div>
+      </div>
+      <div class="note warn"><b>罰則：</b>36条6項違反は、6か月以下の懲役または30万円以下の罰金。なお、36条6項には「年720時間以内」という要件は含まれていません。</div>
+      <details><summary>健康上特に有害な業務の例</summary><div class="inside"><ul><li>多量の高熱物体・低温物体を取り扱う業務、著しく暑熱・寒冷な場所の業務</li><li>有害放射線、粉じん・粉末の著しい飛散、異常気圧下の業務</li><li>削岩機・鋲打機等による著しい振動、重量物取扱い等の重激業務</li><li>強烈な騒音、有害物の粉じん・蒸気・ガスを発散する場所の業務</li></ul></div></details>
+      <details><summary>転勤・対象期間をまたぐ場合の通算</summary><div class="inside">限度時間や年720時間は事業場の36協定内容を規制するものなので、転勤時に通算されません。一方、単月100時間未満・複数月平均80時間以内は労働者個人の実労働時間を規制するため、転勤した場合も通算されます。また、複数月平均80時間以内は対象期間をまたぐ場合にも適用されます。</div></details>
+      <details><summary>36協定なし・協定超過の場合の罰則関係</summary><div class="inside">36協定を締結・届出せずに時間外・休日労働をさせた場合は、労基法32条または35条違反となります。協定内容を超えた場合、特別条項なしに限度時間を超えた場合、特別条項の規制を守らない場合も、免罰的効力が生じず同様に扱われることがあります。</div></details>
+    </section>
+
+    <section class="section" id="guideline">
+      <div class="section-title"><span class="badge">指針</span><h3>36協定の指針：適正化と健康確保</h3></div>
+      <div class="card"><h4>指針の位置づけ</h4><p>厚生労働大臣は、労働時間の延長・休日労働を適正なものにするため、留意事項、割増賃金率その他必要事項について指針を定めることができます。労使当事者は、36協定の内容が指針に適合するようにしなければなりません。</p></div>
+      <div class="grid cols-3" style="margin-top:16px">
+        <div class="card"><h4>労使当事者の責務</h4><p>時間外・休日労働は必要最小限にとどめるべき。限度時間を超えないことが原則。</p></div>
+        <div class="card"><h4>使用者の責務</h4><p>協定範囲内で労働させる場合でも、安全配慮義務を負う。過労死認定基準にも留意。</p></div>
+        <div class="card"><h4>業務区分の細分化</h4><p>業務の種類は細分化し、範囲を明確にする。漠然とした区分は避ける。</p></div>
+      </div>
+      <details open><summary>限度時間を超える場合の書き方</summary><div class="inside">「業務の都合上必要な場合」「業務上やむを得ない場合」など、恒常的な長時間労働を招くおそれがある表現は認められません。通常予見できない業務量の大幅増加等に伴い、臨時的に限度時間を超える必要がある場合をできる限り具体的に定めます。</div></details>
+      <details><summary>健康福祉確保措置の9項目</summary><div class="inside"><ol><li>医師による面接指導</li><li>深夜労働の回数制限</li><li>勤務間インターバル</li><li>代償休日・特別休暇</li><li>健康診断</li><li>年次有給休暇の取得促進</li><li>心とからだの相談窓口</li><li>必要な配置転換</li><li>産業医等による助言・指導・保健指導</li></ol></div></details>
+      <details><summary>指針に適合しない36協定の効力</summary><div class="inside">法定要件を満たしているが指針に適合しない36協定は、直ちに無効とはなりません。ただし、所轄労働基準監督署長による助言・指導の対象となります。</div></details>
+      <div class="note">1か月未満の労働者についての延長時間の目安は、1週間15時間、2週間27時間、4週間43時間です。</div>
+    </section>
+
+    <section class="section" id="exceptions">
+      <div class="section-title"><span class="badge">特例</span><h3>研究開発業務・令和6年4月以後の旧猶予業務</h3></div>
+      <div class="grid cols-2">
+        <div class="card"><h4>新技術・新商品・新役務の研究開発業務</h4><p>限度時間、限度時間の延長、単月100時間未満・複数月平均80時間以内は適用されません。ただし、健康上特に有害な業務の1日2時間以内の上限は除外されません。労働安全衛生法上の面接指導等とセットで理解します。</p></div>
+        <div class="card"><h4>令和6年4月1日からのポイント</h4><p>建設、自動車運転、医師、鹿児島・沖縄の砂糖製造業は、5年間の猶予終了により上限規制が適用。ただし各事業・業務ごとの特例があります。</p></div>
+      </div>
+      <table class="compare" style="margin-top:16px">
+        <tr><th>事業・業務</th><th>令和6年4月1日以後の扱い</th><th>特例の要点</th></tr>
+        <tr><td>建設の事業</td><td>上限規制を適用</td><td>災害時の復旧・復興事業は、単月100時間未満・複数月平均80時間以内を適用しない</td></tr>
+        <tr><td>自動車運転の業務</td><td>上限規制を適用</td><td>特別条項の年上限は960時間。月45時間超の年6か月まで、単月100未満・複数月80以内は適用しない</td></tr>
+        <tr><td>医業に従事する医師</td><td>上限規制を適用</td><td>特別条項付き36協定では、年間の時間外・休日労働の上限を最大1860時間。医療法等の追加的健康確保措置あり</td></tr>
+        <tr><td>鹿児島県・沖縄県の砂糖製造業</td><td>すべて適用</td><td>猶予中にあった単月100未満・複数月80以内の適用除外も終了</td></tr>
+      </table>
+      <div class="timeline" style="margin-top:16px">
+        <div class="item"><div class="date">2019年4月</div><div class="desc">働き方改革により、法律上の時間外労働上限規制が施行。中小事業主は1年遅れで適用。</div></div>
+        <div class="item"><div class="date">2024年4月</div><div class="desc">適用猶予事業・業務の猶予終了。建設・自動車運転・医師・砂糖製造業に特例付きで上限規制が適用。</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="section-title"><span class="badge">復習</span><h3>確認問題</h3></div>
+      <div class="quiz">
+        <div class="q"><b>Q1.</b> 36協定を締結したが届出していない。免罰的効力はある？<br><button>答えを表示</button><div class="answer">ありません。届出をして初めて免罰的効力が生じます。</div></div>
+        <div class="q"><b>Q2.</b> 月100時間未満・複数月平均80時間以内には休日労働を含む？<br><button>答えを表示</button><div class="answer">含みます。年720時間の判断では休日労働を含めない点と対比します。</div></div>
+        <div class="q"><b>Q3.</b> 年少者は36協定があれば時間外・休日労働できる？<br><button>答えを表示</button><div class="answer">できません。満18歳未満の年少者には、36協定による時間外・休日労働は不可です。</div></div>
+        <div class="q"><b>Q4.</b> 「業務上やむを得ない場合」は特別条項の理由として適切？<br><button>答えを表示</button><div class="answer">不適切です。恒常的な長時間労働を招くおそれがあるため、具体的に定める必要があります。</div></div>
+      </div>
+      <div class="source">出典：労働基準法テキスト Chapter 3「§3 時間外・休日労働」（労基法33条・36条部分）をもとに、学習用に再構成。</div>
+    </section>
+  </div>
+</main>
+<a class="backtop" href="#top">↑ 上へ</a>
+<script>
+(function(){
+  document.querySelectorAll('[data-tabs]').forEach(tabs=>{
+    const buttons=[...tabs.querySelectorAll('.tab-buttons button')];
+    const panels=[...tabs.querySelectorAll('.tab-panel')];
+    buttons.forEach((btn,i)=>btn.addEventListener('click',()=>{
+      buttons.forEach(b=>b.classList.remove('active')); panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active'); panels[i].classList.add('active');
+    }));
+  });
+  document.querySelectorAll('.q button').forEach(btn=>btn.addEventListener('click',()=>{
+    const ans=btn.parentElement.querySelector('.answer'); ans.style.display=ans.style.display==='block'?'none':'block';
+  }));
+  const search=document.getElementById('search');
+  search.addEventListener('input',()=>{
+    document.querySelectorAll('.highlight').forEach(e=>e.classList.remove('highlight'));
+    const q=search.value.trim(); if(!q) return;
+    const cards=[...document.querySelectorAll('.card,.note,details,.case,.limit,.lawbox,.compare tr')];
+    let first=null;
+    cards.forEach(el=>{ if(el.innerText.includes(q)){ el.classList.add('highlight'); if(!first) first=el; }});
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  const links=[...document.querySelectorAll('.nav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  window.addEventListener('scroll',()=>{
+    let idx=0; secs.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top<160) idx=i; });
+    links.forEach(a=>a.classList.remove('active')); links[idx]?.classList.add('active');
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
