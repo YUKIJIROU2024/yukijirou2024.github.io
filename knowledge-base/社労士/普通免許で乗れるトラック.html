@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>免許証「中型車は中型車8tに限る」完全ガイド</title>
+<style>
+  :root {
+    --road-dark: #0F1923;
+    --road-mid: #1A2A3A;
+    --asphalt: #2C3E50;
+    --stripe: #F4C430;
+    --stripe-light: #FDF0B0;
+    --sky: #2B6CB0;
+    --sky-light: #EBF4FF;
+    --success: #27AE60;
+    --success-light: #D4EDDA;
+    --danger: #E74C3C;
+    --danger-light: #FDECEA;
+    --warn: #E67E22;
+    --warn-light: #FEF3CD;
+    --white: #FFFFFF;
+    --off-white: #F8F9FA;
+    --gray-100: #F1F3F4;
+    --gray-200: #E2E6EA;
+    --gray-500: #6C757D;
+    --gray-800: #343A40;
+    --sidebar-w: 260px;
+    --content-max: 860px;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.10);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    background: var(--off-white);
+    color: var(--gray-800);
+    line-height: 1.7;
+  }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--road-dark);
+    color: var(--white);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+  }
+
+  .sidebar-logo {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .sidebar-logo .badge {
+    display: inline-block;
+    background: var(--stripe);
+    color: var(--road-dark);
+    font-weight: 800;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .sidebar-logo h2 {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  nav#toc {
+    padding: 16px 0;
+    flex: 1;
+  }
+
+  nav#toc a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.18s;
+    border-left: 3px solid transparent;
+  }
+
+  nav#toc a:hover, nav#toc a.active {
+    color: var(--stripe);
+    background: rgba(244,196,48,0.08);
+    border-left-color: var(--stripe);
+  }
+
+  nav#toc .toc-icon { font-size: 16px; flex-shrink: 0; }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ── MAIN ── */
+  #main {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    background: linear-gradient(135deg, var(--road-dark) 0%, var(--asphalt) 100%);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--stripe) 0, var(--stripe) 40px,
+      transparent 40px, transparent 70px
+    );
+  }
+
+  #hero::after {
+    content: '🚛';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 100px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .hero-inner { max-width: var(--content-max); }
+
+  #hero .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--stripe);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  #hero h1 {
+    font-size: clamp(20px, 3vw, 30px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  #hero h1 em {
+    color: var(--stripe);
+    font-style: normal;
+  }
+
+  #hero .hero-desc {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    max-width: 560px;
+  }
+
+  /* ── SEARCH ── */
+  #search-bar {
+    background: var(--road-mid);
+    padding: 16px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  #search-bar input {
+    width: 100%;
+    max-width: 480px;
+    padding: 10px 16px 10px 40px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23aaa' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+  }
+
+  #search-bar input::placeholder { color: rgba(255,255,255,0.4); }
+  #search-bar input:focus { border-color: var(--stripe); }
+
+  /* ── CONTENT AREA ── */
+  #content {
+    padding: 40px 40px 80px;
+    max-width: calc(var(--content-max) + 80px);
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 48px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gray-200);
+  }
+
+  .section-header .sec-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--road-dark);
+  }
+
+  /* ── SUMMARY CARDS ── */
+  .summary-box {
+    background: linear-gradient(135deg, var(--sky-light), #fff);
+    border: 1.5px solid var(--sky);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+
+  .summary-box .summary-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sky);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .summary-box p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--road-dark);
+  }
+
+  .summary-box strong {
+    color: var(--sky);
+    font-weight: 800;
+  }
+
+  /* ── KPI CARDS ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .kpi-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    border-top: 4px solid var(--stripe);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .kpi-card .kpi-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .kpi-card .kpi-value {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--road-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .kpi-card .kpi-unit {
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    font-size: 14px;
+  }
+
+  thead tr { background: var(--road-dark); }
+  thead th {
+    padding: 13px 16px;
+    text-align: left;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  tbody tr { border-bottom: 1px solid var(--gray-200); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--gray-100); }
+
+  tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .tag-green { background: var(--success-light); color: var(--success); }
+  .tag-yellow { background: var(--stripe-light); color: #8a6d00; }
+  .tag-red { background: var(--danger-light); color: var(--danger); }
+  .tag-blue { background: var(--sky-light); color: var(--sky); }
+
+  .highlight-row { background: linear-gradient(to right, rgba(244,196,48,0.08), transparent) !important; }
+  .highlight-row td:first-child { border-left: 3px solid var(--stripe); }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    margin: 24px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 60px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--sky), var(--stripe), var(--danger));
+    border-radius: 3px;
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .tl-year {
+    width: 60px;
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--gray-500);
+    padding-top: 10px;
+    line-height: 1.3;
+  }
+
+  .tl-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    margin-top: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tl-body {
+    flex: 1;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .tl-body h3 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .tl-body p {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  .tl-body .tl-range {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-top: 8px;
+  }
+
+  /* ── ACCORDION ── */
+  .accordion { margin-bottom: 10px; }
+
+  .accordion summary {
+    list-style: none;
+    cursor: pointer;
+    background: var(--white);
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transition: all 0.18s;
+    user-select: none;
+  }
+
+  .accordion summary::-webkit-details-marker { display: none; }
+
+  .accordion summary:hover { background: var(--gray-100); border-color: var(--sky); }
+
+  .accordion[open] summary {
+    background: var(--sky);
+    color: var(--white);
+    border-color: var(--sky);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .accordion summary::after {
+    content: '＋';
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.2s;
+  }
+
+  .accordion[open] summary::after { content: '－'; }
+
+  .accordion-body {
+    background: var(--white);
+    border: 1.5px solid var(--sky);
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 16px 18px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--gray-800);
+  }
+
+  .accordion-body ul {
+    padding-left: 18px;
+  }
+
+  .accordion-body li { margin-bottom: 5px; }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    background: var(--road-dark);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .formula-box .formula-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .formula-expr {
+    font-size: 18px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--white);
+  }
+
+  .formula-term {
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 15px;
+  }
+
+  .formula-op {
+    color: var(--stripe);
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .formula-result {
+    background: var(--stripe);
+    color: var(--road-dark);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: var(--radius);
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .alert-icon { font-size: 22px; flex-shrink: 0; line-height: 1.3; }
+
+  .alert-warn {
+    background: var(--warn-light);
+    border-left: 4px solid var(--warn);
+    color: #5c3d00;
+  }
+
+  .alert-info {
+    background: var(--sky-light);
+    border-left: 4px solid var(--sky);
+    color: #1a3a5c;
+  }
+
+  .alert-success {
+    background: var(--success-light);
+    border-left: 4px solid var(--success);
+    color: #0d3d20;
+  }
+
+  /* ── INFO GRID ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .info-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid transparent;
+  }
+
+  .info-card.ic-blue { border-top-color: var(--sky); }
+  .info-card.ic-yellow { border-top-color: var(--stripe); }
+  .info-card.ic-green { border-top-color: var(--success); }
+  .info-card.ic-red { border-top-color: var(--danger); }
+
+  .info-card h3 {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--road-dark);
+  }
+
+  .info-card ul {
+    padding-left: 16px;
+    font-size: 13px;
+    color: var(--gray-800);
+  }
+
+  .info-card li { margin-bottom: 4px; }
+
+  /* ── COST CARDS ── */
+  .cost-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .cost-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .cost-card h3 {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gray-200);
+  }
+
+  .cost-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    font-size: 13.5px;
+    border-bottom: 1px dashed var(--gray-200);
+  }
+
+  .cost-row:last-child { border-bottom: none; }
+  .cost-row .cost-val { font-weight: 800; color: var(--sky); font-size: 15px; }
+
+  /* ── BACK TO TOP ── */
+  #back-top {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 44px; height: 44px;
+    background: var(--road-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(8px);
+    z-index: 200;
+  }
+
+  #back-top.visible { opacity: 1; transform: translateY(0); }
+  #back-top:hover { background: var(--sky); }
+
+  /* ── HAMBURGER ── */
+  #menu-toggle {
+    display: none;
+    position: fixed;
+    top: 14px; left: 14px;
+    z-index: 200;
+    background: var(--road-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    width: 40px; height: 40px;
+    cursor: pointer;
+    font-size: 20px;
+    align-items: center; justify-content: center;
+    box-shadow: var(--shadow);
+  }
+
+  /* ── SEARCH HIGHLIGHT ── */
+  mark.search-hl {
+    background: var(--stripe);
+    color: var(--road-dark);
+    border-radius: 2px;
+    padding: 0 2px;
+  }
+
+  /* ── TRUCK TYPE CHIPS ── */
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--gray-100);
+    color: var(--road-dark);
+    border: 1.5px solid var(--gray-200);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #sidebar { transform: translateX(-100%); }
+    #sidebar.open { transform: translateX(0); }
+    #sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 99;
+    }
+    #sidebar-overlay.show { display: block; }
+    #main { margin-left: 0; }
+    #menu-toggle { display: flex; }
+    #hero { padding: 60px 20px 40px; }
+    #content { padding: 24px 20px 60px; }
+    #search-bar { padding: 14px 20px; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .info-grid, .cost-grid { grid-template-columns: 1fr; }
+    #hero::after { display: none; }
+    .formula-expr { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR OVERLAY -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- HAMBURGER -->
+<button id="menu-toggle" onclick="toggleSidebar()" aria-label="メニュー">☰</button>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="badge">免許ガイド</div>
+    <h2>中型車は中型車8tに限る<br>完全解説</h2>
+  </div>
+  <nav id="toc">
+    <a href="#summary" class="toc-link"><span class="toc-icon">📋</span>サマリー</a>
+    <a href="#range" class="toc-link"><span class="toc-icon">🚗</span>運転できる車の範囲</a>
+    <a href="#compare" class="toc-link"><span class="toc-icon">⚖️</span>免許の比較</a>
+    <a href="#trucks" class="toc-link"><span class="toc-icon">🚛</span>4トントラックとは</a>
+    <a href="#formula" class="toc-link"><span class="toc-icon">🔢</span>車両総重量の計算</a>
+    <a href="#history" class="toc-link"><span class="toc-icon">📅</span>免許制度の変遷</a>
+    <a href="#unlock" class="toc-link"><span class="toc-icon">🔓</span>限定解除について</a>
+  </nav>
+  <div class="sidebar-footer">道路交通法に基づく一般的な解説です</div>
+</aside>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- HERO -->
+  <header id="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">運転免許証 完全ガイド</p>
+      <h1>「中型車は中型車<em>8t</em>に限る」<br>ってどういう意味？</h1>
+      <p class="hero-desc">免許証にある謎の一文を、制度の歴史・運転できる車・今の免許との違いまで、図解でまるごとわかりやすく解説します。</p>
+    </div>
+  </header>
+
+  <!-- SEARCH -->
+  <div id="search-bar">
+    <input type="text" id="search-input" placeholder="キーワードで検索（例：総重量、4トン、解除）" oninput="doSearch(this.value)">
+  </div>
+
+  <!-- CONTENT -->
+  <main id="content">
+
+    <!-- ① SUMMARY -->
+    <section class="section" id="summary">
+      <div class="section-header">
+        <div class="sec-icon" style="background:#EBF4FF">📋</div>
+        <h2>サマリー ─ まずここを読む</h2>
+      </div>
+
+      <div class="summary-box">
+        <div class="summary-label">結論</div>
+        <p>
+          この表記は <strong>2007年6月1日以前に普通免許を取得した証</strong>。<br>
+          今の普通免許より <strong>2倍以上大きな車（総重量8t未満）</strong> を運転できる、お得な免許です。<br>
+          4トントラックのほとんどが運転できるため、業務でも非常に頼りになります。
+        </p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">車両総重量</div>
+          <div class="kpi-value">8t</div>
+          <div class="kpi-unit">未満まで運転OK</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">最大積載量</div>
+          <div class="kpi-value">5t</div>
+          <div class="kpi-unit">未満まで運転OK</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">乗車定員</div>
+          <div class="kpi-value">10</div>
+          <div class="kpi-unit">人以下</div>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <span class="alert-icon">💡</span>
+        <div>今の普通免許（2017年以降）は車両総重量<strong>3.5t未満</strong>まで。この免許はその<strong>2倍以上</strong>の範囲をカバーしています。</div>
+      </div>
+    </section>
+
+    <!-- ② 運転できる車の範囲 -->
+    <section class="section" id="range">
+      <div class="section-header">
+        <div class="sec-icon" style="background:#D4EDDA">🚗</div>
+        <h2>運転できる車の範囲</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>トラック区分</th>
+              <th>最大積載量</th>
+              <th>車両総重量</th>
+              <th>8t限定で運転</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>軽トラック</td>
+              <td>〜350kg</td>
+              <td>〜1t程度</td>
+              <td><span class="tag tag-green">✓ OK</span></td>
+            </tr>
+            <tr>
+              <td>小型（1〜2tトラック）</td>
+              <td>2t未満</td>
+              <td>5t未満</td>
+              <td><span class="tag tag-green">✓ OK</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>中型（4tトラック）</strong></td>
+              <td><strong>5t未満</strong></td>
+              <td><strong>8t未満</strong></td>
+              <td><span class="tag tag-yellow">⚠ 車検証要確認</span></td>
+            </tr>
+            <tr>
+              <td>大型（10tトラック）</td>
+              <td>6.5t以上</td>
+              <td>11t以上</td>
+              <td><span class="tag tag-red">✗ 不可</span></td>
+            </tr>
+            <tr>
+              <td>マイクロバス（定員11人以上）</td>
+              <td>─</td>
+              <td>─</td>
+              <td><span class="tag tag-red">✗ 不可</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <strong>注意：</strong>「4トントラック」でも<strong>車両総重量が8tを超える</strong>モデルが増えています（安全装置の重量増）。<br>
+          運転前に必ず車検証の<strong>「車両総重量」が7,999kg以下</strong>であることを確認してください。
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ 免許の比較 -->
+    <section class="section" id="compare">
+      <div class="section-header">
+        <div class="sec-icon" style="background:#FDF0B0">⚖️</div>
+        <h2>免許種別 比較表</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>取得時期</th>
+              <th>免許証の表記</th>
+              <th>車両総重量</th>
+              <th>最大積載量</th>
+              <th>乗車定員</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td>〜2007年6月1日</td>
+              <td><strong>中型車は中型車(8t)に限る</strong><br><span class="tag tag-yellow">あなたの免許</span></td>
+              <td><strong>8t未満</strong></td>
+              <td>5t未満</td>
+              <td>10人以下</td>
+            </tr>
+            <tr>
+              <td>2007/6/2〜<br>2017/3/11</td>
+              <td>準中型車は準中型車(5t)に限る</td>
+              <td>5t未満</td>
+              <td>3t未満</td>
+              <td>10人以下</td>
+            </tr>
+            <tr>
+              <td>2017年3月12日〜</td>
+              <td>普通<br><span class="tag tag-blue">今の若い人</span></td>
+              <td>3.5t未満</td>
+              <td>2t未満</td>
+              <td>10人以下</td>
+            </tr>
+            <tr>
+              <td>別途取得</td>
+              <td>中型免許（限定なし）</td>
+              <td>11t未満</td>
+              <td>6.5t未満</td>
+              <td>29人以下</td>
+            </tr>
+            <tr>
+              <td>別途取得</td>
+              <td>大型免許</td>
+              <td>制限なし</td>
+              <td>制限なし</td>
+              <td>制限なし</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ④ 4トントラック -->
+    <section class="section" id="trucks">
+      <div class="section-header">
+        <div class="sec-icon" style="background:#FDF0B0">🚛</div>
+        <h2>4トントラックとは</h2>
+      </div>
+
+      <p style="font-size:14px;color:var(--gray-500);margin-bottom:16px;">
+        「4トン」とは最大積載量が4トン前後という意味の通称。代表的な国産4メーカーの車種と形状を解説します。
+      </p>
+
+      <!-- 代表車種 accordion -->
+      <details class="accordion">
+        <summary><span>🏭 国産4大メーカーの代表車種</span></summary>
+        <div class="accordion-body">
+          <div class="info-grid">
+            <div class="info-card ic-blue">
+              <h3>いすゞ ─ フォワード</h3>
+              <ul><li>国内シェア首位</li><li>街中で最もよく見かける</li><li>コンビニ配送など幅広く活躍</li></ul>
+            </div>
+            <div class="info-card ic-yellow">
+              <h3>日野 ─ レンジャー</h3>
+              <ul><li>テレビCMでもおなじみ</li><li>耐久性の高さに定評</li><li>長距離輸送にも対応</li></ul>
+            </div>
+            <div class="info-card ic-green">
+              <h3>三菱ふそう ─ ファイター</h3>
+              <ul><li>積載効率と走行性能のバランスが良い</li><li>物流・運送業界で広く採用</li></ul>
+            </div>
+            <div class="info-card ic-red">
+              <h3>UDトラックス ─ コンドル</h3>
+              <ul><li>長距離走行に向いた力強い走り</li><li>荷物量の多いルートに強い</li></ul>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 形状 accordion -->
+      <details class="accordion">
+        <summary><span>📦 荷台の種類（用途別）</span></summary>
+        <div class="accordion-body">
+          <div class="chip-row">
+            <span class="chip">🏗️ 平ボディ</span>
+            <span class="chip">📦 箱車（アルミバン）</span>
+            <span class="chip">⛏️ ダンプ</span>
+            <span class="chip">🏗️ ユニック車（クレーン付）</span>
+          </div>
+          <table style="margin-top:12px">
+            <thead>
+              <tr><th>形状</th><th>主な用途</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>平ボディ</td><td>建築資材・鉄鋼など。荷台がむき出しタイプ</td></tr>
+              <tr><td>箱車（アルミバン）</td><td>コンビニ・食品配送。密閉された箱型荷台</td></tr>
+              <tr><td>ダンプ</td><td>土砂・砂利の運搬。荷台を傾けて荷下ろし</td></tr>
+              <tr><td>ユニック車</td><td>運転席後ろに小型クレーン。建設・設備工事</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <!-- なぜ4tにならない accordion -->
+      <details class="accordion">
+        <summary><span>❓ なぜ「4トン」ぴったり積めないの？</span></summary>
+        <div class="accordion-body">
+          <p>「4トン車」は積載量の<em>目安</em>に過ぎません。最近のトラックは安全装置・冷凍機・クレーンなどの装備が重いため、実際に積める荷物は <strong>2.8t〜3.5t程度</strong> のものも多いです。</p>
+          <ul style="margin-top:10px">
+            <li>保冷・冷凍装置 → 断熱材・機械が重い</li>
+            <li>パワーゲート → 荷台後部の昇降機が重い</li>
+            <li>ユニック（クレーン） → クレーン装置が重い</li>
+          </ul>
+          <div class="alert alert-info" style="margin-top:12px">
+            <span class="alert-icon">📌</span>
+            <div>「4トン車」という名前でも、<strong>車両総重量が8tを超えるモデルが増加中</strong>。必ず車検証で確認を。</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ⑤ 計算式 -->
+    <section class="section" id="formula">
+      <div class="section-header">
+        <div class="sec-icon" style="background:#E2E6EA">🔢</div>
+        <h2>車両総重量の計算</h2>
+      </div>
+
+      <p style="font-size:14px;color:var(--gray-500);margin-bottom:4px;">免許の「8t限定」は<em>積載量</em>ではなく、下記すべての合計＝<strong>車両総重量</strong>が基準です。</p>
+
+      <div class="formula-box">
+        <div class="formula-label">車両総重量の計算式</div>
+        <div class="formula-expr">
+          <span class="formula-term">🚚 車両重量<br><small>（車本体）</small></span>
+          <span class="formula-op">＋</span>
+          <span class="formula-term">📦 最大積載量<br><small>（荷物）</small></span>
+          <span class="formula-op">＋</span>
+          <span class="formula-term">👤 乗員重量<br><small>（人間）</small></span>
+          <span class="formula-op">＝</span>
+          <span class="formula-result">車両総重量</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>区分</th><th>内容</th><th>2tトラックの例</th><th>4tトラックの例</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>車両重量</td><td>車本体のみの重さ</td><td>約2,300kg</td><td>約3,500kg</td></tr>
+            <tr><td>最大積載量</td><td>積める荷物の最大値</td><td>約2,000kg</td><td>約4,000kg</td></tr>
+            <tr><td>乗員重量</td><td>1人55kg換算（3人分）</td><td>約165kg</td><td>約165kg</td></tr>
+            <tr class="highlight-row">
+              <td><strong>車両総重量</strong></td>
+              <td>上記すべての合計</td>
+              <td><strong>約4,465kg</strong></td>
+              <td><strong>約7,665kg</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-success">
+        <span class="alert-icon">✅</span>
+        <div>8t限定免許なら、<strong>一般的な2t・3t・4tトラックのほとんど</strong>が車検証確認なしに安心して運転できます。</div>
+      </div>
+    </section>
+
+    <!-- ⑥ 免許制度の変遷 -->
+    <section class="section" id="history">
+      <div class="section-header">
+        <div class="sec-icon" style="background:#EBF4FF">📅</div>
+        <h2>免許制度の変遷</h2>
+      </div>
+
+      <p style="font-size:14px;color:var(--gray-500);margin-bottom:20px;">普通免許でトラックを運転できる範囲は、過去2回の法改正で段階的に縮小されました。</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">〜2007<br>6/1</div>
+          <div class="tl-dot" style="background:var(--stripe);color:var(--road-dark)">★</div>
+          <div class="tl-body">
+            <h3>改正前 ─ 普通免許だけの時代</h3>
+            <p>「普通」と「大型」の2区分のみ。普通免許で4トントラック（車両総重量8t）まで運転できる時代でした。引越し屋・コンビニ配送も普通免許で全員こなしていました。</p>
+            <span class="tl-range tag-green tag">8t未満まで運転OK</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">2007<br>6/2</div>
+          <div class="tl-dot" style="background:var(--sky);color:var(--white)">①</div>
+          <div class="tl-body">
+            <h3>第1次改正 ─ 中型免許の新設</h3>
+            <p>「普通免許で8tトラックまで運転できるのは危険」という声を受け、<strong>中型免許</strong>を新設。既得権益保護のため、旧免許保持者には<strong>「8t限定」</strong>という特別な記載が付与されました。新規取得の普通免許は5t未満に縮小。</p>
+            <span class="tl-range tag-blue tag">普通：5t未満に縮小</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">2017<br>3/12</div>
+          <div class="tl-dot" style="background:var(--danger);color:var(--white)">②</div>
+          <div class="tl-body">
+            <h3>第2次改正 ─ 準中型免許の新設</h3>
+            <p>「5t未満では運送業界で使う2tトラック（総重量5t前後）も運転できない」という問題が発生。<strong>18歳から取得できる準中型免許</strong>を新設。代わりに今の普通免許はさらに絞られ<strong>3.5t未満</strong>に。</p>
+            <span class="tl-range tag-red tag">普通：3.5t未満にさらに縮小</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-year">現在</div>
+          <div class="tl-dot" style="background:var(--gray-800);color:var(--white)">今</div>
+          <div class="tl-body">
+            <h3>3段階に分かれた免許制度</h3>
+            <p>「普通」「準中型(5t限定)」「8t限定中型」が並存。同じ形のトラックでも、いつ免許を取ったかで運転できるかどうかが変わる複雑な状況になっています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑦ 限定解除 -->
+    <section class="section" id="unlock">
+      <div class="section-header">
+        <div class="sec-icon" style="background:#D4EDDA">🔓</div>
+        <h2>8t限定解除について</h2>
+      </div>
+
+      <p style="font-size:14px;color:var(--gray-500);margin-bottom:16px;">
+        マイクロバスや11t未満の大型中型トラックも運転したい場合は「<strong>限定解除</strong>」が必要です。ゼロから取るより圧倒的に簡単・安い方法があります。
+      </p>
+
+      <div class="cost-grid">
+        <div class="cost-card">
+          <h3>🔓 8t限定を解除（あなたの場合）</h3>
+          <div class="cost-row"><span>費用</span><span class="cost-val">7〜10万円</span></div>
+          <div class="cost-row"><span>技能教習</span><span class="cost-val">最短 5時限</span></div>
+          <div class="cost-row"><span>学科</span><span class="cost-val">免除</span></div>
+          <div class="cost-row"><span>期間</span><span class="cost-val">2〜3日</span></div>
+        </div>
+        <div class="cost-card">
+          <h3>🆕 今の若い人がゼロから中型取得</h3>
+          <div class="cost-row"><span>費用</span><span class="cost-val">15〜25万円</span></div>
+          <div class="cost-row"><span>技能教習</span><span class="cost-val">11〜15時限</span></div>
+          <div class="cost-row"><span>取得条件</span><span class="cost-val">20歳以上 + 2年以上経験</span></div>
+          <div class="cost-row"><span>期間</span><span class="cost-val">2〜3週間</span></div>
+        </div>
+      </div>
+
+      <details class="accordion">
+        <summary><span>⚠️ AT限定が付いている場合の注意</span></summary>
+        <div class="accordion-body">
+          <p>免許証に <strong>「中型車は中型車(8t)とAT車に限る」</strong> と書かれている場合は、限定解除の前に <strong>AT限定解除</strong> が必要です。</p>
+          <ul style="margin-top:8px">
+            <li>追加費用：約 <strong>＋3万円</strong></li>
+            <li>追加教習：約 <strong>＋4時限</strong></li>
+          </ul>
+        </div>
+      </details>
+
+      <div class="alert alert-success">
+        <span class="alert-icon">🎯</span>
+        <div>
+          具体的な理由がなければ、今の「8t限定」のままでも<strong>十分に強力な免許</strong>です。<br>
+          2t・3t・4tトラックのほとんどをカバーできる、現行の普通免許とは比較にならない実用的な免許といえます。
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="トップへ戻る">↑</button>
+
+<script>
+  // Back to top
+  window.addEventListener('scroll', () => {
+    const btn = document.getElementById('back-top');
+    btn.classList.toggle('visible', window.scrollY > 300);
+  });
+
+  // Sidebar active link
+  const sections = document.querySelectorAll('section.section');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Mobile sidebar
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('show');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('show');
+  }
+
+  // Close sidebar on link click (mobile)
+  tocLinks.forEach(a => {
+    a.addEventListener('click', () => {
+      if (window.innerWidth <= 768) closeSidebar();
+    });
+  });
+
+  // Search
+  let originalHTML = null;
+  function doSearch(q) {
+    const content = document.getElementById('content');
+    if (!originalHTML) originalHTML = content.innerHTML;
+    if (!q.trim()) {
+      content.innerHTML = originalHTML;
+      reObserve();
+      return;
+    }
+    content.innerHTML = originalHTML;
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+    nodes.forEach(node => {
+      if (node.parentElement.closest('script,style')) return;
+      const t = node.textContent;
+      if (re.test(t)) {
+        const span = document.createElement('span');
+        span.innerHTML = t.replace(re, m => `<mark class="search-hl">${m}</mark>`);
+        node.parentNode.replaceChild(span, node);
+      }
+    });
+    // Open accordions with matches
+    content.querySelectorAll('details').forEach(d => {
+      if (d.querySelector('mark.search-hl')) d.open = true;
+    });
+    reObserve();
+  }
+
+  function reObserve() {
+    document.querySelectorAll('section.section').forEach(s => observer.observe(s));
+  }
+</script>
+</body>
+</html>

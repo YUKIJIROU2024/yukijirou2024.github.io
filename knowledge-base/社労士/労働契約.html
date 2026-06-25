@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="労働基準法 Chapter 2 労働契約を視覚的に学ぶためのHTMLノート" />
+<title>労働基準法｜Chapter 2 労働契約</title>
+<style>
+:root{
+  --ink:#152033; --muted:#617086; --paper:#f6f8fc; --card:#ffffff;
+  --line:#dfe6f1; --blue:#2563eb; --blue-soft:#eaf1ff; --purple:#7c3aed;
+  --purple-soft:#f2edff; --pink:#db2777; --pink-soft:#fff0f7; --teal:#0f766e;
+  --teal-soft:#e7f8f5; --amber:#b45309; --amber-soft:#fff7e8; --red:#b42318;
+  --red-soft:#fff0ef; --shadow:0 10px 30px rgba(34,55,95,.08); --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;line-height:1.7}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.sidebar{position:fixed;inset:0 auto 0 0;width:278px;background:#10182b;color:#e6edf9;padding:26px 18px;overflow-y:auto;z-index:20;border-right:1px solid rgba(255,255,255,.08)}
+.brand{padding:6px 8px 20px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:18px}
+.brand .eyebrow{font-size:11px;letter-spacing:.12em;color:#a9bcde;text-transform:uppercase;font-weight:800}
+.brand h1{font-size:19px;line-height:1.45;margin:7px 0 0;color:#fff}
+.brand p{margin:8px 0 0;color:#b8c5db;font-size:12px;line-height:1.55}
+.nav-title{font-size:11px;color:#8fa3c5;letter-spacing:.1em;text-transform:uppercase;font-weight:800;margin:16px 8px 7px}
+.nav a{display:block;padding:9px 10px;border-radius:10px;color:#d6e1f5;font-size:13px;transition:.15s ease}
+.nav a:hover,.nav a.active{background:rgba(102,145,255,.18);color:#fff}
+.sidebar-foot{margin-top:22px;padding:12px;background:rgba(255,255,255,.06);border-radius:12px;font-size:12px;color:#cbd6e9;line-height:1.55}
+.main{margin-left:278px;min-width:0}
+.hero{padding:52px clamp(24px,5vw,72px) 42px;background:radial-gradient(circle at 90% 5%,rgba(219,39,119,.14),transparent 30%),radial-gradient(circle at 72% 80%,rgba(37,99,235,.13),transparent 32%),linear-gradient(135deg,#fff 0%,#f7f9ff 54%,#f2f4fb 100%);border-bottom:1px solid var(--line)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:12px;letter-spacing:.08em;color:var(--purple);background:var(--purple-soft);padding:6px 10px;border-radius:999px}
+.hero h2{font-size:clamp(30px,4vw,53px);letter-spacing:-.04em;line-height:1.22;margin:15px 0 14px}
+.hero h2 span{color:var(--pink)}
+.hero p{font-size:16px;color:#415069;max-width:850px;margin:0}
+.hero-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:16px;margin-top:30px;max-width:1130px}
+.hero-card{background:rgba(255,255,255,.86);border:1px solid rgba(210,221,241,.9);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.hero-card h3{margin:0 0 8px;font-size:14px;color:#31415e}.hero-card strong{font-size:22px;line-height:1.45;display:block}.hero-card p{font-size:13px;margin:9px 0 0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.chip{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;background:#edf3ff;color:#31569a}.chip.pink{background:var(--pink-soft);color:#a91d61}.chip.teal{background:var(--teal-soft);color:#0a655e}.chip.amber{background:var(--amber-soft);color:#9a4b08}
+.workspace{padding:28px clamp(24px,5vw,72px) 76px;max-width:1420px;margin:auto}
+.utility{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:0 0 24px;position:sticky;top:0;z-index:12;padding:12px 0;background:linear-gradient(var(--paper) 80%,rgba(246,248,252,0))}
+.search{position:relative;flex:1;max-width:520px}.search input{width:100%;padding:12px 16px 12px 39px;border:1px solid #cfd9eb;border-radius:12px;background:#fff;outline:none;color:var(--ink);box-shadow:0 2px 10px rgba(32,54,89,.04)}.search input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.1)}.search::before{content:"⌕";position:absolute;left:14px;top:8px;color:#789;font-size:21px}
+.status{font-size:12px;color:var(--muted);white-space:nowrap}.hidden-by-search{display:none!important}
+.section{scroll-margin-top:82px;margin:34px 0}.section-heading{display:flex;gap:14px;align-items:flex-start;margin:0 0 14px}.section-index{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--purple));font-weight:900;font-size:15px;box-shadow:0 8px 18px rgba(72,81,181,.24)}
+.section-heading h2{margin:0;font-size:25px;letter-spacing:-.03em;line-height:1.25}.section-heading p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.summary-banner{background:linear-gradient(100deg,#1d4ed8,#6d28d9);color:#fff;border-radius:var(--radius);padding:20px 22px;display:flex;gap:18px;align-items:center;box-shadow:0 14px 30px rgba(58,73,176,.2)}
+.summary-banner .number{font-size:46px;line-height:1;font-weight:900;opacity:.95}.summary-banner strong{font-size:17px;display:block}.summary-banner p{margin:4px 0 0;font-size:13px;line-height:1.5;opacity:.93}
+.grid{display:grid;gap:16px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.split{grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 4px 15px rgba(37,55,88,.04)}
+.card h3,.card h4{margin:0 0 8px;line-height:1.4}.card h3{font-size:17px}.card h4{font-size:14px}.card p{margin:7px 0;color:#44536b;font-size:14px}.article{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 8px;background:var(--blue-soft);color:#1e4fbc;font-size:11px;font-weight:900;margin-bottom:10px}
+.card ul{margin:8px 0 0;padding-left:20px}.card li{margin:5px 0;font-size:13px;color:#42516a}.note{border-left:4px solid var(--teal);background:var(--teal-soft);padding:12px 13px;border-radius:0 12px 12px 0;font-size:13px;color:#15544f}.warn{border-left-color:var(--amber);background:var(--amber-soft);color:#7c430f}.danger{border-left-color:var(--red);background:var(--red-soft);color:#8f241c}.pink-note{border-left-color:var(--pink);background:var(--pink-soft);color:#8d255a}
+.flow{display:flex;align-items:stretch;gap:0;margin:14px 0 0;overflow:auto;padding-bottom:2px}.flow-step{position:relative;min-width:160px;flex:1;padding:15px 14px;background:#f7f9fd;border:1px solid #dce5f5;font-size:13px}.flow-step:first-child{border-radius:12px 0 0 12px}.flow-step:last-child{border-radius:0 12px 12px 0}.flow-step:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);height:26px;width:26px;border-radius:50%;background:#fff;border:1px solid #dce5f5;display:grid;place-items:center;z-index:2;color:#60708a;font-weight:800}.flow-step .label{font-size:11px;font-weight:800;color:#5f6f88;display:block;margin-bottom:3px}.flow-step strong{line-height:1.45;display:block}.flow-step.emph{background:var(--blue-soft);border-color:#b8cdfa}.flow-step.pink{background:var(--pink-soft);border-color:#f2bad4}.flow-step.teal{background:var(--teal-soft);border-color:#aee0d8}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}.data-table{border-collapse:collapse;width:100%;min-width:650px;font-size:13px}.data-table th,.data-table td{padding:12px 13px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);vertical-align:top;text-align:left}.data-table th:last-child,.data-table td:last-child{border-right:0}.data-table tr:last-child td{border-bottom:0}.data-table th{background:#eef3fc;color:#33425c;font-size:12px}.data-table td strong{color:#253958}.good{color:var(--teal);font-weight:800}.bad{color:var(--red);font-weight:800}.small{font-size:12px;color:var(--muted)}
+.rule{border-radius:14px;border:1px dashed #c7d4eb;background:#fbfcff;padding:15px 16px}.rule .rule-title{font-size:12px;font-weight:900;color:#456096;letter-spacing:.04em;margin-bottom:4px}.rule .rule-main{font-weight:800;font-size:17px;line-height:1.45}.rule .rule-sub{font-size:12px;color:#55667f;margin-top:4px}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:10px;margin-top:15px}.timeline:before{content:"";position:absolute;left:8%;right:8%;top:27px;height:3px;background:#dbe5f5}.point{position:relative;z-index:1}.dot{width:14px;height:14px;border-radius:50%;background:var(--purple);border:4px solid #ddd4ff;margin:20px 0 6px}.point:nth-child(2) .dot{background:var(--pink);border-color:#ffd7e8}.point:nth-child(3) .dot{background:var(--teal);border-color:#c6eee9}.point:nth-child(4) .dot{background:var(--blue);border-color:#d5e4ff}.point strong{display:block;font-size:12px}.point span{display:block;font-size:11px;color:var(--muted);line-height:1.45}
+details{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}details+details{margin-top:10px}summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}summary::after{content:"＋";font-size:19px;color:var(--blue);line-height:1}details[open] summary{border-bottom:1px solid var(--line);background:#fbfcff}details[open] summary::after{content:"−"}.details-content{padding:14px 16px 16px;font-size:13px;color:#43526a}.details-content p:first-child{margin-top:0}.details-content ul{margin:8px 0;padding-left:20px}.details-content li{margin:5px 0}
+.memory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.memory-card{padding:15px;border-radius:14px;border:1px solid #ecd0df;background:#fffafd}.memory-card .tag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.06em;color:#b2296a;background:#ffe4f0;padding:3px 6px;border-radius:999px}.memory-card strong{display:block;margin-top:7px;font-size:15px;line-height:1.4}.memory-card p{font-size:12px;margin:5px 0 0;color:#6a5162}
+.quiz{background:linear-gradient(135deg,#fff,#f4f8ff);border-color:#cbd8ef}.quiz summary{color:#1d4ed8}.quiz .answer{margin-top:10px;padding:11px 12px;border-radius:10px;background:#eaf1ff;color:#264a9b;font-weight:700}.source{font-size:12px;color:#6b7890;padding:14px 0 0}.source b{color:#53627a}
+.back-top{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border:0;border-radius:50%;cursor:pointer;background:#111c33;color:#fff;box-shadow:0 10px 24px rgba(15,23,42,.22);display:grid;place-items:center;font-size:18px;z-index:15;opacity:0;pointer-events:none;transition:.2s}.back-top.visible{opacity:1;pointer-events:auto}
+.mobile-nav{display:none}
+@media(max-width:1080px){.hero-grid,.split{grid-template-columns:1fr}.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.sidebar{display:none}.main{margin-left:0}.mobile-nav{display:flex;position:sticky;top:0;z-index:30;padding:10px 14px;background:#111a2e;color:#fff;justify-content:space-between;align-items:center}.mobile-nav strong{font-size:13px}.mobile-nav select{max-width:66%;background:#22304e;border:1px solid #3b4c71;border-radius:8px;color:#fff;padding:7px 9px}.hero{padding:32px 22px 30px}.hero-grid{margin-top:20px}.workspace{padding:20px 18px 60px}.utility{top:40px}.status{display:none}.two,.three,.memory{grid-template-columns:1fr}.summary-banner{align-items:flex-start}.summary-banner .number{font-size:34px}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline:before{display:none}.dot{margin-top:0}.flow{display:grid;grid-template-columns:1fr}.flow-step{border-radius:12px!important}.flow-step:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-13px;transform:translateX(-50%)}.section-heading h2{font-size:22px}.back-top{right:16px;bottom:16px}}
+@media print{.sidebar,.mobile-nav,.utility,.back-top{display:none!important}.main{margin:0}.hero{padding:24px}.workspace{padding:18px}.section{break-inside:avoid}.card,details{break-inside:avoid}.hero{background:#fff}}
+</style>
+</head>
+<body>
+<aside class="sidebar" aria-label="目次">
+  <div class="brand">
+    <div class="eyebrow">Labor Standards Act</div>
+    <h1>Chapter 2<br>労働契約</h1>
+    <p>条文の位置関係と期限を、試験で思い出せる形に再構成。</p>
+  </div>
+  <div class="nav">
+    <div class="nav-title">Overview</div>
+    <a href="#summary">まず結論</a>
+    <a href="#map">全体像</a>
+    <div class="nav-title">Article 13–15</div>
+    <a href="#a13">13条｜法違反の契約</a>
+    <a href="#a14">14条｜契約期間・雇止め</a>
+    <a href="#a15">15条｜労働条件の明示</a>
+    <div class="nav-title">Dismissal</div>
+    <a href="#a19">19条｜解雇制限</a>
+    <a href="#a20">20条｜解雇予告</a>
+    <a href="#a21">21条｜予告の除外</a>
+    <div class="nav-title">Exit</div>
+    <a href="#a22">22条｜退職時等の証明</a>
+    <a href="#a23">23条｜金品の返還</a>
+    <div class="nav-title">Review</div>
+    <a href="#memory">暗記スイッチ</a>
+    <a href="#quiz">確認クイズ</a>
+  </div>
+  <div class="sidebar-foot">対象：提供テキストの Chapter 2（労基法13〜15条、19〜23条）。<br>学習用の要約ノートです。</div>
+</aside>
+
+<div class="main">
+  <div class="mobile-nav">
+    <strong>労基法｜労働契約</strong>
+    <select aria-label="目次" onchange="location.hash=this.value">
+      <option value="#summary">目次へ移動</option><option value="#summary">まず結論</option><option value="#map">全体像</option><option value="#a13">13条</option><option value="#a14">14条</option><option value="#a15">15条</option><option value="#a19">19条</option><option value="#a20">20条</option><option value="#a21">21条</option><option value="#a22">22条</option><option value="#a23">23条</option><option value="#memory">暗記</option>
+    </select>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">CHAPTER 2 ・ 労働契約</div>
+    <h2>採用から退職までを<br><span>「契約の守り方」</span>でつなぐ。</h2>
+    <p>この章は、労働条件の最低基準、契約期間、有期契約、明示、解雇、退職時の手続を扱う。<br>覚える軸は、<b>契約の効力 → 入口での明示 → 終了時の保護</b>。</p>
+    <div class="hero-grid">
+      <div class="hero-card">
+        <h3>この章の一文要約</h3>
+        <strong>不利な約束は法定基準に置換され、<br>採用時・解雇時・退職時には<br>明確な手続が求められる。</strong>
+        <div class="chips"><span class="chip">13条：最低基準への置換</span><span class="chip pink">15条：明示</span><span class="chip teal">19〜21条：解雇</span><span class="chip amber">22〜23条：退職後</span></div>
+      </div>
+      <div class="hero-card">
+        <h3>試験で迷いやすい対比</h3>
+        <p><b>解雇制限（19条）</b>は「解雇そのもの」ができない期間。</p>
+        <p><b>解雇予告（20条）</b>は「解雇する前」に必要な手続。</p>
+        <p><b>21条</b>は、臨時的な雇用形態に対する20条の適用除外。</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <div class="utility">
+      <label class="search"><input id="searchBox" type="search" placeholder="キーワードで絞り込み（例：30日、無期転換、証明書）" /></label>
+      <span class="status" id="status">全セクションを表示中</span>
+    </div>
+
+    <section class="section" id="summary" data-search="まとめ 結論 全体">
+      <div class="section-heading"><div class="section-index">0</div><div><h2>まず結論</h2><p>「いつ・何を・どこまで」が分かれば、Chapter 2 は一本につながる。</p></div></div>
+      <div class="summary-banner"><div class="number">3</div><div><strong>入口・途中・出口の3場面で整理する。</strong><p>入口＝労働条件を明示する。途中＝法定基準を下回る約束は効かず、有期契約には期間・更新のルールがある。出口＝解雇には制限・予告があり、退職時には証明と金品返還のルールがある。</p></div></div>
+    </section>
+
+    <section class="section" id="map" data-search="全体像 構造 13条 14条 15条 19条 20条 21条 22条 23条">
+      <div class="section-heading"><div class="section-index">1</div><div><h2>全体像｜労働契約のライフサイクル</h2><p>各条文を「契約が動く順番」で並べる。</p></div></div>
+      <div class="flow" aria-label="労働契約の全体フロー">
+        <div class="flow-step emph"><span class="label">① 契約の土台</span><strong>13条<br>法定基準を下回る約束は無効</strong></div>
+        <div class="flow-step"><span class="label">② 有期契約の設計</span><strong>14条<br>期間上限・雇止めルール</strong></div>
+        <div class="flow-step pink"><span class="label">③ 契約の入口</span><strong>15条<br>労働条件を明示</strong></div>
+        <div class="flow-step teal"><span class="label">④ 契約の出口</span><strong>19〜23条<br>解雇・証明・金品返還</strong></div>
+      </div>
+      <div class="grid three" style="margin-top:16px">
+        <div class="card"><span class="article">入口</span><h3>採用・更新のとき</h3><p>契約期間、勤務地・業務、労働時間、賃金、退職などを示す。</p><div class="note pink-note">2024年4月から、変更の範囲・更新上限・無期転換関連の明示が重要。</div></div>
+        <div class="card"><span class="article">途中</span><h3>有期契約のとき</h3><p>原則3年。雇止めの予告・理由証明、更新上限の説明などが問題になる。</p><div class="note">通算5年超では、無期転換申込権との接続も確認。</div></div>
+        <div class="card"><span class="article">出口</span><h3>解雇・退職のとき</h3><p>まず19条で「解雇できる時期か」、次に20条で「予告は足りるか」を見る。</p><div class="note warn">退職者の請求があれば、証明書や金品を遅滞なく・7日以内に対応。</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="a13" data-search="13条 労働基準法違反 労働契約 無効 置換 労働協約 就業規則">
+      <div class="section-heading"><div class="section-index">13</div><div><h2>労基法13条｜法違反の契約はどうなるか</h2><p>契約全体が消えるのではなく、最低基準を下回る部分だけが置き換わる。</p></div></div>
+      <div class="grid split">
+        <div class="card">
+          <span class="article">労基法13条</span><h3>部分無効 ＋ 法定基準への置換</h3>
+          <div class="flow">
+            <div class="flow-step"><span class="label">契約に記載</span><strong>法定基準より低い条件</strong></div>
+            <div class="flow-step pink"><span class="label">13条の効果</span><strong>その部分だけ無効</strong></div>
+            <div class="flow-step emph"><span class="label">最終的に適用</span><strong>法定基準に置換</strong></div>
+          </div>
+          <div class="note" style="margin-top:16px"><b>大事：</b>契約全体を無効にする規定ではない。残りの契約は原則として残る。</div>
+        </div>
+        <div class="card">
+          <h3>効力のイメージ</h3>
+          <div class="rule"><div class="rule-title">下位のルールは上位に反できない</div><div class="rule-main">法令　≧　労働協約　≧　就業規則　≧　労働契約</div><div class="rule-sub">労使協定は、主に労基法上の免罰的効力をもつもので、この順位関係とは別に考える。</div></div>
+          <div class="memory-card" style="margin-top:12px"><span class="tag">ひっかけ回避</span><strong>「全部無効」ではなく「その部分について無効」。</strong><p>無効部分は空白にならず、労基法の基準が入る。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="a14" data-search="14条 契約期間 3年 5年 60歳 専門的知識 有期事業 退職の申出 附則137条 雇止め 更新上限 30日前">
+      <div class="section-heading"><div class="section-index">14</div><div><h2>労基法14条｜契約期間と雇止め</h2><p>長すぎる有期契約で労働者を拘束しないためのルール。期間の上限と更新時の手続を分けて覚える。</p></div></div>
+      <div class="grid two">
+        <div class="card">
+          <span class="article">契約期間の上限</span><h3>原則は3年</h3>
+          <div class="timeline">
+            <div class="point"><div class="dot"></div><strong>原則</strong><span>有期契約は<br><b>3年以内</b></span></div>
+            <div class="point"><div class="dot"></div><strong>有期事業</strong><span>事業完了まで<br>設定可能</span></div>
+            <div class="point"><div class="dot"></div><strong>高度専門職</strong><span>一定要件なら<br><b>5年以内</b></span></div>
+            <div class="point"><div class="dot"></div><strong>満60歳以上</strong><span><b>5年以内</b>で<br>契約可能</span></div>
+          </div>
+          <div class="note warn" style="margin-top:14px">上限を超える期間を定めても、原則として13条により <b>3年（例外は5年）</b>として扱う。</div>
+        </div>
+        <div class="card">
+          <span class="article">附則137条</span><h3>1年経過後の退職の申出</h3>
+          <p>1年を超える有期契約を結んだ労働者は、契約初日から<b>1年経過後</b>、使用者に申し出ればいつでも退職できる。</p>
+          <div class="rule"><div class="rule-title">対象外</div><div class="rule-main">有期事業 ／ 高度専門職 ／ 満60歳以上</div><div class="rule-sub">長期の有期契約を認める例外とセットで整理する。</div></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <span class="article">有期労働契約の締結・更新・雇止め基準</span><h3>雇止めの4点セット</h3>
+        <div class="grid four" style="grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+          <div class="memory-card"><span class="tag">① 更新上限</span><strong>新設・引下げなら理由説明</strong><p>通算契約期間または更新回数の上限を、後から定める・引き下げるとき。</p></div>
+          <div class="memory-card"><span class="tag">② 雇止め予告</span><strong>原則30日前</strong><p>3回以上更新または雇入れから1年超の継続勤務。あらかじめ不更新明示なら除く。</p></div>
+          <div class="memory-card"><span class="tag">③ 理由証明</span><strong>請求があれば遅滞なく</strong><p>雇止め前・雇止め後のいずれでも、対象者の請求に対応。</p></div>
+          <div class="memory-card"><span class="tag">④ 期間配慮</span><strong>できる限り長く</strong><p>1回以上更新かつ雇入れから1年超なら、実態・希望に応じ配慮。</p></div>
+        </div>
+      </div>
+      <details style="margin-top:14px"><summary>無期転換ルールとのつながりを見る</summary><div class="details-content"><p><b>同一使用者との通算契約期間が5年を超える</b>とき、現契約の満了日までに労働者が無期転換を申し込めば、使用者は承諾したものとみなされる。無期化するのは、現契約満了の翌日から。</p><div class="note">この無期転換申込権が発生する更新時には、15条の明示も追加される。</div></div></details>
+    </section>
+
+    <section class="section" id="a15" data-search="15条 労働条件 明示 絶対的明示事項 相対的明示事項 書面 電子メール FAX 変更の範囲 更新上限 無期転換 即時解除 帰郷旅費">
+      <div class="section-heading"><div class="section-index">15</div><div><h2>労基法15条｜労働条件の明示</h2><p>採用・有期契約の更新の場面で、労働者が働き方を具体的に予見できるようにする。</p></div></div>
+      <div class="grid split">
+        <div class="card">
+          <span class="article">基本ルール</span><h3>契約締結に際して明示する</h3>
+          <div class="flow">
+            <div class="flow-step"><span class="label">タイミング</span><strong>契約締結時<br>（有期更新時も）</strong></div>
+            <div class="flow-step pink"><span class="label">対象</span><strong>賃金・労働時間<br>その他の労働条件</strong></div>
+            <div class="flow-step emph"><span class="label">方法</span><strong>重要項目は<br>書面交付等</strong></div>
+          </div>
+          <div class="note pink-note" style="margin-top:16px">労働者が希望すれば、出力して書面化できる<b>FAX・電子メール等</b>での明示も可能。<br>ただし、昇給事項は書面交付等までは不要。</div>
+        </div>
+        <div class="card">
+          <span class="article">2024年4月〜</span><h3>追加で押さえる4項目</h3>
+          <ol style="margin:9px 0 0;padding-left:22px;font-size:13px;color:#43516a">
+            <li><b>就業場所・業務の変更の範囲</b>（すべての労働者）</li>
+            <li><b>更新上限</b>（定めがある有期契約）</li>
+            <li><b>無期転換申込機会</b>（権利が発生する更新時）</li>
+            <li><b>無期転換後の労働条件</b>（同上）</li>
+          </ol>
+          <div class="note" style="margin-top:13px">「変更の範囲」は、当該契約期間中に想定される配置転換・在籍出向先など。臨時の応援・出張等は通常含めない。</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3>明示事項｜絶対的と相対的を切り分ける</h3>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th style="width:25%">区分</th><th>主な内容</th><th style="width:20%">書面交付等</th></tr></thead><tbody>
+          <tr><td><strong>絶対的明示事項</strong><br><span class="small">必ず明示</span></td><td>契約期間／更新基準・更新上限（有期で更新ありの場合）／就業場所・業務と変更の範囲／始終業・残業・休憩・休日・休暇・交替制／賃金の決定・計算・支払・締日・支払日・昇給／退職（解雇事由を含む）</td><td><span class="good">原則必要</span><br><span class="small">ただし昇給事項は口頭でも可</span></td></tr>
+          <tr><td><strong>相対的明示事項</strong><br><span class="small">定めがある場合のみ</span></td><td>退職手当／賞与・臨時賃金・最低賃金額／労働者負担の食費・作業用品等／安全衛生／職業訓練／災害補償・傷病扶助／表彰・制裁／休職</td><td><span class="good">明示は必要</span><br><span class="small">書面交付等までは不要</span></td></tr>
+        </tbody></table></div>
+      </div>
+
+      <div class="grid two" style="margin-top:16px">
+        <div class="card"><span class="article">無期転換申込権が発生する契約</span><h3>通常の明示 ＋ 2項目</h3><ul><li><b>無期転換を申し込めること</b></li><li><b>無期転換後の労働条件</b>（絶対的明示事項相当は書面交付等）</li></ul><div class="note">無期転換後の条件を定める際は、就業実態に応じた均衡を考慮した事項の説明に努める。</div></div>
+        <div class="card"><span class="article">明示内容と実態が違うとき</span><h3>労働者は即時解除できる</h3><ul><li>明示された一定の労働条件が事実と相違</li><li>就業のために住居を変更していた場合</li><li>解除から<b>14日以内</b>に帰郷なら、必要な旅費を使用者が負担</li></ul><div class="note warn">単なる福利厚生施設等は、この即時解除の対象となる「明示すべき労働条件」には含まれない。</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="a19" data-search="19条 解雇制限 業務上 傷病 療養 産前産後 30日 打切補償 天災事変 労働基準監督署長">
+      <div class="section-heading"><div class="section-index">19</div><div><h2>労基法19条｜解雇制限</h2><p>「予告をすればよい」場面ではない。一定期間は、解雇そのものが禁止される。</p></div></div>
+      <div class="grid two">
+        <div class="card"><span class="article">禁止される期間</span><h3>2つの保護期間</h3><div class="timeline"><div class="point"><div class="dot"></div><strong>業務上の傷病</strong><span>療養のための休業期間<br>＋ その後<b>30日</b></span></div><div class="point"><div class="dot"></div><strong>産前産後休業</strong><span>65条による休業期間<br>＋ その後<b>30日</b></span></div></div><div class="note danger" style="margin-top:16px">この期間中の解雇は無効。労働者側の重大な事情があっても、原則として19条の保護が優先する。</div></div>
+        <div class="card"><span class="article">解除される場合</span><h3>例外は2つ</h3><div class="rule"><div class="rule-title">① 打切補償</div><div class="rule-main">療養開始後3年を超えても治らない場合の打切補償</div><div class="rule-sub">平均賃金1,200日分。傷病補償年金との関係も確認。</div></div><div class="rule" style="margin-top:11px"><div class="rule-title">② 天災事変など</div><div class="rule-main">事業継続が不可能</div><div class="rule-sub">所轄労働基準監督署長の認定が必要。単なる縮小や経営難とは別。</div></div></div>
+      </div>
+      <details style="margin-top:14px"><summary>よく出る判断ポイント</summary><div class="details-content"><ul><li><b>通勤災害</b>による療養休業は、19条の解雇制限の対象ではない。</li><li>業務上の傷病でも、療養のため休業せず働いているなら、この解雇制限はかからない。</li><li>産前休業は請求により発生するため、請求せず就労している期間は「65条による休業期間」ではない。</li></ul></div></details>
+    </section>
+
+    <section class="section" id="a20" data-search="20条 解雇予告 30日前 30日 平均賃金 解雇予告手当 即時解雇 例外 監督署長 認定">
+      <div class="section-heading"><div class="section-index">20</div><div><h2>労基法20条｜解雇予告</h2><p>解雇をするなら、原則は30日前予告。足りない日数は平均賃金で補う。</p></div></div>
+      <div class="grid split">
+        <div class="card"><span class="article">原則</span><h3>30日前予告 or 30日分以上の平均賃金</h3><div class="flow"><div class="flow-step"><span class="label">A</span><strong>30日前に予告</strong></div><div class="flow-step pink"><span class="label">B</span><strong>予告日数を短縮</strong></div><div class="flow-step emph"><span class="label">不足分</span><strong>1日につき平均賃金で補う</strong></div></div><p class="small" style="margin-top:15px">例：18日前に予告するなら、12日分以上の平均賃金を支払う。即時解雇なら30日分以上。</p></div>
+        <div class="card"><span class="article">手続と有効性は別</span><h3>20条は「予告の手続」</h3><p>30日前予告や予告手当があっても、解雇理由の合理性・社会的相当性の問題は別に残る。</p><div class="note">予告日当日は数えず、翌日から暦日で数える。予告と手当を併用する場合、手当は解雇日までに支払えばよいとされる。</div></div>
+      </div>
+      <div class="card" style="margin-top:16px"><span class="article">20条ただし書</span><h3>解雇予告が不要となる2場面</h3><div class="grid two"><div class="rule"><div class="rule-title">① 事業継続が不可能</div><div class="rule-main">天災事変その他やむを得ない事由</div><div class="rule-sub">19条の例外と同じ考え方。認定が必要。</div></div><div class="rule"><div class="rule-title">② 労働者の責に帰すべき事由</div><div class="rule-main">重大な規律違反など</div><div class="rule-sub">盗取・横領、重大な経歴詐称、無断欠勤等の典型。認定が必要。</div></div></div><div class="note warn" style="margin-top:13px">どちらも、所轄労働基準監督署長の認定が必要。認定を遅らせると、19条・20条の問題になり得る。</div></div>
+    </section>
+
+    <section class="section" id="a21" data-search="21条 解雇予告の除外 日雇い 1か月 2か月 季節的業務 4か月 試用期間 14日">
+      <div class="section-heading"><div class="section-index">21</div><div><h2>労基法21条｜解雇予告の除外</h2><p>臨時的な雇用には20条を適用しない。ただし、一定期間を超えて継続すると20条が復活する。</p></div></div>
+      <div class="table-wrap"><table class="data-table"><thead><tr><th>解雇予告の除外となる者</th><th>20条が適用される例外</th><th>記憶フック</th></tr></thead><tbody>
+        <tr><td><strong>日々雇い入れられる者</strong></td><td><b>1か月</b>を超えて引き続き使用</td><td>日雇い → <b>1か月</b></td></tr>
+        <tr><td><strong>2か月以内の期間を定めて使用される者</strong></td><td><b>所定の期間</b>を超えて引き続き使用</td><td>短期契約 → <b>契約期間超え</b></td></tr>
+        <tr><td><strong>季節的業務に4か月以内の期間を定めて使用される者</strong></td><td><b>所定の期間</b>を超えて引き続き使用</td><td>季節業務 → <b>契約期間超え</b></td></tr>
+        <tr><td><strong>試みの使用期間中の者</strong></td><td><b>14日</b>を超えて引き続き使用</td><td>試用 → <b>14日</b></td></tr>
+      </tbody></table></div>
+      <div class="note" style="margin-top:15px"><b>注意：</b>21条は、解雇予告（20条）の適用除外。解雇権濫用法理や19条の問題まで一括で消えるわけではない。</div>
+    </section>
+
+    <section class="section" id="a22" data-search="22条 退職時等の証明 解雇理由 証明書 2年 ブラックリスト 秘密の記号 国籍 信条 社会的身分 労働組合">
+      <div class="section-heading"><div class="section-index">22</div><div><h2>労基法22条｜退職時等の証明・ブラックリストの禁止</h2><p>証明書は「請求された事項だけ」。余計なことを書かないことも義務。</p></div></div>
+      <div class="grid two">
+        <div class="card"><span class="article">退職時等の証明</span><h3>請求があれば遅滞なく交付</h3><div class="rule"><div class="rule-title">請求できる主な事項</div><div class="rule-main">使用期間 ／ 業務の種類 ／ 地位 ／ 賃金 ／ 退職事由（解雇なら理由を含む）</div><div class="rule-sub">請求されていない事項を記載してはならない。退職後の請求は2年以内。</div></div><div class="note" style="margin-top:12px">解雇予告から退職までの間には、解雇理由の証明も請求できる。即時解雇では、退職時の証明として請求する。</div></div>
+        <div class="card"><span class="article">22条4項</span><h3>ブラックリストを防ぐ</h3><p>第三者とあらかじめ通じ、労働者の就業を妨げる目的で、次に関する通信や秘密の記号記入をしてはならない。</p><div class="chips"><span class="chip pink">国籍</span><span class="chip pink">信条</span><span class="chip pink">社会的身分</span><span class="chip pink">労働組合運動</span></div><div class="note danger" style="margin-top:13px">禁止のポイントは <b>「事前の共謀」＋「就業妨害目的」</b>。証明書への秘密記号も禁止。</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="a23" data-search="23条 金品の返還 7日 賃金 退職 死亡 相続人 権利者 退職手当 争いがある 異議のない部分">
+      <div class="section-heading"><div class="section-index">23</div><div><h2>労基法23条｜金品の返還</h2><p>退職または死亡後、権利者の請求があれば、賃金と労働者の金品を速やかに清算する。</p></div></div>
+      <div class="grid split">
+        <div class="card"><span class="article">基本ルール</span><h3>請求があれば7日以内</h3><div class="flow"><div class="flow-step"><span class="label">トリガー</span><strong>退職 または 死亡</strong></div><div class="flow-step pink"><span class="label">請求者</span><strong>退職＝本人<br>死亡＝相続人</strong></div><div class="flow-step emph"><span class="label">期限</span><strong>賃金・金品を<br><b>7日以内</b>に支払・返還</strong></div></div><p class="small" style="margin-top:15px">対象は賃金、積立金、保証金、貯蓄金など、名称を問わず労働者の権利に属する金品。</p></div>
+        <div class="card"><span class="article">争いがある場合</span><h3>異議のない部分は先に7日以内</h3><p>賃金や金品に争いがあっても、争いのない部分まで保留してはいけない。</p><div class="note warn">退職手当は、就業規則等で定めた支払時期に支払えばよく、必ずしも7日以内ではない。</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="memory" data-search="暗記 まとめ 3年 5年 30日 14日 7日 1か月 無期転換">
+      <div class="section-heading"><div class="section-index">★</div><div><h2>暗記スイッチ｜数字と対比</h2><p>数字は「どの条文の、どの場面か」をセットで固定する。</p></div></div>
+      <div class="memory">
+        <div class="memory-card"><span class="tag">契約期間</span><strong>3年が原則、5年は高度専門職・満60歳以上。</strong><p>有期事業は「事業完了に必要な期間」。</p></div>
+        <div class="memory-card"><span class="tag">雇止め</span><strong>3回更新 or 1年超で、30日前予告。</strong><p>ただし、最初から不更新を明示していた場合を除く。</p></div>
+        <div class="memory-card"><span class="tag">解雇制限</span><strong>休業期間 ＋ 30日。</strong><p>業務上傷病・産前産後休業の2ルート。</p></div>
+        <div class="memory-card"><span class="tag">解雇予告</span><strong>30日前 or 30日分以上の平均賃金。</strong><p>1日分の平均賃金で1日短縮できる。</p></div>
+        <div class="memory-card"><span class="tag">21条</span><strong>日雇い1か月、試用14日。</strong><p>2か月契約・季節的業務は「所定期間超え」。</p></div>
+        <div class="memory-card"><span class="tag">退職後</span><strong>証明は遅滞なく、金品は7日以内。</strong><p>証明書は「請求された事項だけ」。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="quiz" data-search="クイズ 問題 確認">
+      <div class="section-heading"><div class="section-index">Q</div><div><h2>確認クイズ</h2><p>答えを開く前に、数字と条文を声に出して確認。</p></div></div>
+      <details class="quiz"><summary>Q1　5年の有期契約を結べるのは、満60歳以上の労働者だけ？</summary><div class="details-content"><div class="answer">いいえ。高度の専門的知識等を有する一定の労働者も5年以内の契約が可能。加えて、有期事業は事業完了に必要な期間を定められる。</div></div></details>
+      <details class="quiz"><summary>Q2　解雇予告を30日前にすれば、業務上傷病で休業中の労働者も解雇できる？</summary><div class="details-content"><div class="answer">できない。19条の解雇制限期間中は、解雇そのものが禁止される。20条の予告手続とは別問題。</div></div></details>
+      <details class="quiz"><summary>Q3　退職証明書には、使用者が考える事情をできるだけ詳しく書くべき？</summary><div class="details-content"><div class="answer">いいえ。労働者が請求していない事項を記入してはならない。請求された法定事項の範囲で、事実を証明する。</div></div></details>
+      <details class="quiz"><summary>Q4　有期契約で「更新回数の上限」を契約更新時に新しく定めるなら、何が必要？</summary><div class="details-content"><div class="answer">更新上限の明示に加え、あらかじめその理由を労働者に説明する必要がある。</div></div></details>
+      <p class="source"><b>出典：</b>提供テキスト「25社労士テキスト１-1 労働基準法(1)」Chapter 2（p.34〜57）をもとに、学習用に再構成。</p>
+    </section>
+  </main>
+</div>
+<button class="back-top" id="backTop" title="ページ上部へ" aria-label="ページ上部へ">↑</button>
+<script>
+(() => {
+  const input = document.getElementById('searchBox');
+  const status = document.getElementById('status');
+  const sections = [...document.querySelectorAll('[data-search]')];
+  const topBtn = document.getElementById('backTop');
+  function norm(v){return (v || '').toLowerCase().trim();}
+  input.addEventListener('input', () => {
+    const q = norm(input.value);
+    let count = 0;
+    sections.forEach(s => {
+      const hay = norm(s.dataset.search + ' ' + s.innerText);
+      const show = !q || hay.includes(q);
+      s.classList.toggle('hidden-by-search', !show);
+      if(show) count++;
+    });
+    status.textContent = q ? `「${input.value}」に一致：${count} セクション` : '全セクションを表示中';
+  });
+  window.addEventListener('scroll', () => topBtn.classList.toggle('visible', window.scrollY > 550));
+  topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+})();
+</script>
+</body>
+</html>
