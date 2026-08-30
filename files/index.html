@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Vault</title>
+  <style>
+    :root {
+      --blue-dark: #1f4e79;
+      --blue: #3a7bd5;
+      --bg: #f0f4f9;
+      --border: #d0dcea;
+      --muted: #5a6a80;
+      --danger: #c0392b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Meiryo", sans-serif;
+      background: var(--bg);
+      color: #1a1a2e;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      color: white;
+      padding: 32px 20px 28px;
+      text-align: center;
+    }
+    header h1 { font-size: 1.6rem; }
+    header p { margin-top: 6px; opacity: .8; font-size: .88rem; }
+    header a {
+      display: inline-block; margin-top: 12px; font-size: .8rem;
+      color: rgba(255,255,255,.7); text-decoration: none;
+      border: 1px solid rgba(255,255,255,.35); padding: 3px 12px;
+      border-radius: 999px;
+    }
+    header a:hover { background: rgba(255,255,255,.15); }
+
+    main { max-width: 800px; margin: 32px auto; padding: 0 20px; }
+
+    /* Token section */
+    #token-section {
+      background: white; border-radius: 14px; padding: 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07); margin-bottom: 24px;
+    }
+    #token-section h2 { font-size: .95rem; color: var(--blue-dark); margin-bottom: 12px; }
+    .token-row { display: flex; gap: 8px; }
+    .token-row input {
+      flex: 1; padding: 9px 12px; border: 1px solid var(--border);
+      border-radius: 8px; font-size: .88rem; font-family: monospace;
+    }
+    .token-row input:focus { outline: none; border-color: var(--blue); }
+    .btn {
+      padding: 9px 18px; border: none; border-radius: 8px;
+      font-size: .88rem; font-weight: 600; cursor: pointer;
+      transition: opacity .15s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn-primary { background: var(--blue-dark); color: white; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-sm { padding: 5px 12px; font-size: .78rem; }
+    #token-status { margin-top: 8px; font-size: .82rem; }
+    .status-ok { color: #1a6e1a; }
+    .status-err { color: var(--danger); }
+
+    /* Upload section */
+    #upload-section {
+      background: white; border-radius: 14px; padding: 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07); margin-bottom: 24px;
+    }
+    #upload-section h2 { font-size: .95rem; color: var(--blue-dark); margin-bottom: 14px; }
+    #drop-zone {
+      border: 2px dashed var(--border); border-radius: 12px;
+      padding: 36px 20px; text-align: center; color: var(--muted);
+      cursor: pointer; transition: border-color .2s, background .2s;
+      font-size: .9rem;
+    }
+    #drop-zone.drag-over { border-color: var(--blue); background: #eef4fd; }
+    #drop-zone input { display: none; }
+    #drop-zone .icon { font-size: 2rem; margin-bottom: 8px; }
+    #upload-progress { margin-top: 12px; font-size: .85rem; color: var(--muted); }
+
+    /* File list */
+    #list-section {
+      background: white; border-radius: 14px; padding: 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07);
+    }
+    #list-section h2 { font-size: .95rem; color: var(--blue-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    #refresh-btn { font-size: .75rem; padding: 3px 10px; }
+    #file-list { list-style: none; }
+    #file-list li {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0; border-bottom: 1px solid var(--bg);
+    }
+    #file-list li:last-child { border-bottom: none; }
+    .file-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .file-info { flex: 1; min-width: 0; }
+    .file-name { font-weight: 600; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file-meta { font-size: .75rem; color: var(--muted); margin-top: 1px; }
+    .file-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    #empty-msg { color: var(--muted); font-size: .88rem; text-align: center; padding: 20px 0; }
+    #loading-msg { color: var(--muted); font-size: .88rem; text-align: center; padding: 20px 0; }
+
+    footer { text-align: center; padding: 28px 20px; color: var(--muted); font-size: .82rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🗄️ File Vault</h1>
+  <p>個人用ファイル一時保管庫</p>
+  <a href="../index.html">← ダッシュボードへ戻る</a>
+</header>
+
+<main>
+  <!-- Token -->
+  <section id="token-section">
+    <h2>🔑 GitHub Token</h2>
+    <div class="token-row">
+      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
+      <button class="btn btn-primary" onclick="saveToken()">保存</button>
+      <button class="btn btn-danger btn-sm" onclick="clearToken()">クリア</button>
+    </div>
+    <div id="token-status"></div>
+  </section>
+
+  <!-- Upload -->
+  <section id="upload-section">
+    <h2>📤 アップロード</h2>
+    <div id="drop-zone" onclick="document.getElementById('file-input').click()"
+         ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+      <input type="file" id="file-input" multiple onchange="uploadFiles(this.files)">
+      <div class="icon">📁</div>
+      <div>クリックまたはファイルをドラッグ＆ドロップ</div>
+      <div style="font-size:.78rem; margin-top:6px; opacity:.7;">Excel・Word・PDF・PowerPoint など</div>
+    </div>
+    <div id="upload-progress"></div>
+  </section>
+
+  <!-- File list -->
+  <section id="list-section">
+    <h2>
+      📋 保存中のファイル
+      <button class="btn btn-primary btn-sm" id="refresh-btn" onclick="loadFiles()">更新</button>
+    </h2>
+    <ul id="file-list">
+      <li id="loading-msg">読み込み中...</li>
+    </ul>
+  </section>
+</main>
+
+<footer>© 2026 Yukiji AI Lab · File Vault</footer>
+
+<script>
+const OWNER = 'YUKIJIROU2024';
+const REPO  = 'file-vault';
+const API   = `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
+
+function getToken() { return localStorage.getItem('fv_token') || ''; }
+
+function saveToken() {
+  const t = document.getElementById('token-input').value.trim();
+  if (!t) return;
+  localStorage.setItem('fv_token', t);
+  document.getElementById('token-input').value = '';
+  showTokenStatus('トークンを保存しました', true);
+  loadFiles();
+}
+
+function clearToken() {
+  localStorage.removeItem('fv_token');
+  showTokenStatus('トークンをクリアしました', false);
+  document.getElementById('file-list').innerHTML = '<li id="loading-msg">トークンを入力してください</li>';
+}
+
+function showTokenStatus(msg, ok) {
+  const el = document.getElementById('token-status');
+  el.textContent = msg;
+  el.className = ok ? 'status-ok' : 'status-err';
+}
+
+function fileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (['xlsx','xls','csv'].includes(ext)) return '📗';
+  if (['docx','doc'].includes(ext)) return '📘';
+  if (['pdf'].includes(ext)) return '📕';
+  if (['pptx','ppt'].includes(ext)) return '📙';
+  if (['zip','rar','7z'].includes(ext)) return '🗜️';
+  if (['jpg','jpeg','png','gif','webp'].includes(ext)) return '🖼️';
+  if (['mp4','mov','avi'].includes(ext)) return '🎬';
+  return '📄';
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+}
+
+async function loadFiles() {
+  const token = getToken();
+  if (!token) {
+    document.getElementById('file-list').innerHTML = '<li id="loading-msg">トークンを入力してください</li>';
+    return;
+  }
+  document.getElementById('file-list').innerHTML = '<li id="loading-msg">読み込み中...</li>';
+  try {
+    const res = await fetch(API, { headers: { Authorization: `token ${token}` } });
+    if (res.status === 401) { showTokenStatus('トークンが無効です', false); return; }
+    if (res.status === 404) {
+      document.getElementById('file-list').innerHTML = '<li id="empty-msg">ファイルがありません</li>';
+      return;
+    }
+    const files = await res.json();
+    const items = files.filter(f => f.type === 'file');
+    if (items.length === 0) {
+      document.getElementById('file-list').innerHTML = '<li id="empty-msg">ファイルがありません</li>';
+      return;
+    }
+    document.getElementById('file-list').innerHTML = items.map(f => `
+      <li>
+        <span class="file-icon">${fileIcon(f.name)}</span>
+        <div class="file-info">
+          <div class="file-name" title="${f.name}">${f.name}</div>
+          <div class="file-meta">${formatSize(f.size)}</div>
+        </div>
+        <div class="file-actions">
+          <button class="btn btn-primary btn-sm" onclick="downloadFile('${f.name}','${f.download_url}')">DL</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteFile('${f.name}','${f.sha}')">削除</button>
+        </div>
+      </li>
+    `).join('');
+  } catch(e) {
+    document.getElementById('file-list').innerHTML = '<li id="empty-msg">読み込み失敗</li>';
+  }
+}
+
+async function downloadFile(name, url) {
+  const token = getToken();
+  const res = await fetch(url, { headers: { Authorization: `token ${token}` } });
+  const blob = await res.blob();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+}
+
+async function deleteFile(name, sha) {
+  if (!confirm(`「${name}」を削除しますか？`)) return;
+  const token = getToken();
+  const res = await fetch(`${API}/${encodeURIComponent(name)}`, {
+    method: 'DELETE',
+    headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: `Delete ${name}`, sha })
+  });
+  if (res.ok) { loadFiles(); }
+  else { alert('削除に失敗しました'); }
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadFiles(files) {
+  const token = getToken();
+  if (!token) { alert('先にトークンを保存してください'); return; }
+  const prog = document.getElementById('upload-progress');
+  for (const file of files) {
+    prog.textContent = `アップロード中: ${file.name}`;
+    try {
+      const content = await toBase64(file);
+      // Check if file exists to get sha
+      let sha = undefined;
+      const check = await fetch(`${API}/${encodeURIComponent(file.name)}`, {
+        headers: { Authorization: `token ${token}` }
+      });
+      if (check.ok) { const data = await check.json(); sha = data.sha; }
+
+      const body = { message: `Upload ${file.name}`, content };
+      if (sha) body.sha = sha;
+
+      const res = await fetch(`${API}/${encodeURIComponent(file.name)}`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) { prog.textContent = `失敗: ${file.name}`; continue; }
+    } catch(e) {
+      prog.textContent = `エラー: ${file.name}`;
+      continue;
+    }
+  }
+  prog.textContent = 'アップロード完了！';
+  setTimeout(() => { prog.textContent = ''; }, 3000);
+  loadFiles();
+}
+
+function onDragOver(e) { e.preventDefault(); document.getElementById('drop-zone').classList.add('drag-over'); }
+function onDragLeave(e) { document.getElementById('drop-zone').classList.remove('drag-over'); }
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  uploadFiles(e.dataTransfer.files);
+}
+
+// Init
+window.onload = () => {
+  if (getToken()) {
+    showTokenStatus('トークン設定済み', true);
+    loadFiles();
+  }
+};
+</script>
+</body>
+</html>
