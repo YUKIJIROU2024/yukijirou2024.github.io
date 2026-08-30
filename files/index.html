@@ -226,7 +226,7 @@ async function loadFiles() {
           <div class="file-meta">${formatSize(f.size)}</div>
         </div>
         <div class="file-actions">
-          <button class="btn btn-primary btn-sm" onclick="downloadFile('${f.name}','${f.download_url}')">DL</button>
+          <button class="btn btn-primary btn-sm" onclick="downloadFile('${f.name}','${f.sha}')">DL</button>
           <button class="btn btn-danger btn-sm" onclick="deleteFile('${f.name}','${f.sha}')">削除</button>
         </div>
       </li>
@@ -236,14 +236,40 @@ async function loadFiles() {
   }
 }
 
-async function downloadFile(name, url) {
+async function downloadFile(name, sha) {
   const token = getToken();
-  const res = await fetch(url, { headers: { Authorization: `token ${token}` } });
-  const blob = await res.blob();
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = name;
-  a.click();
+  const prog = document.getElementById('upload-progress');
+  prog.textContent = `ダウンロード中: ${name}`;
+  try {
+    // 1MB以下はcontents API、それ以上はblob APIを使用
+    let blob;
+    const res = await fetch(`${API}/${encodeURIComponent(name)}`, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    const data = await res.json();
+
+    if (data.content) {
+      // 1MB以下：base64デコード
+      const binary = atob(data.content.replace(/\n/g, ''));
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      blob = new Blob([bytes]);
+    } else {
+      // 1MB超：blob APIを使用
+      const blobRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/blobs/${sha}`, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3.raw' }
+      });
+      blob = await blobRes.blob();
+    }
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    a.click();
+    prog.textContent = '';
+  } catch(e) {
+    prog.textContent = `ダウンロード失敗: ${name}`;
+  }
 }
 
 async function deleteFile(name, sha) {
