@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>取適法 早わかりガイド｜下請法はこう変わった</title>
+<style>
+:root{
+  --bg:#F3F5F9; --surface:#FFFFFF; --surface2:#EEF1F6; --ink:#16213A; --muted:#5B6478; --line:#DCE1EA;
+  --c-sum:#16213A;
+  --c-ov:#2E9E5B;  --c-ov-bg:#E6F5EC;
+  --c-sc:#1E7FC0;  --c-sc-bg:#E4F1FA;
+  --c-du:#D9801A;  --c-du-bg:#FCF0DF;
+  --c-pr:#D9493C;  --c-pr-bg:#FCE7E4;
+  --c-en:#8360AE;  --c-en-bg:#F0EAF7;
+  --c-ab:#76952A;  --c-ab-bg:#EFF4E0;
+  --c-co:#4A5A75;  --c-co-bg:#E7EBF2;
+  --new:#C62B55;
+  --radius-l:18px; --radius-m:12px; --radius-s:8px;
+  --sidebar:264px;
+  --font:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1420; --surface:#172032; --surface2:#1E2940; --ink:#E7EBF3; --muted:#9AA4BA; --line:#2A3650;
+    --c-sum:#E7EBF3;
+    --c-ov-bg:#15301F; --c-sc-bg:#132A3D; --c-du-bg:#35270F; --c-pr-bg:#3A1C19; --c-en-bg:#2A2038; --c-ab-bg:#26301A; --c-co-bg:#1F2838;
+    --new:#FF6F8E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1420; --surface:#172032; --surface2:#1E2940; --ink:#E7EBF3; --muted:#9AA4BA; --line:#2A3650;
+  --c-sum:#E7EBF3;
+  --c-ov-bg:#15301F; --c-sc-bg:#132A3D; --c-du-bg:#35270F; --c-pr-bg:#3A1C19; --c-en-bg:#2A2038; --c-ab-bg:#26301A; --c-co-bg:#1F2838;
+  --new:#FF6F8E;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--c-sc);outline-offset:2px;border-radius:4px}
+
+/* ---------- Sidebar (booklet index tabs) ---------- */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar);background:var(--surface);border-right:1px solid var(--line);
+  padding:calc(env(safe-area-inset-top,0px) + 22px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);overflow-y:auto;z-index:40;display:flex;flex-direction:column;gap:14px}
+.brand{font-weight:800;font-size:17px;letter-spacing:.02em;line-height:1.35}
+.brand small{display:block;font-weight:500;font-size:12px;color:var(--muted);letter-spacing:0}
+.search{position:relative}
+.search input{width:100%;padding:10px 12px 10px 34px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink);font:inherit;font-size:14px}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+.search-info{font-size:12px;color:var(--muted);min-height:1em;margin-top:4px}
+.toc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.toc a{display:flex;align-items:center;gap:10px;text-decoration:none;padding:9px 12px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted);
+  border-left:5px solid var(--tab);background:transparent;transition:background .15s,color .15s}
+.toc a:hover{background:var(--surface2);color:var(--ink)}
+.toc a.active{background:var(--tabbg);color:var(--ink)}
+.toc .sub{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+.theme-btn{margin-top:auto;border:1px solid var(--line);background:var(--surface2);color:var(--ink);border-radius:10px;padding:8px 10px;font:inherit;font-size:13px;cursor:pointer}
+
+.topbar{display:none}
+main{margin-left:var(--sidebar);padding:32px clamp(16px,4vw,56px) 80px;max-width:calc(1080px + var(--sidebar))}
+
+/* ---------- Hero ---------- */
+.hero{background:var(--surface);border-radius:var(--radius-l);padding:clamp(22px,4vw,44px);border:1px solid var(--line);position:relative;overflow:hidden}
+.hero .date{display:inline-flex;gap:8px;align-items:center;background:var(--c-ov-bg);color:var(--c-ov);font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px}
+.rename{display:flex;align-items:center;gap:clamp(10px,2.5vw,28px);flex-wrap:wrap;margin:22px 0 10px}
+.rename .old{font-size:clamp(30px,6vw,56px);font-weight:800;color:var(--muted);text-decoration:line-through;text-decoration-thickness:4px;text-decoration-color:var(--c-pr);opacity:.75;line-height:1.1}
+.rename .arrow{width:clamp(44px,7vw,80px);height:auto;color:var(--c-ov)}
+.rename .new{font-size:clamp(44px,9vw,92px);font-weight:900;line-height:1;letter-spacing:.02em;color:var(--ink)}
+.rename .new ruby rt{font-size:.22em;font-weight:700;color:var(--c-ov);letter-spacing:.3em}
+.hero .formal{color:var(--muted);font-size:13.5px;margin:6px 0 0}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:26px}
+.sum-card{background:var(--surface2);border-radius:var(--radius-m);padding:14px 16px;border-top:4px solid var(--k)}
+.sum-card h3{margin:0 0 4px;font-size:15px;display:flex;align-items:center;gap:8px}
+.sum-card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+.sum-card .ico{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:var(--k);color:#fff;font-size:14px;flex:none}
+.bottomline{margin-top:22px;padding:14px 18px;border-radius:var(--radius-m);background:var(--ink);color:var(--bg);font-weight:600;font-size:14.5px;display:flex;gap:12px;align-items:flex-start}
+.bottomline b{color:#FFD66B}
+:root[data-theme="dark"] .bottomline b{color:#9A6A00}
+
+/* ---------- Sections ---------- */
+section.chapter{margin-top:56px}
+.ch-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.ch-head .tab{background:var(--k);color:#fff;font-weight:800;border-radius:10px;padding:6px 12px;font-size:13px;flex:none}
+.ch-head h2{margin:0;font-size:clamp(21px,3vw,28px);line-height:1.3}
+.ch-lead{color:var(--muted);margin:-6px 0 18px;font-size:14.5px}
+h3.block{font-size:17px;margin:28px 0 12px;padding-left:12px;border-left:4px solid var(--k)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);padding:clamp(16px,2.6vw,26px)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+ul.tight{margin:0;padding-left:1.2em}
+ul.tight li{margin:3px 0}
+.new-badge{display:inline-block;background:var(--new);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;vertical-align:middle;margin-left:6px;white-space:nowrap}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--kbg);color:var(--k)}
+.note{font-size:13px;color:var(--muted)}
+.warn{display:flex;gap:12px;padding:14px 16px;border-radius:var(--radius-m);background:var(--c-pr-bg);border-left:5px solid var(--c-pr);font-size:14px;margin-top:14px}
+.info{display:flex;gap:12px;padding:14px 16px;border-radius:var(--radius-m);background:var(--kbg);border-left:5px solid var(--k);font-size:14px;margin-top:14px}
+.warn .i,.info .i{font-size:18px;line-height:1.4;flex:none}
+
+/* change map */
+.change-map{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.chg{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px 18px;position:relative}
+.chg .cat{font-size:12px;font-weight:800;color:var(--k)}
+.chg h4{margin:4px 0 8px;font-size:16px}
+.chg p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+.chg a.jump{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--k);text-decoration:none}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius-m);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--surface);min-width:520px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{background:var(--kbg);color:var(--ink);font-size:13px}
+tbody tr:last-child td{border-bottom:none}
+td.arrow{color:var(--k);font-weight:800;text-align:center;width:40px}
+tr.added td{background:color-mix(in srgb,var(--new) 8%,transparent)}
+
+/* formula */
+.formula{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.formula .box{flex:1 1 180px;background:var(--surface);border:2px solid var(--k);border-radius:var(--radius-m);padding:12px 14px;text-align:center;font-weight:800}
+.formula .box small{display:block;font-weight:500;font-size:12.5px;color:var(--muted)}
+.formula .op{align-self:center;font-size:26px;font-weight:900;color:var(--k)}
+
+/* threshold visual */
+.thresh{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.th-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px}
+.th-card h4{margin:0 0 4px;font-size:15px}
+.th-card .for{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.rule{display:grid;grid-template-columns:1fr 26px 1fr;align-items:center;gap:6px;margin:6px 0;font-size:13.5px}
+.rule .l,.rule .r{background:var(--surface2);border-radius:8px;padding:7px 10px;font-weight:700}
+.rule .l{border-left:4px solid #6E6A9E}
+.rule .r{border-left:4px solid var(--c-sc)}
+.rule .mid{text-align:center;color:var(--k);font-weight:900}
+.rule.emp .l,.rule.emp .r{background:color-mix(in srgb,var(--new) 10%,var(--surface2))}
+.rule.emp .l{border-left-color:var(--new)}
+.rule .tag{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+
+/* checker */
+.checker{background:var(--surface);border:2px solid var(--c-sc);border-radius:var(--radius-l);padding:clamp(16px,2.6vw,24px);margin-top:18px}
+.checker h4{margin:0 0 4px;font-size:17px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
+.fields label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700}
+.fields input,.fields select{font:inherit;font-size:15px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface2);color:var(--ink)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.seg button{font:inherit;font-size:13.5px;font-weight:700;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface2);color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{border-color:var(--c-sc);background:var(--c-sc-bg);color:var(--ink)}
+.result{margin-top:16px;padding:14px 16px;border-radius:var(--radius-m);font-weight:700;display:flex;gap:12px;align-items:flex-start}
+.result.yes{background:var(--c-ov-bg);border-left:5px solid var(--c-ov)}
+.result.no{background:var(--surface2);border-left:5px solid var(--muted)}
+.result.wait{background:var(--surface2);border-left:5px solid var(--line);color:var(--muted);font-weight:500}
+.result small{display:block;font-weight:500;color:var(--muted);font-size:12.5px;margin-top:2px}
+
+/* tabs */
+.tabs{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden}
+.tablist{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--surface2)}
+.tablist button{flex:1 0 auto;font:inherit;font-size:14px;font-weight:700;padding:12px 16px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tablist button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--tc);background:var(--surface)}
+.tabpanel{padding:clamp(16px,2.6vw,24px)}
+.tabpanel[hidden]{display:none}
+.tabpanel .def{font-size:14.5px;margin:0 0 14px;padding:12px 14px;background:var(--surface2);border-radius:10px}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.type{border:1px solid var(--line);border-radius:var(--radius-m);padding:14px}
+.type .n{font-size:12px;font-weight:800;color:var(--tc)}
+.type h5{margin:2px 0 8px;font-size:14.5px;line-height:1.5}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12.5px;margin-bottom:8px}
+.flow span{padding:3px 8px;border-radius:6px;background:var(--surface2);font-weight:700}
+.flow span.o{background:#48BFA8;color:#fff}
+.flow span.s{background:#5B8FD6;color:#fff}
+.flow i{font-style:normal;color:var(--new);font-weight:900}
+.type .ex{font-size:12.5px;color:var(--muted);line-height:1.55;margin:0}
+
+/* duties */
+.duty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.duty{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px;border-top:5px solid var(--c-du)}
+.duty .num{font-size:28px;font-weight:900;color:var(--c-du);line-height:1}
+.duty h4{margin:6px 0 6px;font-size:15.5px}
+.duty .big{font-size:22px;font-weight:900}
+.duty p{margin:0;font-size:13px;color:var(--muted);line-height:1.6}
+
+details.acc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);margin-top:10px;overflow:hidden}
+details.acc > summary{list-style:none;cursor:pointer;padding:13px 16px;font-weight:700;display:flex;align-items:center;gap:10px}
+details.acc > summary::-webkit-details-marker{display:none}
+details.acc > summary::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s;flex:none}
+details.acc[open] > summary::after{transform:rotate(-135deg)}
+details.acc[open] > summary{border-bottom:1px solid var(--line)}
+.acc-body{padding:14px 18px}
+ol.items{margin:0;padding-left:1.6em;font-size:14px}
+ol.items li{margin:4px 0}
+ol.items li::marker{font-weight:800;color:var(--k)}
+
+.timeline{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px;overflow-x:auto}
+.timeline svg{display:block;min-width:560px;width:100%;height:auto}
+
+/* prohibited */
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.filter-row button{font:inherit;font-size:13px;font-weight:700;padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.filter-row button[aria-pressed="true"]{border-color:var(--c-pr);background:var(--c-pr-bg);color:var(--ink)}
+.proh summary .code{font-size:11.5px;font-weight:700;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:6px;white-space:nowrap}
+.proh summary .ttl{display:flex;flex-direction:column;line-height:1.35}
+.proh summary .ttl small{font-weight:500;font-size:12.5px;color:var(--muted)}
+.proh summary .mk{width:30px;height:30px;border-radius:8px;background:var(--c-pr);color:#fff;display:grid;place-items:center;font-weight:900;font-size:14px;flex:none}
+.case{display:grid;grid-template-columns:auto auto auto;justify-content:start;align-items:center;gap:8px;margin:12px 0 4px;font-size:13px;font-weight:700}
+.case .a{background:#F6C3BD;color:#6B1E16;padding:3px 10px;border-radius:6px}
+.case .b{background:#C5E6DA;color:#154A38;padding:3px 10px;border-radius:6px}
+.case i{font-style:normal;color:var(--c-pr);font-weight:900}
+.case-txt{font-size:13.5px;margin:0 0 6px;color:var(--ink)}
+.kpoint{margin-top:8px;padding:10px 12px;border-radius:8px;background:color-mix(in srgb,var(--new) 10%,transparent);font-size:13.5px}
+.kpoint b{color:var(--new)}
+
+/* enforcement */
+.agency{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.ag{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px;text-align:center}
+.ag .nm{font-weight:900;font-size:16px}
+.ag .pw{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin-top:8px}
+.ag .pw span{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--c-en-bg);color:var(--c-en)}
+.ag.newag{border:2px solid var(--new)}
+.fine{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:16px 18px;margin-top:14px}
+.fine .amt{font-size:clamp(30px,5vw,44px);font-weight:900;color:var(--c-en);line-height:1}
+.fine .amt small{font-size:14px;font-weight:700;color:var(--muted);display:block}
+.fine ul{flex:1 1 260px}
+.fc{display:grid;gap:10px}
+.fc .row{display:grid;gap:8px}
+.fc .src{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.fc .node{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:13px;font-weight:700;text-align:center}
+.fc .node.main{background:var(--c-en);color:#fff;border:none}
+.fc .down{text-align:center;color:var(--c-en);font-weight:900;font-size:18px;line-height:1}
+.fc .out{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.fc .out .node{display:flex;flex-direction:column;gap:6px}
+.fc .out .node small{font-weight:500;color:var(--muted);font-size:12px}
+
+/* abuse */
+.eq{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.eq .t{flex:1 1 150px;border-radius:10px;padding:12px;text-align:center;font-weight:800;background:var(--c-ab-bg);color:var(--ink);border:2px solid var(--c-ab)}
+.eq .t.res{background:var(--c-ab);color:#fff}
+.eq .op{align-self:center;font-weight:900;font-size:22px;color:var(--c-ab)}
+
+/* contact */
+.hotline{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;background:var(--c-co);color:#fff;border-radius:var(--radius-l);padding:18px 22px}
+.hotline .tel{font-size:clamp(26px,5vw,38px);font-weight:900;letter-spacing:.04em}
+.hotline a{text-decoration:none}
+
+mark{background:#FFE36B;color:#16213A;border-radius:3px;padding:0 1px}
+.hide-search{display:none!important}
+
+.to-top{position:fixed;right:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:46px;height:46px;border-radius:50%;border:none;background:var(--ink);color:var(--bg);font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.to-top.show{opacity:1;pointer-events:auto}
+footer{margin-top:60px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+
+/* ---------- Mobile ---------- */
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform .25s;box-shadow:0 0 40px rgba(0,0,0,.25);width:min(84vw,300px)}
+  .sidebar.open{transform:none}
+  .topbar{display:flex;position:sticky;top:env(safe-area-inset-top,0px);z-index:30;align-items:center;gap:10px;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 14px}
+  .topbar button{font:inherit;border:1px solid var(--line);background:var(--surface2);color:var(--ink);border-radius:9px;padding:6px 12px;font-weight:700;cursor:pointer}
+  .topbar .t{font-weight:800;font-size:15px}
+  main{margin-left:0;padding-top:20px}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:35;display:none}
+  .scrim.show{display:block}
+  .rule{grid-template-columns:1fr 20px 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button id="menuBtn" aria-controls="sidebar" aria-expanded="false">☰ 目次</button>
+  <span class="t">取適法 早わかりガイド</span>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<nav class="sidebar" id="sidebar" aria-label="目次">
+  <div class="brand">取適法 早わかりガイド<small>中小受託取引適正化法｜令和8年1月1日施行</small></div>
+  <div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="キーワードで絞り込み（例：手形）" aria-label="ページ内検索">
+    </div>
+    <div class="search-info" id="qinfo"></div>
+  </div>
+  <ul class="toc" id="toc">
+    <li><a href="#summary" style="--tab:var(--c-sum);--tabbg:var(--surface2)">サマリー<span class="sub"></span></a></li>
+    <li><a href="#overview" style="--tab:var(--c-ov);--tabbg:var(--c-ov-bg)"><span>改正の全体像<span class="sub">何が変わったか</span></span></a></li>
+    <li><a href="#scope" style="--tab:var(--c-sc);--tabbg:var(--c-sc-bg)"><span>適用対象<span class="sub">取引内容＋規模基準</span></span></a></li>
+    <li><a href="#duties" style="--tab:var(--c-du);--tabbg:var(--c-du-bg)"><span>委託事業者の義務<span class="sub">4つの義務</span></span></a></li>
+    <li><a href="#prohibited" style="--tab:var(--c-pr);--tabbg:var(--c-pr-bg)"><span>禁止行為<span class="sub">11項目と事例</span></span></a></li>
+    <li><a href="#enforcement" style="--tab:var(--c-en);--tabbg:var(--c-en-bg)"><span>執行・事件処理<span class="sub">調査・勧告・罰金</span></span></a></li>
+    <li><a href="#abuse" style="--tab:var(--c-ab);--tabbg:var(--c-ab-bg)"><span>優越的地位の濫用<span class="sub">独占禁止法との関係</span></span></a></li>
+    <li><a href="#contact" style="--tab:var(--c-co);--tabbg:var(--c-co-bg)"><span>相談窓口<span class="sub">全国の窓口一覧</span></span></a></li>
+  </ul>
+  <button class="theme-btn" id="themeBtn">表示テーマ切替（ライト／ダーク）</button>
+</nav>
+
+<main id="top">
+
+<!-- ================= SUMMARY ================= -->
+<section id="summary" class="searchable-section">
+  <div class="hero">
+    <span class="date">📅 令和8年（2026年）1月1日 施行・適用</span>
+    <div class="rename" aria-label="下請法から取適法へ">
+      <span class="old">下請法</span>
+      <svg class="arrow" viewBox="0 0 80 32" fill="none" aria-hidden="true"><path d="M2 16h68m0 0-12-12m12 12-12 12" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="new"><ruby>取<rt>とり</rt></ruby><ruby>適<rt>てき</rt></ruby><ruby>法<rt>ほう</rt></ruby></span>
+    </div>
+    <p class="formal">正式名：製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律／略称：中小受託取引適正化法（令和7年法律第41号で改正）</p>
+
+    <div class="summary-grid">
+      <div class="sum-card searchable" style="--k:var(--c-ov)"><h3><span class="ico">名</span>名称・用語が変わる</h3><p>親事業者→<b>委託事業者</b>、下請事業者→<b>中小受託事業者</b></p></div>
+      <div class="sum-card searchable" style="--k:var(--c-sc)"><h3><span class="ico">人</span>対象が広がる</h3><p>資本金に加え<b>従業員数基準</b>（300人／100人）を追加。<b>特定運送委託</b>も対象に</p></div>
+      <div class="sum-card searchable" style="--k:var(--c-pr)"><h3><span class="ico">禁</span>禁止行為が増える</h3><p><b>協議に応じない一方的な代金決定</b>を禁止。<b>手形払</b>も禁止</p></div>
+      <div class="sum-card searchable" style="--k:var(--c-en)"><h3><span class="ico">執</span>取締りが強まる</h3><p><b>事業所管省庁</b>も指導・助言が可能に。報復措置の通報先にも追加</p></div>
+    </div>
+
+    <div class="bottomline"><span>💡</span><span>結論：<b>「規模の大きい発注者」が「中小の受注者」へ仕事を委託するとき</b>、書面明示・60日以内払い・減額禁止などのルールを守る必要がある。改正で<b>対象企業が増え、価格協議の拒否と手形払いがNG</b>になった。</span></div>
+  </div>
+</section>
+
+<!-- ================= OVERVIEW ================= -->
+<section id="overview" class="chapter" style="--k:var(--c-ov);--kbg:var(--c-ov-bg)">
+  <div class="ch-head"><span class="tab">全体像</span><h2>改正で変わった10のポイント</h2></div>
+  <p class="ch-lead">カテゴリ別に整理。詳細はリンク先へ。</p>
+
+  <div class="change-map">
+    <div class="chg searchable" style="--k:var(--c-ov)"><div class="cat">名称・用語</div><h4>法律名と用語の変更</h4><p>「下請」という言葉を廃止し、対等な関係を示す用語に。</p><a class="jump" href="#terms">対照表を見る ↓</a></div>
+    <div class="chg searchable" style="--k:var(--c-sc)"><div class="cat">適用対象の拡大</div><h4>従業員基準の追加</h4><p>常時使用する従業員300人（役務提供委託等は100人）の区分を新設。</p><a class="jump" href="#scope">適用対象へ</a></div>
+    <div class="chg searchable" style="--k:var(--c-sc)"><div class="cat">適用対象の拡大</div><h4>特定運送委託の追加</h4><p>販売・製造等の目的物を取引先へ届ける運送の委託が対象に。</p><a class="jump" href="#types">取引類型へ</a></div>
+    <div class="chg searchable" style="--k:var(--c-pr)"><div class="cat">禁止行為の追加</div><h4>一方的な代金決定の禁止</h4><p>価格協議に応じない・説明や情報を出さないで代金を決めるのはNG。</p><a class="jump" href="#p11">詳細へ</a></div>
+    <div class="chg searchable" style="--k:var(--c-pr)"><div class="cat">禁止行為の追加</div><h4>手形払等の禁止</h4><p>手形は禁止。電子記録債権・ファクタリングも支払期日までに満額現金化が困難ならNG。</p><a class="jump" href="#p2">詳細へ</a></div>
+    <div class="chg searchable" style="--k:var(--c-en)"><div class="cat">面的執行の強化</div><h4>事業所管省庁が指導・助言</h4><p>公取委・中企庁に加え、所管省庁も指導可能。報復措置の禁止対象の通報先にも。</p><a class="jump" href="#enforcement">執行へ</a></div>
+    <div class="chg searchable" style="--k:var(--c-du)"><div class="cat">その他</div><h4>木型・治具なども対象物に</h4><p>金型以外の型等（専ら物品製造に用いる物品）が製造委託の対象に追加。</p></div>
+    <div class="chg searchable" style="--k:var(--c-du)"><div class="cat">その他</div><h4>電磁的方法の明示が承諾不要に</h4><p>受注者の承諾がなくても、メール等で発注内容を明示できる。</p><a class="jump" href="#duties">義務へ</a></div>
+    <div class="chg searchable" style="--k:var(--c-du)"><div class="cat">その他</div><h4>減額にも遅延利息</h4><p>代金を減じた場合も、減額分に年14.6%の遅延利息が発生。</p><a class="jump" href="#interest">遅延利息へ</a></div>
+    <div class="chg searchable" style="--k:var(--c-en)"><div class="cat">その他</div><h4>勧告規定の整備</h4><p>違反行為が既に止んでいても、再発防止措置等を勧告できる。</p></div>
+  </div>
+
+  <h3 class="block" id="terms">用語の対照表</h3>
+  <div class="tbl-wrap searchable">
+    <table>
+      <thead><tr><th>改正前（下請法）</th><th></th><th>改正後（取適法）</th></tr></thead>
+      <tbody>
+        <tr><td>下請代金支払遅延等防止法</td><td class="arrow">→</td><td><b>製造委託等に係る中小受託事業者に対する代金の支払の遅延等の防止に関する法律</b></td></tr>
+        <tr><td>下請代金</td><td class="arrow">→</td><td><b>製造委託等代金</b></td></tr>
+        <tr><td>親事業者</td><td class="arrow">→</td><td><b>委託事業者</b></td></tr>
+        <tr><td>下請事業者</td><td class="arrow">→</td><td><b>中小受託事業者</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= SCOPE ================= -->
+<section id="scope" class="chapter" style="--k:var(--c-sc);--kbg:var(--c-sc-bg)">
+  <div class="ch-head"><span class="tab">適用対象</span><h2>どの取引が対象になるか</h2></div>
+
+  <div class="formula searchable">
+    <div class="box">対象取引<small>（受託取引）</small></div>
+    <div class="op">=</div>
+    <div class="box">① 取引の内容<small>5つの委託類型</small></div>
+    <div class="op">+</div>
+    <div class="box">② 資本金基準 or 従業員基準<small>どちらか1つを満たせばOK</small></div>
+  </div>
+  <div class="info searchable"><span class="i">ℹ️</span><span>発注者が規模基準を満たす＝<b>「優越的地位にある」</b>とみなし、迅速・効果的に規制する仕組み。</span></div>
+
+  <h3 class="block">② 規模の基準（資本金／従業員）</h3>
+  <div class="thresh">
+    <div class="th-card searchable">
+      <h4>区分（1）</h4>
+      <div class="for">製造委託・修理委託・特定運送委託／情報成果物作成・役務提供委託のうち<b>プログラム作成・運送・倉庫保管・情報処理</b></div>
+      <div class="rule"><div class="l"><span class="tag">委託事業者</span>資本金 3億円超</div><div class="mid">→</div><div class="r"><span class="tag">中小受託事業者</span>3億円以下（個人含む）</div></div>
+      <div class="rule"><div class="l"><span class="tag">委託事業者</span>資本金 1千万円超〜3億円以下</div><div class="mid">→</div><div class="r"><span class="tag">中小受託事業者</span>1千万円以下（個人含む）</div></div>
+      <div class="rule emp"><div class="l"><span class="tag">委託事業者</span>従業員 300人超 <span class="new-badge">新設</span></div><div class="mid">→</div><div class="r"><span class="tag">中小受託事業者</span>300人以下（個人含む）</div></div>
+    </div>
+    <div class="th-card searchable">
+      <h4>区分（2）</h4>
+      <div class="for">情報成果物作成委託・役務提供委託（区分1の<b>4業務を除く</b>）</div>
+      <div class="rule"><div class="l"><span class="tag">委託事業者</span>資本金 5千万円超</div><div class="mid">→</div><div class="r"><span class="tag">中小受託事業者</span>5千万円以下（個人含む）</div></div>
+      <div class="rule"><div class="l"><span class="tag">委託事業者</span>資本金 1千万円超〜5千万円以下</div><div class="mid">→</div><div class="r"><span class="tag">中小受託事業者</span>1千万円以下（個人含む）</div></div>
+      <div class="rule emp"><div class="l"><span class="tag">委託事業者</span>従業員 100人超 <span class="new-badge">新設</span></div><div class="mid">→</div><div class="r"><span class="tag">中小受託事業者</span>100人以下（個人含む）</div></div>
+    </div>
+  </div>
+  <div class="warn searchable"><span class="i">⚠️</span><span><b>従業員基準は、資本金基準が適用されない場合に適用。</b>「常時使用する従業員」＝賃金台帳に記載の人数。正社員・契約社員・パート・アルバイト、1か月超継続して使用される日雇い労働者も含む。</span></div>
+
+  <!-- checker -->
+  <div class="checker" id="checker">
+    <h4>🧮 規模基準かんたん判定</h4>
+    <div class="note">取引区分と両者の規模を入力すると、規模基準に該当するかを判定します（取引内容の要件は別途確認）。</div>
+    <div class="seg" role="group" aria-label="取引区分">
+      <button type="button" data-g="1" aria-pressed="true">区分（1）製造・修理・運送 等</button>
+      <button type="button" data-g="2" aria-pressed="false">区分（2）その他の情報成果物・役務</button>
+    </div>
+    <div class="fields">
+      <label>委託事業者（発注側）資本金〔万円〕<input id="ci" type="number" min="0" inputmode="numeric" placeholder="例：5000"></label>
+      <label>委託事業者 常時使用する従業員数〔人〕<input id="ei" type="number" min="0" inputmode="numeric" placeholder="例：350"></label>
+      <label>中小受託事業者（受注側）資本金〔万円〕<input id="cs" type="number" min="0" inputmode="numeric" placeholder="個人事業者は 0"></label>
+      <label>中小受託事業者 常時使用する従業員数〔人〕<input id="es" type="number" min="0" inputmode="numeric" placeholder="例：40"></label>
+    </div>
+    <div class="result wait" id="res" aria-live="polite"><span>⌨️</span><span>数値を入力してください。</span></div>
+  </div>
+
+  <div class="info searchable" style="--k:var(--c-co);--kbg:var(--c-co-bg)"><span class="i">⚖️</span><span><b>フリーランス法との関係：</b>取適法とフリーランス・事業者間取引適正化等法の両方に違反する行為は、原則として<b>フリーランス法を優先適用</b>。</span></div>
+  <div class="info searchable"><span class="i">🧩</span><span><b>情報成果物作成委託と製造委託を同時に発注</b>（例：取扱説明書の制作＋印刷）：原則はそれぞれの基準で判断。一体不可分の取引なら、どちらかの基準に該当すれば全体が対象。</span></div>
+
+  <!-- types tabs -->
+  <h3 class="block" id="types">① 取引の内容（5つの委託類型）</h3>
+  <div class="tabs" id="typeTabs">
+    <div class="tablist" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="t1" id="tb1" style="--tc:#E0413A">製造委託</button>
+      <button role="tab" aria-selected="false" aria-controls="t2" id="tb2" style="--tc:#E07A1E" tabindex="-1">修理委託</button>
+      <button role="tab" aria-selected="false" aria-controls="t3" id="tb3" style="--tc:#1E7FC0" tabindex="-1">情報成果物作成委託</button>
+      <button role="tab" aria-selected="false" aria-controls="t4" id="tb4" style="--tc:#6A5FB0" tabindex="-1">役務提供委託</button>
+      <button role="tab" aria-selected="false" aria-controls="t5" id="tb5" style="--tc:#1F9A5E" tabindex="-1">特定運送委託 ★新</button>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="t1" aria-labelledby="tb1" style="--tc:#E0413A">
+      <p class="def searchable">物品を販売・製造請負する事業者が、<b>規格・品質・形状・デザイン等を指定</b>して、他の事業者に物品の製造・加工を委託すること。「物品」＝有体物。</p>
+      <div class="types">
+        <div class="type searchable"><div class="n">類型1</div><h5>販売する物品・部品・金型・<u>木型・治具</u>の製造を委託 <span class="new-badge">改正</span></h5><div class="flow"><span class="o">委託事業者（販売）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：自動車メーカー→部品メーカー／大規模小売業者のPB商品の製造委託／ハウスメーカーの建築資材</p></div>
+        <div class="type searchable"><div class="n">類型2</div><h5>製造を請け負った物品等の製造を再委託 <span class="new-badge">改正</span></h5><div class="flow"><span>取引先</span><i>→</i><span class="o">委託事業者（製造請負）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：受注生産の精密機械メーカーが部品製造を委託</p></div>
+        <div class="type searchable"><div class="n">類型3</div><h5>修理に必要な部品・原材料の製造を委託</h5><div class="flow"><span class="o">委託事業者（修理）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：家電メーカーが修理用部品の製造を委託（自社工場の機械を自ら修理する場合も含む）</p></div>
+        <div class="type searchable"><div class="n">類型4</div><h5>自社で使用・消費する物品の製造を委託 <span class="new-badge">改正</span></h5><div class="flow"><span class="o">委託事業者（自家製造）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：自社工場用の工具を自社製造するメーカーが、一部を他社に委託</p></div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="t2" aria-labelledby="tb2" style="--tc:#E07A1E" hidden>
+      <p class="def searchable">物品の修理を請け負う事業者がその修理を委託、または自社で使う物品を自社修理している事業者が修理の一部を委託すること。</p>
+      <div class="types">
+        <div class="type searchable"><div class="n">類型1</div><h5>請け負った修理の全部・一部を委託</h5><div class="flow"><span>取引先</span><i>→</i><span class="o">委託事業者（修理請負）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：自動車販売業者が、請け負った修理作業を修理業者に委託</p></div>
+        <div class="type searchable"><div class="n">類型2</div><h5>自社使用物品の修理の一部を委託</h5><div class="flow"><span class="o">委託事業者（自家修理）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：工場設備を自社修理する工業用機械メーカーが修理作業を委託</p></div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="t3" aria-labelledby="tb3" style="--tc:#1E7FC0" hidden>
+      <p class="def searchable">情報成果物＝①<b>プログラム</b>（ゲームソフト等）②<b>映像・音声</b>（アニメ、ラジオ番組等）③<b>文字・図形・記号・色彩</b>（設計図、商品デザイン、取扱説明書等）。</p>
+      <div class="types">
+        <div class="type searchable"><div class="n">類型1</div><h5>業として提供する情報成果物の作成を委託</h5><div class="flow"><span class="o">委託事業者（提供）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：ソフトウェアメーカーがゲーム・汎用アプリの開発を委託</p></div>
+        <div class="type searchable"><div class="n">類型2</div><h5>作成を請け負った情報成果物を再委託</h5><div class="flow"><span>取引先</span><i>→</i><span class="o">委託事業者（作成請負）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：広告会社→CM制作会社／アニメ制作会社→個人アニメーター／建設業者→建築設計業者</p></div>
+        <div class="type searchable"><div class="n">類型3</div><h5>自社で使う情報成果物の作成を委託</h5><div class="flow"><span class="o">委託事業者（自家作成）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：家電メーカーのシステム部門が自社用経理ソフトの一部を委託</p></div>
+      </div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="t4" aria-labelledby="tb4" style="--tc:#6A5FB0" hidden>
+      <p class="def searchable">他者に提供するサービス（役務）の全部・一部を他の事業者に委託すること。</p>
+      <div class="types">
+        <div class="type searchable"><div class="n">類型</div><h5>請け負った役務の提供を再委託</h5><div class="flow"><span>取引先</span><i>→</i><span class="o">委託事業者（役務請負）</span><i>→</i><span class="s">中小受託</span></div><p class="ex">例：ビル管理業者→警備業者／自動車メーカー→整備会社（保証期間内メンテ）／貨物運送業者→他の運送業者</p></div>
+      </div>
+      <div class="warn searchable"><span class="i">🚫</span><span><b>対象外に注意：</b>①建設業者が請け負う<b>建設工事</b>（建設業法で規律）②委託事業者が<b>自ら利用する役務</b>（例：自社工場の清掃委託）</span></div>
+    </div>
+
+    <div class="tabpanel" role="tabpanel" id="t5" aria-labelledby="tb5" style="--tc:#1F9A5E" hidden>
+      <p class="def searchable">販売・製造・修理・情報成果物作成の<b>取引の相手方（その指定する者を含む）に物品を届ける運送</b>の全部・一部を委託すること。荷積み・荷下ろし・倉庫内作業等の附帯業務は「運送」に含まない。</p>
+      <div class="types">
+        <div class="type searchable"><div class="n">類型1</div><h5>販売した物品を販売先へ運送</h5><div class="flow"><span class="o">委託事業者（販売）</span><i>→</i><span class="s">運送事業者</span></div><p class="ex">例：家具小売業者が販売した家具の配送を委託</p></div>
+        <div class="type searchable"><div class="n">類型2</div><h5>製造請負品を発注者へ運送</h5><div class="flow"><span class="o">委託事業者（製造請負）</span><i>→</i><span class="s">運送事業者</span></div><p class="ex">例：精密機器メーカーが完成品の顧客への運送を委託</p></div>
+        <div class="type searchable"><div class="n">類型3</div><h5>修理請負品を発注者へ運送</h5><div class="flow"><span class="o">委託事業者（修理請負）</span><i>→</i><span class="s">運送事業者</span></div><p class="ex">例：自動車修理業者が修理済み車両の運送を委託</p></div>
+        <div class="type searchable"><div class="n">類型4</div><h5>情報成果物を記載した物品を発注者へ運送</h5><div class="flow"><span class="o">委託事業者（作成請負）</span><i>→</i><span class="s">運送事業者</span></div><p class="ex">例：建築設計事業者が完成した建築模型の運送を委託</p></div>
+      </div>
+      <div class="info searchable"><span class="i">📦</span><span>「相手方が指定する者」＝例えば目的物の保管を受託する<b>倉庫業者</b>。元の製造・修理・作成の発注自体は、取適法の対象取引に限られない。</span></div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap searchable" style="margin-top:14px">
+    <table>
+      <thead><tr><th>用語</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td><b>委託</b></td><td>規格・品質・性能等を<b>指定して</b>依頼すること。指定のない規格品・標準品の取引は原則含まない。</td></tr>
+        <tr><td><b>業として</b></td><td>反復継続して行い、社会通念上「業務の遂行」とみられる場合。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= DUTIES ================= -->
+<section id="duties" class="chapter" style="--k:var(--c-du);--kbg:var(--c-du-bg)">
+  <div class="ch-head"><span class="tab">義務</span><h2>委託事業者の4つの義務</h2></div>
+
+  <div class="duty-grid">
+    <div class="duty searchable"><div class="num">1</div><h4>発注内容等の明示（4条）</h4><p>発注時に<b>書面またはメール等</b>で明示。口頭・電話は不可。</p></div>
+    <div class="duty searchable"><div class="num">2</div><h4>書類等の作成・保存（7条）</h4><div class="big">2年間</div><p>取引記録を作成・保存。</p></div>
+    <div class="duty searchable"><div class="num">3</div><h4>支払期日を定める（3条）</h4><div class="big">受領後60日以内</div><p>できる限り短い期間で設定。</p></div>
+    <div class="duty searchable"><div class="num">4</div><h4>遅延利息の支払（6条）</h4><div class="big">年14.6%</div><p>60日経過日から支払日まで。<b>減額も対象に</b>。</p></div>
+  </div>
+
+  <h3 class="block">1. 発注内容等の明示</h3>
+  <div class="grid2">
+    <div class="panel searchable">
+      <b>明示の方法（委託事業者が選べる）</b>
+      <ul class="tight" style="margin-top:6px">
+        <li>📄 書面の交付</li>
+        <li>📧 電磁的方法：メール、EDI、SMS、SNSのメッセージ機能（受信者を特定できるもの）、USBメモリ・CD-R等</li>
+        <li>🚫 電話など<b>口頭は不可</b></li>
+      </ul>
+      <div class="kpoint"><b>改正ポイント：</b>受注者の承諾がなくても電磁的方法で明示できる。</div>
+    </div>
+    <div class="panel searchable">
+      <b>電磁的方法で明示した後に書面を求められたら</b>
+      <ul class="tight" style="margin-top:6px">
+        <li>① 電磁的方法で提供</li>
+        <li>② 受注者が書面交付を請求</li>
+        <li>③ <b>遅滞なく書面を交付</b></li>
+      </ul>
+      <p class="note" style="margin:8px 0 0">※ 中小受託事業者の保護に支障がない場合は、必ずしも交付不要。</p>
+    </div>
+  </div>
+
+  <details class="acc searchable" style="--k:var(--c-du)"><summary>📋 明示事項（11項目）を開く</summary>
+    <div class="acc-body">
+      <ol class="items">
+        <li>委託事業者・中小受託事業者の名称（番号・記号可）</li>
+        <li>委託をした日</li>
+        <li>給付の内容（役務・運送は役務の内容）</li>
+        <li>給付を受領する期日（役務は提供を受ける期日・期間）</li>
+        <li>給付を受領する場所</li>
+        <li>検査をする場合は検査完了期日</li>
+        <li>代金の額</li>
+        <li>代金の支払期日</li>
+        <li>一括決済方式の場合：金融機関名、貸付け・支払を受けられる額と期間の始期、決済日</li>
+        <li>電子記録債権の場合：債権額、支払を受けられる期間の始期、満期日</li>
+        <li>原材料等を有償支給する場合：品名・数量・対価・引渡し期日・決済期日・決済方法</li>
+      </ol>
+    </div>
+  </details>
+  <details class="acc searchable" style="--k:var(--c-du)"><summary>🧾 明示の特例（共通事項・算定方法・当初／補充の明示）</summary>
+    <div class="acc-body">
+      <div class="grid3">
+        <div><span class="pill">共通事項</span><p style="font-size:13.5px;margin:6px 0 0">支払方法・検査期間など一定期間共通の事項は、<b>あらかじめ明示</b>すれば都度不要。発注ごとに「『支払方法等について』による」等と関連付ける。</p></div>
+        <div><span class="pill">算定方法</span><p style="font-size:13.5px;margin:6px 0 0">具体的金額の明示が困難な<b>やむを得ない事情</b>があれば算定方法（単価表等）で可。金額確定後、<b>速やかに通知</b>。</p></div>
+        <div><span class="pill">当初・補充</span><p style="font-size:13.5px;margin:6px 0 0">正当な理由で定められない事項（未定事項）は、理由と予定期日を記載して当初明示。<b>定まったら直ちに補充明示</b>。</p></div>
+      </div>
+    </div>
+  </details>
+
+  <h3 class="block">2. 書類等の作成・保存（2年間）</h3>
+  <details class="acc searchable" style="--k:var(--c-du)"><summary>🗂️ 記載・記録事項（17項目）を開く</summary>
+    <div class="acc-body">
+      <ol class="items">
+        <li>中小受託事業者の名称</li><li>委託をした日</li><li>給付の内容</li><li>給付を受領する期日</li>
+        <li>受領した給付の内容と受領日</li><li>検査を完了した日・結果・不合格品の取扱い</li>
+        <li>給付内容の変更・やり直しの内容と理由</li><li>代金の額（算定方法の場合は確定額、変更時は変更後の方法・理由も）</li>
+        <li>代金の支払期日</li><li>代金の額の増減額と理由</li><li>支払額・支払日・支払方法（口座振込はその旨）</li>
+        <li>一括決済方式に関する事項</li><li>電子記録債権に関する事項</li><li>その他の支払手段（種類・使用日・引換えで得る金額等）</li>
+        <li>有償支給原材料等の品名・数量・対価・引渡し日・決済日・決済方法</li><li>一部支払・控除後の代金の残額</li><li>遅延利息の額と支払日</li>
+      </ol>
+    </div>
+  </details>
+
+  <h3 class="block">3. 支払期日 ＆ 4. 遅延利息</h3>
+  <div class="timeline searchable" id="interest">
+    <svg viewBox="0 0 720 210" role="img" aria-label="受領日から60日以内に支払期日を設定。60日を超えると年14.6%の遅延利息">
+      <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#D9801A"/></marker></defs>
+      <line x1="30" y1="110" x2="700" y2="110" stroke="#D9801A" stroke-width="5" marker-end="url(#ah)"/>
+      <rect x="70" y="96" width="380" height="28" fill="#2E9E5B" opacity=".15"/>
+      <rect x="450" y="96" width="220" height="28" fill="#D9493C" opacity=".18"/>
+      <circle cx="70" cy="110" r="9" fill="#D9801A"/><text x="70" y="80" text-anchor="middle" font-size="14" font-weight="800" fill="currentColor">受領日</text>
+      <circle cx="300" cy="110" r="9" fill="#2E9E5B"/><text x="300" y="80" text-anchor="middle" font-size="14" font-weight="800" fill="#2E9E5B">適正な支払期日</text>
+      <text x="185" y="150" text-anchor="middle" font-size="12.5" fill="currentColor">できる限り短い期間</text>
+      <circle cx="450" cy="110" r="11" fill="#D9493C"/><text x="450" y="80" text-anchor="middle" font-size="15" font-weight="900" fill="#D9493C">60日</text>
+      <text x="560" y="150" text-anchor="middle" font-size="14" font-weight="900" fill="#D9493C">遅延利息 年14.6%</text>
+      <text x="560" y="170" text-anchor="middle" font-size="12" fill="currentColor">60日経過日〜実際の支払日</text>
+      <text x="260" y="195" text-anchor="middle" font-size="12" fill="currentColor">検査の有無にかかわらず、受領日から起算して60日以内</text>
+    </svg>
+  </div>
+  <div class="grid2" style="margin-top:12px">
+    <div class="panel searchable">
+      <b>支払期日を定めなかった／長すぎた場合の法定期日</b>
+      <ul class="tight" style="margin-top:6px">
+        <li>定めなかった → <b>実際に受領した日</b></li>
+        <li>60日超で定めた → <b>受領日から60日を経過した日の前日</b></li>
+      </ul>
+    </div>
+    <div class="panel searchable">
+      <b>遅延利息のルール <span class="new-badge">減額も対象</span></b>
+      <ul class="tight" style="margin-top:6px">
+        <li>民法・当事者間の約定利率（例：10%）より<b>優先</b>して適用</li>
+        <li>責任のない減額 → 減額分に遅延利息が発生</li>
+        <li>起算日：<b>減額した日</b>か<b>受領後60日経過日</b>の遅い方</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROHIBITED ================= -->
+<section id="prohibited" class="chapter" style="--k:var(--c-pr);--kbg:var(--c-pr-bg)">
+  <div class="ch-head"><span class="tab">禁止行為</span><h2>11の禁止行為</h2></div>
+  <div class="warn searchable"><span class="i">❗</span><span><b>受注者の了解があっても、違法の意識がなくても違反。</b>「合意済み」は言い訳にならない。</span></div>
+
+  <div class="filter-row" role="group" aria-label="禁止行為の絞り込み" style="margin-top:16px">
+    <button type="button" data-f="all" aria-pressed="true">すべて（11）</button>
+    <button type="button" data-f="new" aria-pressed="false">改正で追加・変更</button>
+    <button type="button" data-f="money" aria-pressed="false">お金の支払に関するもの</button>
+    <button type="button" data-f="open" aria-pressed="false">全部開く／閉じる</button>
+  </div>
+
+  <div id="prohList">
+  <details class="acc proh searchable" id="p1" data-tags="">
+    <summary><span class="mk">1</span><span class="ttl">受領拒否<small>責任がないのに発注品を受け取らない</small></span><span class="code">5条1項1号</span></summary>
+    <div class="acc-body"><p class="case-txt">発注の取消し・納期延長などで受け取らない場合も該当。</p>
+      <div class="case"><span class="a">テレビ局</span><i>›</i><span class="b">番組制作会社</span></div><p class="case-txt">完成済み番組を、出演者の不祥事を理由に受領しなかった。</p>
+      <div class="case"><span class="a">スーパー</span><i>›</i><span class="b">食料品メーカー</span></div><p class="case-txt">一方的に納期を短縮し、間に合わなかったPB商品を受領しなかった。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p2" data-tags="new money">
+    <summary><span class="mk">2</span><span class="ttl">代金の支払遅延 <span class="new-badge">手形払禁止</span><small>受領後60日以内の支払期日までに払わない</small></span><span class="code">5条1項2号</span></summary>
+    <div class="acc-body"><p class="case-txt">検査・検収に時間がかかっても、受領後60日以内に払わなければ違反。</p>
+      <div class="kpoint"><b>改正ポイント：</b>①<b>手形の交付</b>、②一括決済方式・電子記録債権で<b>支払期日までに満額の現金化が困難なもの</b>も支払遅延として禁止。<br>困難な例：満期が支払期日より後で割引が必要／受取手数料等の負担が生じる。<br>※手数料分を書面合意のうえ委託事業者が補填し、期日に満額受け取れるなら問題なし。</div>
+      <div class="case"><span class="a">ソフトウェア販売業者</span><i>›</i><span class="b">ソフトウェアメーカー</span></div><p class="case-txt">検収後払い制度で、検査に3か月かかり60日超で支払っていた。</p>
+      <div class="case"><span class="a">精密機械メーカー</span><i>›</i><span class="b">部品メーカー</span></div><p class="case-txt">手形を交付して代金を支払っていた。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p3" data-tags="new money">
+    <summary><span class="mk">3</span><span class="ttl">代金の減額 <span class="new-badge">振込手数料</span><small>発注時に決めた代金を後から減らす</small></span><span class="code">5条1項3号</span></summary>
+    <div class="acc-body"><p class="case-txt">協賛金徴収・原材料価格下落など、名目・方法・金額を問わず禁止。</p>
+      <div class="kpoint"><b>改正ポイント：</b>合意の有無にかかわらず、<b>振込手数料を受注者に負担させ代金から差し引く</b>のは減額に当たる。</div>
+      <div class="case"><span class="a">自動車メーカー</span><i>›</i><span class="b">部品メーカー</span></div><p class="case-txt">単価引下げ合意前の発注分に、新単価を遡って適用し差額を差し引いた。</p>
+      <div class="case"><span class="a">ゲームソフトメーカー</span><i>›</i><span class="b">デザイン制作会社</span></div><p class="case-txt">業績悪化で予算が減ったことを理由に代金を減額した。</p>
+      <div class="case"><span class="a">船舶メーカー</span><i>›</i><span class="b">船舶設計業者</span></div><p class="case-txt">振込手数料を受注者負担として代金から差し引いた。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p4" data-tags="">
+    <summary><span class="mk">4</span><span class="ttl">返品<small>受領後に返品する</small></span><span class="code">5条1項4号</span></summary>
+    <div class="acc-body"><p class="case-txt">不良品は<b>受領後6か月以内</b>に限り返品可。</p>
+      <div class="case"><span class="a">電気機器メーカー</span><i>›</i><span class="b">部品メーカー</span></div><p class="case-txt">生産計画の変更を理由に、余った部品を返品した。</p>
+      <div class="case"><span class="a">広告制作会社</span><i>›</i><span class="b">広告制作会社</span></div><p class="case-txt">受領後、取引先のキャンセルを理由に返品した。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p5" data-tags="money">
+    <summary><span class="mk">5</span><span class="ttl">買いたたき<small>通常の対価より著しく低い代金を不当に定める</small></span><span class="code">5条1項5号</span></summary>
+    <div class="acc-body"><p class="case-txt">「通常の対価」＝同種・類似品の市価。代金は<b>事前に協議</b>して定める。</p>
+      <div class="case"><span class="a">家電メーカー</span><i>›</i><span class="b">部品メーカー</span></div><p class="case-txt">量産終了後の少量補給品に、量産時の単価を一方的に適用した。</p>
+      <div class="case"><span class="a">荷主</span><i>›</i><span class="b">運送会社</span></div><p class="case-txt">運送単価を一律一定率で一方的に引き下げた。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p6" data-tags="">
+    <summary><span class="mk">6</span><span class="ttl">購入・利用強制<small>指定する物・役務を無理に買わせる</small></span><span class="code">5条1項6号</span></summary>
+    <div class="acc-body"><p class="case-txt">品質維持など正当な理由なく、製品・原材料・保険・リース等を強制。</p>
+      <div class="case"><span class="a">冠婚葬祭業者</span><i>›</i><span class="b">取引先納入業者</span></div><p class="case-txt">委託内容と無関係なおせち料理等の購入を要請し、目標未達なら再要請した。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p7" data-tags="new">
+    <summary><span class="mk">7</span><span class="ttl">報復措置 <span class="new-badge">通報先追加</span><small>違反を知らせたことを理由に不利益扱い</small></span><span class="code">5条1項7号</span></summary>
+    <div class="acc-body"><p class="case-txt">取引数量の削減・取引停止など。</p>
+      <div class="kpoint"><b>改正ポイント：</b>通報先に公取委・中小企業庁に加え<b>事業所管省庁</b>を追加。</div></div>
+  </details>
+  <details class="acc proh searchable" id="p8" data-tags="money">
+    <summary><span class="mk">8</span><span class="ttl">有償支給原材料等の対価の早期決済<small>製品代金の支払より先に材料代を払わせる</small></span><span class="code">5条2項1号</span></summary>
+    <div class="acc-body">
+      <div class="case"><span class="a">金属メーカー</span><i>›</i><span class="b">部品メーカー</span></div><p class="case-txt">半年分の原材料をまとめて買い取らせ、製品代金の支払期日より前に決済した。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p9" data-tags="">
+    <summary><span class="mk">9</span><span class="ttl">不当な経済上の利益の提供要請<small>協賛金・従業員派遣・無償作業など</small></span><span class="code">5条2項2号</span></summary>
+    <div class="acc-body">
+      <div class="case"><span class="a">自動車メーカー</span><i>›</i><span class="b">部品メーカー</span></div><p class="case-txt">発注を長期間行わないのに、貸与した金型・木型等を無償で保管させた。</p>
+      <div class="case"><span class="a">荷主</span><i>›</i><span class="b">運送会社</span></div><p class="case-txt">無償で貨物の積み下ろし作業をさせた。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p10" data-tags="">
+    <summary><span class="mk">10</span><span class="ttl">不当な給付内容の変更・やり直し<small>変更・追加作業の費用を負担しない</small></span><span class="code">5条2項3号</span></summary>
+    <div class="acc-body">
+      <div class="case"><span class="a">荷主</span><i>›</i><span class="b">運送会社</span></div><p class="case-txt">積込み準備の遅れで長時間待機させたのに、待ち時間の費用を負担しなかった。</p>
+      <div class="case"><span class="a">番組制作会社</span><i>›</i><span class="b">アニメーション制作会社</span></div><p class="case-txt">完成品受領後、品質引上げ作業をさせ追加費用を負担しなかった。</p></div>
+  </details>
+  <details class="acc proh searchable" id="p11" data-tags="new money">
+    <summary><span class="mk">11</span><span class="ttl">協議に応じない一方的な代金決定 <span class="new-badge">新設</span><small>価格協議を拒む・説明しないで代金を決める</small></span><span class="code">5条2項4号</span></summary>
+    <div class="acc-body">
+      <ul class="tight">
+        <li>明示的な拒否だけでなく、<b>無視・先延ばし</b>で協議を困難にするのも該当</li>
+        <li>協議の求めは<b>書面・口頭を問わない</b>。意図が客観的に認められれば含む</li>
+        <li>引下げ要請時に<b>理由説明・根拠資料の提供</b>をしないのも該当</li>
+      </ul>
+      <div class="case"><span class="a">運送会社</span><i>›</i><span class="b">運送会社</span></div><p class="case-txt">値上げ協議の求めを無視・拒否・回答の引き延ばしで応じなかった。</p>
+      <div class="case"><span class="a">機械メーカー</span><i>›</i><span class="b">部品メーカー</span></div><p class="case-txt">引下げ要請で説明を求められたのに、理由や資料を示さず引き下げた。</p></div>
+  </details>
+  </div>
+</section>
+
+<!-- ================= ENFORCEMENT ================= -->
+<section id="enforcement" class="chapter" style="--k:var(--c-en);--kbg:var(--c-en-bg)">
+  <div class="ch-head"><span class="tab">執行</span><h2>違反はこう取り締まられる</h2></div>
+
+  <h3 class="block">3つの執行機関（相互に情報提供：13条）</h3>
+  <div class="agency">
+    <div class="ag searchable"><div class="nm">公正取引委員会</div><div class="pw"><span>調査・検査</span><span>指導・助言</span><span>勧告・公表</span></div></div>
+    <div class="ag searchable"><div class="nm">中小企業庁</div><div class="pw"><span>調査・検査</span><span>指導・助言</span><span>措置請求</span></div></div>
+    <div class="ag newag searchable"><div class="nm">事業所管省庁 <span class="new-badge">新</span></div><div class="pw"><span>調査・検査</span><span>指導・助言</span></div></div>
+  </div>
+  <div class="grid3" style="margin-top:12px">
+    <div class="panel searchable"><b>📝 定期調査・立入検査</b><p class="note" style="margin:4px 0 0">毎年、委託・受託両者に書面調査。必要に応じ事業所に赴き帳簿等を調査。</p></div>
+    <div class="panel searchable"><b>📢 勧告・公表</b><p class="note" style="margin:4px 0 0">原状回復・再発防止を勧告し、その旨を公表。違反が止んでいても勧告可能に。</p></div>
+    <div class="panel searchable"><b>🤝 自発的申出</b><p class="note" style="margin:4px 0 0">調査着手前に自ら申し出て不利益回復措置を講じれば、勧告しない扱いあり。</p></div>
+  </div>
+
+  <div class="fine searchable">
+    <div class="amt"><small>罰金の上限（行為者個人＋法人）</small>50万円</div>
+    <ul class="tight">
+      <li>発注内容の明示義務違反（電磁的方法の場合、求めがあれば書面交付）</li>
+      <li>書類・電磁的記録の作成・保存義務違反</li>
+      <li>報告拒否・虚偽報告</li>
+      <li>立入検査の拒否・妨害・忌避</li>
+    </ul>
+  </div>
+
+  <h3 class="block">事件処理の流れ</h3>
+  <div class="panel searchable">
+    <div class="fc">
+      <div class="row src">
+        <div class="node">定期調査</div><div class="node">中小受託事業者等の申立て</div><div class="node">委託事業者の自発的申出</div><div class="node">中小企業庁長官の措置請求</div><div class="node">所管官庁等からの通知</div>
+      </div>
+      <div class="down">▼</div>
+      <div class="row"><div class="node main">委託事業者に対する調査・検査</div></div>
+      <div class="down">▼</div>
+      <div class="row out">
+        <div class="node">勧告（公表）<small>→ 改善報告書（計画書）提出<br>従わない場合：独禁法の排除措置命令・課徴金納付命令も</small></div>
+        <div class="node">指導・助言<small>→ 改善報告書（計画書）提出</small></div>
+        <div class="node">違反事実なし 等</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABUSE ================= -->
+<section id="abuse" class="chapter" style="--k:var(--c-ab);--kbg:var(--c-ab-bg)">
+  <div class="ch-head"><span class="tab">優越</span><h2>優越的地位の濫用（独占禁止法）</h2></div>
+  <p class="ch-lead">取適法の対象外でも、独禁法で規制されうる。</p>
+  <div class="eq searchable">
+    <div class="t res">優越的地位の濫用</div><div class="op">=</div>
+    <div class="t">優越的地位</div><div class="op">+</div>
+    <div class="t">正常な商慣習に照らして不当</div><div class="op">+</div>
+    <div class="t">濫用行為</div>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="panel searchable"><b>「優越」かどうかの判断要素</b>
+      <ol class="items" style="margin-top:6px;--k:var(--c-ab)"><li>相手方の取引依存度</li><li>行為者の市場における地位</li><li>相手方の取引先変更の可能性</li><li>取引の必要性を示す具体的事実</li></ol>
+      <p class="note" style="margin:6px 0 0">※ 既存の商慣習に合っていても、直ちに正当化されない。</p></div>
+    <div class="panel searchable"><b>なぜ規制するのか</b>
+      <ul class="tight" style="margin-top:6px"><li>相手方の自由・自主的な判断を阻害</li><li>相手方は競争上不利、行為者は有利に</li><li>→ <b>公正な競争を阻害するおそれ</b></li></ul>
+      <p class="note" style="margin:6px 0 0">典型例：押し付け販売／協賛金の負担／不当な返品／従業員の派遣要請</p></div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="chapter" style="--k:var(--c-co);--kbg:var(--c-co-bg)">
+  <div class="ch-head"><span class="tab">窓口</span><h2>相談窓口</h2></div>
+  <div class="hotline searchable">
+    <div><div style="font-weight:700">取引かけこみ寺（中小企業の取引の悩み相談）</div><div style="font-size:13px;opacity:.85">通話料無料・全国中小企業取引振興協会が運営</div></div>
+    <a class="tel" href="tel:0120418618">📞 0120-418-618</a>
+  </div>
+  <div class="grid2" style="margin-top:12px">
+    <div class="panel searchable"><b>そのほかの窓口</b><ul class="tight" style="margin-top:6px"><li>最寄りの商工会議所・商工会「独占禁止法相談ネットワーク」</li><li>違反と思われる行為は、オンラインで行政機関へ申出可能</li><li>フリーランス法の相談窓口は別途あり</li></ul></div>
+    <div class="panel searchable"><b>改正の詳細・新旧条文</b><p class="note" style="margin:4px 0 0">公正取引委員会ウェブサイト<br>jftc.go.jp/partnership_package/toritekihou.html</p></div>
+  </div>
+
+  <details class="acc searchable"><summary>🏢 公正取引委員会の窓口一覧</summary>
+    <div class="acc-body"><div class="tbl-wrap"><table><thead><tr><th>窓口</th><th>電話</th></tr></thead><tbody>
+      <tr><td>事務総局 経済取引局 取引部 企業取引課（東京）<br><span class="note">※令和7年12月頃〜8年1月頃に虎ノ門アルセアタワーへ移転予定</span></td><td>03-3581-5471（代）</td></tr>
+      <tr><td>北海道事務所 取適法担当</td><td>011-231-6300（代）</td></tr>
+      <tr><td>東北事務所 取適法担当</td><td>022-225-8420</td></tr>
+      <tr><td>中部事務所 取適法担当</td><td>052-961-9424</td></tr>
+      <tr><td>近畿中国四国事務所 取適法担当（大阪）</td><td>06-6941-2176</td></tr>
+      <tr><td>近畿中国四国事務所 中国支所（広島）</td><td>082-228-1520</td></tr>
+      <tr><td>近畿中国四国事務所 四国支所（高松）</td><td>087-811-1758</td></tr>
+      <tr><td>九州事務所 取適法担当</td><td>092-431-6032</td></tr>
+      <tr><td>沖縄総合事務局 総務部 公正取引課</td><td>098-866-0049</td></tr>
+    </tbody></table></div></div>
+  </details>
+  <details class="acc searchable"><summary>🏛️ 中小企業庁・経済産業局の窓口一覧</summary>
+    <div class="acc-body"><div class="tbl-wrap"><table><thead><tr><th>窓口</th><th>電話</th></tr></thead><tbody>
+      <tr><td>中小企業庁 事業環境部 取引課</td><td>03-3501-1732</td></tr>
+      <tr><td>北海道経済産業局 取引適正化推進室</td><td>011-700-2251</td></tr>
+      <tr><td>東北経済産業局 取引適正化推進室</td><td>022-217-0411</td></tr>
+      <tr><td>関東経済産業局 適正取引推進課</td><td>048-600-0325</td></tr>
+      <tr><td>中部経済産業局 取引適正化推進室</td><td>052-951-2860</td></tr>
+      <tr><td>近畿経済産業局 取引適正化推進室</td><td>06-6966-6037</td></tr>
+      <tr><td>中国経済産業局 適正取引推進課</td><td>082-224-5745</td></tr>
+      <tr><td>四国経済産業局 取引適正化推進室</td><td>087-811-8564</td></tr>
+      <tr><td>九州経済産業局 取引適正化推進室</td><td>092-482-5450</td></tr>
+      <tr><td>沖縄総合事務局 経済産業部 中小企業課</td><td>098-866-0035</td></tr>
+    </tbody></table></div></div>
+  </details>
+</section>
+
+<footer>出典：公正取引委員会・中小企業庁「中小受託取引適正化法ガイドブック『下請法』は『取適法』へ」（2025年12月）を要約・再構成。正確な運用は原典・条文をご確認ください。</footer>
+</main>
+
+<button class="to-top" id="toTop" aria-label="ページの先頭へ戻る">↑</button>
+
+<script>
+(function(){
+  /* theme */
+  const root=document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    const dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    const next = dark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('toriteki-theme',next)}catch(e){}
+  });
+  try{const t=localStorage.getItem('toriteki-theme'); if(t) root.setAttribute('data-theme',t);}catch(e){}
+
+  /* mobile menu */
+  const sb=document.getElementById('sidebar'),scrim=document.getElementById('scrim'),mb=document.getElementById('menuBtn');
+  function setMenu(o){sb.classList.toggle('open',o);scrim.classList.toggle('show',o);mb.setAttribute('aria-expanded',o)}
+  mb.addEventListener('click',()=>setMenu(!sb.classList.contains('open')));
+  scrim.addEventListener('click',()=>setMenu(false));
+  sb.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+
+  /* scroll spy */
+  const links=[...document.querySelectorAll('.toc a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const obs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id)); } });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>s&&obs.observe(s));
+
+  /* to top */
+  const tt=document.getElementById('toTop');
+  addEventListener('scroll',()=>tt.classList.toggle('show',scrollY>600),{passive:true});
+  tt.addEventListener('click',()=>scrollTo({top:0}));
+
+  /* tabs */
+  const tl=document.querySelector('#typeTabs [role=tablist]');
+  const tabs=[...tl.querySelectorAll('[role=tab]')];
+  function sel(t){tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});}
+  tabs.forEach((t,i)=>{t.addEventListener('click',()=>sel(t));t.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];sel(n);n.focus();}
+  });});
+  document.querySelectorAll('a[href="#types"]').forEach(a=>a.addEventListener('click',()=>sel(document.getElementById('tb5'))));
+
+  /* prohibited filters */
+  const items=[...document.querySelectorAll('#prohList details')];
+  let allOpen=false;
+  document.querySelectorAll('.filter-row button').forEach(b=>b.addEventListener('click',()=>{
+    const f=b.dataset.f;
+    if(f==='open'){allOpen=!allOpen;items.forEach(d=>{if(d.style.display!=='none')d.open=allOpen});return;}
+    document.querySelectorAll('.filter-row button[data-f]:not([data-f=open])').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    items.forEach(d=>{d.style.display=(f==='all'||d.dataset.tags.split(' ').includes(f))?'':'none'});
+  }));
+  document.querySelectorAll('a[href^="#p"]').forEach(a=>a.addEventListener('click',()=>{const d=document.querySelector(a.getAttribute('href')); if(d){d.style.display='';d.open=true;}}));
+
+  /* checker */
+  let g=1;
+  document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{g=+b.dataset.g;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));judge();}));
+  const $=id=>document.getElementById(id);
+  ['ci','ei','cs','es'].forEach(id=>$(id).addEventListener('input',judge));
+  function num(id){const v=$(id).value.trim();return v===''?null:Number(v);}
+  function judge(){
+    const ci=num('ci'),cs=num('cs'),ei=num('ei'),es=num('es'),r=$('res');
+    const hi=g===1?30000:5000, empL=g===1?300:100, hiLbl=g===1?'3億円':'5千万円';
+    if(ci===null&&ei===null){r.className='result wait';r.innerHTML='<span>⌨️</span><span>数値を入力してください。</span>';return;}
+    let msg=null;
+    if(ci!==null&&cs!==null){
+      if(ci>hi&&cs<=hi) msg=['資本金基準','委託 '+hiLbl+'超 → 受託 '+hiLbl+'以下'];
+      else if(ci>1000&&ci<=hi&&cs<=1000) msg=['資本金基準','委託 1千万円超〜'+hiLbl+'以下 → 受託 1千万円以下'];
+    }
+    if(!msg&&ei!==null&&es!==null&&ei>empL&&es<=empL) msg=['従業員基準（改正で新設）','委託 '+empL+'人超 → 受託 '+empL+'人以下'];
+    if(msg){r.className='result yes';r.innerHTML='<span>✅</span><span>規模基準に該当します（'+msg[0]+'）<small>'+msg[1]+'。取引内容が5類型に当たれば取適法の対象です。</small></span>';}
+    else{
+      const missing=(cs===null||es===null)?'受託側の数値も入力すると、より正確に判定できます。':'資本金・従業員いずれの基準にも該当しません（独禁法の優越的地位の濫用は別途検討）。';
+      r.className='result no';r.innerHTML='<span>➖</span><span>現時点では該当なし<small>'+missing+'</small></span>';
+    }
+  }
+
+  /* search */
+  const q=$('q'),info=$('qinfo');
+  const blocks=[...document.querySelectorAll('.searchable')];
+  blocks.forEach(b=>b.dataset.orig=b.innerHTML);
+  let timer;
+  q.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(run,180)});
+  function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+  function run(){
+    const term=q.value.trim();
+    blocks.forEach(b=>{b.innerHTML=b.dataset.orig;b.classList.remove('hide-search')});
+    rebind();
+    if(!term){info.textContent='';return;}
+    const re=new RegExp(esc(term),'g');let hits=0;
+    blocks.forEach(b=>{
+      if(!b.textContent.includes(term)){b.classList.add('hide-search');return;}
+      hits++;
+      const w=document.createTreeWalker(b,NodeFilter.SHOW_TEXT);const ns=[];while(w.nextNode())ns.push(w.currentNode);
+      ns.forEach(n=>{if(!n.nodeValue.includes(term)||n.parentNode.closest('svg'))return;const s=document.createElement('span');s.innerHTML=n.nodeValue.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(re,'<mark>$&</mark>');n.replaceWith(s);});
+      if(b.tagName==='DETAILS'){b.open=true;b.style.display='';}
+      const tp=b.closest('.tabpanel');if(tp&&tp.hidden){/* keep tabs visible */}
+    });
+    info.textContent=hits?hits+'件のブロックが一致':'一致なし。別の語で試してください';
+    const vis=[...document.querySelectorAll('mark')];
+    if(vis.length && !vis.some(m=>!m.closest('.tabpanel')||!m.closest('.tabpanel').hidden)){const tp=vis[0].closest('.tabpanel');sel(document.getElementById(tp.getAttribute('aria-labelledby')));}
+    const first=vis.find(m=>!m.closest('.tabpanel[hidden]'));if(first)first.scrollIntoView({block:'center'});
+  }
+  function rebind(){ /* inner content of blocks has no listeners except links; re-attach jump helpers */
+    document.querySelectorAll('.searchable a[href^="#p"]').forEach(a=>a.onclick=()=>{const d=document.querySelector(a.getAttribute('href'));if(d){d.style.display='';d.open=true;}});
+  }
+})();
+</script>
+</body>
+</html>
